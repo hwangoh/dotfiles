@@ -146,13 +146,23 @@
 
 " Primer for Vim motions
     nmap ,s <Plug>SendRight
-    xmap ,sv <Plug>SendRightV
+    xmap ,s <Plug>SendRightV
 
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
     vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
+
+" =============================================================================
+"                                   Slimux 
+" =============================================================================	
+" Key-bindings
+    nmap ,- :SlimuxREPLSendLine<CR>
+    vmap ,- :SlimuxREPLSendSelection<CR>
+    nmap ,A :SlimuxREPLSendBuffer<CR>
+    nmap ,T :SlimuxShellRun 
+    nmap ,l :SlimuxShellLast<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder 
@@ -216,7 +226,7 @@
     let NERDTreeShowLineNumbers=1
     autocmd FileType nerdtree setlocal relativenumber
 
-    " =============================================================================
+" =============================================================================
 "                                   Airline
 " =============================================================================	
 " Airline plugin buffers
@@ -274,16 +284,6 @@
     let g:cpp_posix_standard = 0
 
 " =============================================================================
-"                                   Slimux 
-" =============================================================================	
-" Key-bindings
-    map ,- :SlimuxREPLSendLine<CR>
-    vmap ,- :SlimuxREPLSendSelection<CR>
-    map <Leader>a :SlimuxREPLSendBuffer<CR>
-    map <Leader>s :SlimuxShellRun 
-    map <Leader>l :SlimuxShellLast<CR>
-
-" =============================================================================
 "                                   Python 
 " =============================================================================	
 " Shortcut to open IPython in a terminal to the right
@@ -295,6 +295,10 @@
 
 " Insert pdb.set_trace()
     autocmd FileType python imap ;pdb pdb.set_trace()
+
+" Slimux commands
+    nmap ,C :SlimuxShellRun clear<CR> 
+    nmap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 
 " =============================================================================
 "                                    LaTeX
