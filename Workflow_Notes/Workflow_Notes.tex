@@ -331,10 +331,10 @@ of the line to the window on the right. However, if you are in the middle of a l
 first go to the beginning of the line and having to type `\$'. Therefore, we can define line objects using the
 following maps:
 \begin{lstlisting}
-onoremap <silent> <expr> _ v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
-vnoremap <silent> <expr> _ v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
-onoremap <silent> <expr> i_ v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
-vnoremap <silent> <expr> i_ v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
+onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
+vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 \end{lstlisting}
 With '\_' alone the indentation is left intact and 'i\_' is without indentation. So, for example, `,sr\_' will send
 the line under the cursor to the window on the right with indentation and `,sr8\_' will send four lines under the
@@ -363,7 +363,19 @@ let b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.
 \end{lstlisting}
 Note that this repository has not been updated in years and so all pull requests have not been fulfilled. Therefore, if
 you wish to track the fixes you've made, you may want to install the plugin using the method disussed in Section
-\ref{SecNativePluginManagement}.
+\ref{SecNativePluginManagement}.\\
+
+I use the following mappings:
+\begin{lstlisting}
+nmap ,- :SlimuxREPLSendLine<CR>
+vmap ,- :SlimuxREPLSendSelection<CR>
+nmap ,A :SlimuxREPLSendBuffer<CR>
+nmap ,T :SlimuxShellRun 
+nmap ,l :SlimuxShellLast<CR>
+nmap ,C :SlimuxShellRun clear<CR>
+nmap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+\end{lstlisting}
+where SlimuxREPLSendBuffer sends all the text in the bugger and SlimexShellRun awaits a command to send to shell.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
