@@ -38,6 +38,7 @@
 \newtheorem{example}[theorem]{Example}
 
 % Additional Commands
+\newcommand{\tsim}{$\sim$}
 \newcommand{\tlangle}{$<$}
 \newcommand{\trangle}{$>$}
 
@@ -107,10 +108,10 @@ is \cite{chang2020vim}. A document on effective text editing written by the crea
 %===============================================================
 This section follows \cite{neil2010synchronizing}. First, we work towards turning ~/.vim into a git repository: 
 \begin{enumerate}
-    \item Move ~/.vimrc into ~/.vim.
+    \item Move \tsim/.vimrc into \tsim/vim.
     \item When vim boots, it's still going to look for .vimrc in the home directory. To ensure that it looks for vimrc
-        in the ~/.vim directory, we can create a symbolic link to that file using `ln -s ~/.vim/vimrc ~/.vimrc'.
-    \item Make ~/.vim into a git repository.
+        in the \tsim/.vim directory, we can create a symbolic link to that file using `ln -s \tsim/.vim/vimrc
+        \tsim/.vimrc'.  \item Make \tsim/.vim into a git repository.
 \end{enumerate}
 An issue now is if you install a plugin that itself is a git repository, you lose the version-control capabilities of
 that plugin. To circumvent this issue, we use a plugin manager; in this case \textit{Pathogen}.\\
@@ -127,8 +128,8 @@ segregated from each other. For a good tutorial on Pathogen, see \cite{lafourcad
 Following the readme on the repo at \cite{pope2009pathogen}, to install Pathogen do the following:
 \begin{enumerate}
     \item Run in terminal:\\
-        mkdir -p ~/.vim/autoload ~/.vim/bundle \&\& \ \\
-        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+        mkdir -p \tsim/.vim/autoload \tsim/.vim/bundle \&\& \ \\
+        curl -LSso \tsim/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
     \item Add the following to your vimrc:
         execute pathogen\#infect()
 \end{enumerate}
@@ -143,30 +144,30 @@ This section follows \cite{neil2010synchronizing}. Now that we can install plugi
 preserve the version control capabilities of our plugins. As a worked example, let us install the \textit{Vimtex}
 plugin:
 \begin{enumerate}
-    \item cd ~/.vim
+    \item cd \tsim/.vim
     \item Now to clone a git repository into the bundle directory, use:\\
         git submodule add https://github.com/lervag/vimtex.git bundle/vimtex
 \end{enumerate}
 Now, to upgrade this plugin, use:
 \begin{enumerate}
-    \item cd ~/.vim/bundle/vimtex
+    \item cd \tsim/.vim/bundle/vimtex
     \item git pull origin master
 \end{enumerate}
 To upgrade ALL of your plugins, use:
 \begin{enumerate}
-    \item cd ~/.vim
+    \item cd \tsim/.vim
     \item git submodule foreach git pull origin master
 \end{enumerate}
 %---------------------------------------------------------------
 \subsection{Importing Your Vim Configuration and Plugins To a New Machines}
 %---------------------------------------------------------------   
 One of the main benefits of version controlling your Vim configuration and plugins is the ease of which they can be
-imported into a new machine. To fo so, use the following:
+imported into a new machine. To do so, use the following:
 \begin{enumerate}
-    \item cd ~
-    \item git clone \tlangle git repo url\trangle ~/.vim
-    \item ln -s ~/.vim/vimrc ~/.vimrc
-    \item cd ~/.vim
+    \item cd \tsim 
+    \item git clone \tlangle git repo url\trangle \tsim/.vim
+    \item ln -s \tsim/.vim/vimrc \tsim/.vimrc
+    \item cd \tsim/.vim
     \item git submodule init
     \item git submodule update
 \end{enumerate}
@@ -188,10 +189,10 @@ The plugin manager Vim-plug \cite{junegunn2014vimplug} has a solution to the fir
 extremely simple to use:
 \begin{enumerate}
     \item Run in terminal:\\
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        curl -fLo \tsim/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     \item In your vimrc, add the line:\\
-        call plug\#begin('~/.vim/plugged')
+        call plug\#begin('\tsim/.vim/plugged')
     \item To include a plugin you wish to install under the line above, in your vimrc add the following line:\\
         Plug 'https://github.com/lervag/vimtex.git'
     \item Under `Plug \tlangle url \trangle' of your last plugin, in your vimrc add the following line:\\
@@ -202,11 +203,25 @@ Now to preserve the versions of your plugin:
 \begin{enumerate}
     \item In Vim, run the command `:PlugSnapshot! \tlangle filename \trangle.vim'.
     \item To restore the state of your plugins, in vim run the command:\\
-        :source ~/.vim/\tlangle filename \trangle.vim\\
+        :source \tsim/.vim/\tlangle filename \trangle.vim\\
         or, in terminal:\\
-        vim -S ~/.vim/\tlangle filename \trangle.vim
+        vim -S \tsim/.vim/\tlangle filename \trangle.vim
 \end{enumerate}
-See the bradagy's answer in the reddit post \cite{bradagy2018remember}.
+See the bradagy's answer in the reddit post \cite{bradagy2018remember}. To port your configuration to a new
+machine:
+\begin{enumerate}
+    \item cd \tsim
+    \item git clone \tlangle git repo url \trangle \tsim/.vim
+    \item cd \tsim/.vim/vimrc
+    \item :PlugInstall
+    \item :source \tsim/.vim/\tlangle filename \trangle.vim
+\end{enumerate}
+To uninstall plugins:
+\begin{enumerate}
+    \item Delete `Plug \tlangle url \trangle' line from your vimrc
+    \item :PlugClean
+\end{enumerate}
+
 
 %===============================================================
 \section{Vimtex}
