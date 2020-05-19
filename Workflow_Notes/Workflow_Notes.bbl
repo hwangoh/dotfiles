@@ -5,6 +5,12 @@ benmills.
 \newblock vimux.
 \newblock \url{https://github.com/benmills/vimux}.
 
+\bibitem{bradagy2018remember}
+bradagy.
+\newblock Remember to update your plugins!
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/6wy3kb/remember_to_update_your_plugins/}.
+
 \bibitem{cantor2016how}
 M.~Cantor.
 \newblock How to do 90\% of what plugins do (with just vim).
@@ -74,6 +80,11 @@ jpalardy.
 julienr.
 \newblock vim-cellmode.
 \newblock \url{https://github.com/julienr/vim-cellmode}.
+
+\bibitem{junegunn2014vimplug}
+junegunn.
+\newblock vim-plug.
+\newblock \url{https://github.com/junegunn/vim-plug/wiki/tutorial}.
 
 \bibitem{karadaharu2016add}
 karadaharu.

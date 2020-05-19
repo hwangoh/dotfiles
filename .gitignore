@@ -1,0 +1,14 @@
+*.swp
+*.log
+*.aux
+*.out
+*.bcf
+*.blg
+*.bbl
+*.fdb_latexmk
+*.fls
+*.run.xml
+*.synctex.gz
+*.tex.swp
+tmux_sessions/
+vim_sessions/

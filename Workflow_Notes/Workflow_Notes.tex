@@ -173,12 +173,40 @@ imported into a new machine. To fo so, use the following:
 %---------------------------------------------------------------
 \subsection{Vim-plug}
 %---------------------------------------------------------------   
-Whilst Pathogen is the simplest plugin manager, there are limitations when porting your setup to a new machine. For
-example, suppose one of the plugins is no longer being maintained by the owner and suppose also that you've made your
-own changes to the plugin. If you were to pull your configuration on a new machine, you will pull the latest version of
-the plugin; that is your changes will not be ported. Further, on your own repository for your configuration, the
-directories containing the plugins will be treated as repositories. Unless you manually install the plugins, there is
-no way to preserve your changes onto Github.
+Whilst Pathogen is the most basic plugin manager, there are limitations when porting your setup to a new machine:
+\begin{enumerate}
+    \item When you run git submodule update, you'll pull the latest versions of the plugins from their respective
+        repositories. So unless you've noted down somewhere all the commit IDs for your favourite version of each
+        plugin, your overall plugin collection cannot be preserved when porting to a new machine.
+    \item Suppose one of the plugins is no longer being maintained by the owner and suppose also that you've made your
+        own changes to the plugin. If you were to pull your configuration on a new machine, you will pull the latest
+        version of the plugin; that is your changes will not be ported. Further, on your own repository for your
+        configuration, the directories containing the plugins will be treated as repositories. Unless you manually
+        install the plugins, there is no way to preserve your changes onto Github.  
+\end{enumerate}
+The plugin manager Vim-plug \cite{junegunn2014vimplug} has a solution to the first problem. This plugin manager is
+extremely simple to use:
+\begin{enumerate}
+    \item Run in terminal:\\
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    \item In your vimrc, add the line:\\
+        call plug\#begin('~/.vim/plugged')
+    \item To include a plugin you wish to install under the line above, in your vimrc add the following line:\\
+        Plug 'https://github.com/lervag/vimtex.git'
+    \item Under `Plug \tlangle url \trangle' of your last plugin, in your vimrc add the following line:\\
+        call plug\#end()
+    \item Reload your vimrc and use the command `:PlugInstall' while in vim. Now all your plugins are installed.
+\end{enumerate}
+Now to preserve the versions of your plugin:
+\begin{enumerate}
+    \item In Vim, run the command `:PlugSnapshot! \tlangle filename \trangle.vim'.
+    \item To restore the state of your plugins, in vim run the command:\\
+        :source ~/.vim/\tlangle filename \trangle.vim\\
+        or, in terminal:\\
+        vim -S ~/.vim/\tlangle filename \trangle.vim
+\end{enumerate}
+See the bradagy's answer in the reddit post \cite{bradagy2018remember}.
 
 %===============================================================
 \section{Vimtex}

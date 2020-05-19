@@ -3,12 +3,13 @@
 \BOOKMARK [2][-]{subsection.2.1}{Pathogen: the Plugin Manager}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Submodules: Installing Git Repositories Within Git Repositories}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Importing Your Vim Configuration and Plugins To a New Machines}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Vimtex}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Installing and Running Vimtex}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.2}{Compiling a Tex File}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.3}{Forward and Backwards Searching with Synctex}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.4}{Other Useful References}{section.3}% 10
-\BOOKMARK [1][-]{section.4}{Python}{}% 11
-\BOOKMARK [2][-]{subsection.4.1}{sendtosplit Plugin}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.2}{With tmux}{section.4}% 13
-\BOOKMARK [2][-]{subsection.4.3}{Other Useful References}{section.4}% 14
+\BOOKMARK [2][-]{subsection.2.4}{Vim-plug}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Vimtex}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Installing and Running Vimtex}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Compiling a Tex File}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Forward and Backwards Searching with Synctex}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Other Useful References}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Python}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{sendtosplit Plugin}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{With tmux}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Other Useful References}{section.4}% 15
