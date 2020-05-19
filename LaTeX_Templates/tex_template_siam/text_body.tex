@@ -1,0 +1,161 @@
+% SIAM Shared Information Template
+% This is information that is shared between the main document and any
+% supplement. If no supplement is required, then this information can
+% be included directly in the main document.
+
+
+% Packages and macros go here
+\usepackage{lipsum}
+\usepackage{amsfonts,dsfont}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{algorithmic}
+\ifpdf
+  \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\else
+  \DeclareGraphicsExtensions{.eps}
+\fi
+
+% Add a serial/Oxford comma by default.
+\newcommand{\creflastconjunction}{, and~}
+
+% Used for creating new theorem and remark environments
+\newsiamremark{remark}{Remark}
+\newsiamremark{hypothesis}{Hypothesis}
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\newsiamthm{claim}{Claim}
+
+% Sets running headers as well as PDF title and authors
+\headers{<++>}{Others and Tan Bui-Thanh}
+
+% Title. If the supplement option is on, then "Supplementary Material"
+% is automatically inserted before the title.
+\title{<++>\thanks{Submitted to the editors DATE.
+\funding{This work was funded by some funds}}}
+
+% Authors: full names plus addresses.
+\author{Others
+\and Tan Bui-Thanh\thanks{Department of Aerospace Engineering and
+  Engineering Mechanics, The Oden Institute for Computational
+  Engineering and Sciences, UT Austin,  Austin, Texas
+  (\email{tanbui@ices.utexas.edu},
+  \url{https://users.oden.utexas.edu/\string~tanbui/}).}
+}
+\usepackage{amsopn}
+\DeclareMathOperator{\diag}{diag}
+
+
+%% Added on Overleaf: enabling xr
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}% latexmk will find this if $recorder=0 (however, in that case, it will ignore #1 if it is a .aux or .pdf file etc and it exists! if it doesn't exist, it will appear in the list of dependents regardless)
+  \@addtofilelist{#1}% if you want it to appear in \listfiles, not really necessary and latexmk doesn't use this
+  \IfFileExists{#1}{}{\typeout{No file #1.}}% latexmk will find this message if #1 doesn't exist (yet)
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+
+\newcommand{\mynote}[3]{
+	\textcolor{#2}{\fbox{\bfseries\sffamily\scriptsize#1}}
+		{\textsf{\emph{#3}}}
+}
+
+\newcommand{\tanbui}[1]{\mynote{Tan}{magenta}{#1}}
+%%% END HELPER CODE
+%%% Local Variables: 
+%%% mode:latex
+%%% TeX-master: "ex_article"
+%%% End: 
+
+% Tan macros
+\newcommand{\Grad} {\ensuremath{\nabla}}  % Gradient
+\newcommand{\Div} {\ensuremath{\nabla\cdot}} % Divergence
+
+\newcommand{\nor}[1]{\left\| #1 \right\|} % norm
+\newcommand{\snor}[1]{\left| #1 \right|} %semi-norm
+\newcommand{\LRp}[1]{\left( #1 \right)} % adaptive left and right parentheses
+\newcommand{\LRs}[1]{\left[ #1 \right]} % adaptive left and right square brackets
+\newcommand{\LRa}[1]{\left< #1 \right>} % adaptive left and right arrow brackets
+\newcommand{\LRc}[1]{\left\{ #1 \right\}} % adaptive left and right curly brackets
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}} % adaptive partial derivatives
+
+\newcommand{\mc}[1]{\mathcal{#1}} %mathcal
+\newcommand{\mb}[1]{\mathbf{#1}} %math boldface
+\newcommand{\mbb}[1]{\mathbb{#1}} %mathbb
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\halfv}[1]{\frac{#1}{2}}
+
+
+\renewcommand{\H}{H}
+\newcommand{\C}{C}
+\newcommand{\W}{W}
+\newcommand{\We}{\W_{\mathrm{e}}}
+\newcommand{\Wd}{W_{\mathrm{d}}}
+\renewcommand{\L}{L}
+
+\newcommand{\DNN}{\Psi}
+\newcommand{\F}{\mc{G}}
+
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\renewcommand{\P}{U}
+\newcommand{\U}{\P}
+\newcommand{\Pbar}{\overline{\P}}
+\newcommand{\Ubar}{\Pbar}
+\newcommand{\Psie}{\Psi_{\mathrm{e}}}
+\newcommand{\Psid}{\Psi_{\mathrm{d}}}
+\newcommand{\bd}{{\bf b}_{\mathrm{d}}}
+\newcommand{\be}{{\bf b}_{\mathrm{e}}}
+\newcommand{\Bd}{B_{\mathrm{d}}}
+\newcommand{\Be}{{B}_{\mathrm{e}}}
+\newcommand{\bb}{{\bf b}}
+\newcommand{\B}{B}
+\newcommand{\Z}{Z}
+\newcommand{\Y}{Y}
+\newcommand{\Ybar}{\overline{\Y}}
+\newcommand{\yb}{\bs{y}}
+\newcommand{\ybbar}{\overline{\yb}}
+\newcommand{\ybobs}{\bs{y}^{obs}}
+\newcommand{\One}{\mathds{1}}
+\newcommand{\nt}{{n_{\mathrm{t}}}}
+\newcommand{\n}{n}
+\newcommand{\m}{m}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\I}{I}
+\newcommand{\J}{J}
+\newcommand{\G}{G}
+\newcommand{\zb}{\bs{z}}
+\newcommand{\pb}{\bs{u}}
+\newcommand{\ub}{\pb}
+\newcommand{\pbbar}{\overline{\pb}}
+\newcommand{\ubbar}{\pbbar}
+\newcommand{\ubstar}{\ub^*}
+
+
+\newcommand{\figlab}[1]{\label{fig:#1}}
+\newcommand{\eqnlab}[1]{\label{eq:#1}}
+\newcommand{\theolab}[1]{\label{theo:#1}}
+\newcommand{\corolab}[1]{\label{coro:#1}}
+\newcommand{\propolab}[1]{\label{propo:#1}}
+\newcommand{\lemlab}[1]{\label{lem:#1}}
+\newcommand{\defilab}[1]{\label{defi:#1}}
+\newcommand{\remalab}[1]{\label{rema:#1}}
+\newcommand{\tablab}[1]{\label{tab:#1}}
+
+\newcommand{\figref}[1]{\ref{fig:#1}}
+\newcommand{\theoref}[1]{\ref{theo:#1}}
+\newcommand{\defiref}[1]{\ref{defi:#1}}
+\newcommand{\remaref}[1]{\ref{rema:#1}}
+\newcommand{\cororef}[1]{\ref{coro:#1}}
+\newcommand{\proporef}[1]{\ref{propo:#1}}
+\newcommand{\lemref}[1]{\ref{lem:#1}}
+\newcommand{\eqnref}[1]{\eqref{eq:#1}}
+\newcommand{\alglab}[1]{\label{alg:#1}}
+\newcommand{\algref}[1]{\ref{alg:#1}}
+\newcommand{\seclab}[1]{\label{sect:#1}}
+\newcommand{\secref}[1]{\ref{sect:#1}}
+\newcommand{\tabref}[1]{\ref{tab:#1}}

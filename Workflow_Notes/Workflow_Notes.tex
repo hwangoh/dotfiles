@@ -1,0 +1,331 @@
+\documentclass[10pt]{article}
+\usepackage{amsfonts,amssymb,amsmath,amsthm,ifthen}
+
+\setlength{\textwidth}{175mm}
+\setlength{\textheight}{255mm}
+\setlength{\topmargin}{-20mm}
+\setlength{\oddsidemargin}{-7mm}
+\setlength{\evensidemargin}{-7mm}
+\pagestyle{empty}
+
+% Packages
+\usepackage{graphicx}
+\graphicspath{{Figures/}}
+\newcommand{\figscale}{0.4}
+\usepackage{comment} %Comment environment
+\usepackage{float}
+\usepackage{multirow} %Tables
+\usepackage{hyperref}
+
+%For C++ Code
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset { % 
+    language=C++,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+    showstringspaces=false,% no squat-u as part of strings
+}
+
+% Math Layouts
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+% Additional Commands
+\newcommand{\tlangle}{$<$}
+\newcommand{\trangle}{$>$}
+
+% Title
+\title{Workflow Notes}
+\author{Hwan Goh}
+\date{17th May 2020}
+
+
+%---------------------------------------------------------------
+%                         Document Body 
+%---------------------------------------------------------------
+\begin{document}
+\maketitle
+
+%===============================================================
+\section{Vim Tips and Tricks}
+%===============================================================
+Some good references are \cite{chang2018vim,toomey2015mastering}. A more advanced tutorial that I haven't watched yet
+is \cite{chang2020vim}. A document on effective text editing written by the creator of Vim can be found at
+\cite{moolenaar2000seven}.
+\begin{itemize}
+    \item In Linux based systems, put `setxkbmap -option "caps:escape' into ~/.bashrc to map the caps lock key to
+        escape.
+    \item To set Vim as your default text editor, use `sudo update-alternatives --config editor'.
+    \item Suppose the cursor is in the middle of a word. Whilst `cw' and `dw' will change/delete until the end of the
+        word, `ciw' and 'diw' to change or delete the whole word, thereby not requiring you to move the cursor to the
+        beginning of the word first.
+    \item To reformat a paragraph, use `gq'. Reformatting includes enforcing the wrap limit which can be set in your
+        vimrc with `set tw=\tlangle number\trangle'. Other options can be se such as indentation. Note that this
+        command requires a minimum of two lines, so you'll need to at least use `gqj' and at most use `gjG' for the
+        rest of the document under the line currently under the cursor.
+    \item Use `m\tlangle key\trangle to set a mark to \tlangle key\trangle then \tlangle key\trangle to jump to it.
+        Note that if you set it to the capitalized version of \tlangle key\trangle then the jumping can occur between
+        buffers. To see your list of marks, use `:mark'.
+    \item Use `"\tlangle key\trangle' then an action like `y' or `d' to store text in the \textit{register} \tlangle
+        key\trangle. Then use `"\tlangle key\trangle p' to paste it. Note that using `d' will automatically store it
+        in the register at register x and `p' will automatically paste whatever is in register `x'. Use `:reg' to see
+        the register list.
+    \item Use `f\tlangle key\trangle' to forward search for \tlangle key\trangle. To backwards search, use `F\tlangle
+        key\trangle'. To repeat the search, use `;'. 
+    \item The `t' stands for `til'. For example, `dt=' will delete up to and not including an = sign.
+    \item The `*' can be used to search for the word under cursor.
+    \item `J' is used to join the line below to the line currently under the cursor. This is useful for reformatting
+        improperly wrapped lines but in general `gq' is more useful for this purpose.
+    \item `zt' or `z<CR>' will put the line under the cursor to the to of the window. `z.' will put the line to the
+        center of the window and `z-' will put it to the bottom of the window.
+    \item `z=' will give spelling suggestions for the word under the cursor.
+    \item `[s' and `]s' to cycle backwards and forwards through misspelled words.
+    \item Use `g\$' to go to the end of an unwrapped line.
+    \item If you type a long line of text in insert mode, this counts as one action. Therefore, if you press undo, the
+        whole line will be deleted. To break the undo chain, use \tlangle c-g\trangle u while in insert mode.
+        Alternatively, you could map space to \tlangle c-g\trangle u so that the undo chain is broken whenever a space
+        is added in insert mode:\\
+        inoremap \tlangle Space\trangle \tlangle Space\trangle \tlangle c-g\trangle u
+    \item Use the accent `\tlangle shift+6\trangle' in insert mode to move to the first non-white space character in the
+        line.
+    \item Use `\%' while your cursor is over a parenthesis, square or curly bracket to move to the corresponding
+        open/closing parenthesis or bracket.
+    \item Use `:ls' to see the list of buffers then `:b' and the number to select one. A useful mapping for this
+        process is:\\
+        nnoremap \tlangle leader\trangle b:ls\tlangle cr\trangle:b\tlangle space\trangle
+\end{itemize}
+
+%===============================================================
+\section{Version Controlling Your Vim Configuration}
+%===============================================================
+This section follows \cite{neil2010synchronizing}. First, we work towards turning ~/.vim into a git repository: 
+\begin{enumerate}
+    \item Move ~/.vimrc into ~/.vim.
+    \item When vim boots, it's still going to look for .vimrc in the home directory. To ensure that it looks for vimrc
+        in the ~/.vim directory, we can create a symbolic link to that file using `ln -s ~/.vim/vimrc ~/.vimrc'.
+    \item Make ~/.vim into a git repository.
+\end{enumerate}
+An issue now is if you install a plugin that itself is a git repository, you lose the version-control capabilities of
+that plugin. To circumvent this issue, we use a plugin manager; in this case \textit{Pathogen}.\\
+
+%---------------------------------------------------------------
+\subsection{Pathogen: the Plugin Manager} \label{SecPathogen}
+%---------------------------------------------------------------   
+The pathogen plugin makes it possible to cleanly install plugins as a bundle. Rather than having to place all of your
+plugins side by side in the same directory, you can keep all of the files for each individual plugin together in one
+directory (see video from first link for example). This makes installation more straightforward, and also simplifies
+the tasks of upgrading and even removing a plugin if you decide you no longer need it since they are carefully
+segregated from each other. For a good tutorial on Pathogen, see \cite{lafourcade2014how}.\\
+ 
+Following the readme on the repo at \cite{pope2009pathogen}, to install Pathogen do the following:
+\begin{enumerate}
+    \item Run in terminal:\\
+        mkdir -p ~/.vim/autoload ~/.vim/bundle \&\& \ \\
+        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    \item Add the following to your vimrc:
+        execute pathogen\#infect()
+\end{enumerate}
+Now any plugins you wish to install can be extracted to a subdirectory under ~/.vim/bundle, and they will be added to
+the 'runtimepath'. For example, to install "sensible.vim", simply run: "cd ~/.vim/bundle \&\& \ git clone
+https://github.com/tpope/vim-sensible.git".
+
+%---------------------------------------------------------------
+\subsection{Submodules: Installing Git Repositories Within Git Repositories}\label{SecSubmodules}
+%---------------------------------------------------------------   
+This section follows \cite{neil2010synchronizing}. Now that we can install plugins via Pathogen, let's see how we
+preserve the version control capabilities of our plugins. As a worked example, let us install the \textit{Vimtex}
+plugin:
+\begin{enumerate}
+    \item cd ~/.vim
+    \item Now to clone a git repository into the bundle directory, use:\\
+        git submodule add https://github.com/lervag/vimtex.git bundle/vimtex
+\end{enumerate}
+Now, to upgrade this plugin, use:
+\begin{enumerate}
+    \item cd ~/.vim/bundle/vimtex
+    \item git pull origin master
+\end{enumerate}
+To upgrade ALL of your plugins, use:
+\begin{enumerate}
+    \item cd ~/.vim
+    \item git submodule foreach git pull origin master
+\end{enumerate}
+%---------------------------------------------------------------
+\subsection{Importing Your Vim Configuration and Plugins To a New Machines}
+%---------------------------------------------------------------   
+One of the main benefits of version controlling your Vim configuration and plugins is the ease of which they can be
+imported into a new machine. To fo so, use the following:
+\begin{enumerate}
+    \item cd ~
+    \item git clone \tlangle git repo url\trangle ~/.vim
+    \item ln -s ~/.vim/vimrc ~/.vimrc
+    \item cd ~/.vim
+    \item git submodule init
+    \item git submodule update
+\end{enumerate}
+%---------------------------------------------------------------
+\subsection{Vim-plug}
+%---------------------------------------------------------------   
+Whilst Pathogen is the simplest plugin manager, there are limitations when porting your setup to a new machine. For
+example, suppose one of the plugins is no longer being maintained by the owner and suppose also that you've made your
+own changes to the plugin. If you were to pull your configuration on a new machine, you will pull the latest version of
+the plugin; that is your changes will not be ported. Further, on your own repository for your configuration, the
+directories containing the plugins will be treated as repositories. Unless you manually install the plugins, there is
+no way to preserve your changes onto Github.
+
+%===============================================================
+\section{Vimtex}
+%===============================================================
+%---------------------------------------------------------------
+\subsection{Installing and Running Vimtex}
+%---------------------------------------------------------------   
+Assuming you are using the Pathogen plugin manager and version controlling your ~/.vim directory, follow the steps used
+in Section \ref{SecSubmodules}. Then use `:Helptags' which is Pathogen's method for generating help tags. With this, we
+can use `:h vimtex' to see the manual for Vimtex. To confirm that the plugin works, type ":VimtexInfo" to see a summary
+of the tex file.
+%---------------------------------------------------------------
+\subsection{Compiling a Tex File}
+%---------------------------------------------------------------   
+The following commands are useful:
+\begin{itemize}
+    \item :VimtexCompile \# this is a continuous compiler meaning that everytime you save with ":w" it will
+        automatically compile
+    \item :VimtexStop \# this stops the continuous compiler
+    \item :VimtexCompileSS \# this is a single shot compiler. Note that you have to save your file first
+    \item :VimtexClean \# Cleans auxiliary files generated in compilation process 
+\end{itemize}
+I set the following mappings in my vimrc:
+\begin{lstlisting}
+autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
+autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
+autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
+autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+\end{lstlisting}
+
+%---------------------------------------------------------------
+\subsection{Forward and Backwards Searching with Synctex}
+%---------------------------------------------------------------   
+This section follows \cite{gunther2014vimtex}. For this, you will need a Vimtex server which allows you to do
+forward and backward to navigate between corresponding sections of the tex file and the pdf. You will also need
+the pdf viewer \textit{Zathura}. To install, simply use `sudo apt-get install zathura'. Then, in your vimrc, add the
+following line `let g:vimtex\_view\_method = 'zathura''.\\
+
+Following \cite{lerner2004enable}, to install just use `sudo apt-get install vim-gnome'. Finally, to edit a tex file
+with navigation capabilities:
+\begin{enumerate}
+    \item In the directory containing the tex file, use:\\
+        vim --servername \tlangle servername\trangle \tlangle texfile\trangle.tex
+    \item While in tex file, to jump to the text on the pdf corresponding to the line under your cursor, use:\\
+        \tlangle leader\trangle lv
+    \item Move your mouse cursor over some text on the pdf. Then, to jump to corresponding text on the tex file, use:\\
+        Ctrl + left-click
+\end{enumerate}
+Note that \tlangle leader\trangle lv forward search works without the Vim server; it's the backwards search that requires the Vim server.
+
+%---------------------------------------------------------------
+\subsection{Other Useful References}
+%---------------------------------------------------------------   
+\begin{itemize}
+    \item Nice compilation of Vimtex commands \cite{gunther2014vimtex}
+    \item Quick guide on the basics of Vimtex \cite{jdhao2019complete}
+    \item For a comparison with other Vim LaTeX plugins \cite{lervag2015vim}
+    \item Note-taking using Vim and LaTeX for math lectures \cite{castel2019how}
+    \item Vim and LaTeX on MacOS \cite{dyke2020getting}
+    \item Some useful mappings such as the teleportation trick \cite{smith2016my, smith2017start}. 
+\end{itemize}
+
+%===============================================================
+\section{Python}
+%===============================================================
+The following mapping may prove useful for starting an IPython terminal:\\ 
+nnoremap \tlangle leader\trangle p :botright vertical terminal ipython --no-autoindent\tlangle cr\trangle
+%---------------------------------------------------------------
+\subsection{sendtosplit Plugin}
+%---------------------------------------------------------------   
+When coding in Python with a Vim terminal on the side running IPython, I use the \textit{sendtowindow} plugin
+\cite{KKPMW2016send} to send lines of code to the terminal. See \cite{KKPMW2019send} for a Reddit post from the author
+discussing the plugin. It's a very simple plugin that allows the use of vim motions to move lines of text to terminals
+left, right, above or below the Vim window.
+
+Some notes on installation: notice that this repository only has one file called sendtosplit.vim which contains a
+couple of functions. Unless you are using a plugin manager like vim-plug or put all these functions into your vimrc, we
+can install this plugin in a slightly different way. All we need to do is create a directory ~/.vim/plugin and copy
+sendtosplit.vim into that directory. However, unlike the method with pathogen detailed in Section \ref{SecPathogen},
+your plugin won't be version controlled and so any updates added by the coder cannot be retrieved via git. More details
+about this type of plugin management can be found in \cite{ryder2018attack}.\\
+
+This plugin is simple and elegant in use. I use the following maps:\\
+\begin{lstlisting}
+let g:sendtowindow_use_defaults=0
+nmap ,sr <Plug> SendRight
+xmap ,srv <Plug> SendRightV
+nmap ,sl <Plug> SendLeft
+xmap ,slv <Plug> SendLeftV
+nmap ,su <Plug> SendUp
+xmap ,suv <Plug> SendUpV
+nmap ,sd <Plug> SendDown
+xmap ,sdv <Plug> SendDownV
+\end{lstlisting}
+Any one of these mappings will specify to either send some text in normal mode or in visual mode. When in normal mode,
+to specify which text to send, use the usual Vim movements. For example, `,sr\$' will send from the cursor to the end
+of the line to the window on the right. However, if you are in the middle of a line, it may become tedious having to
+first go to the beginning of the line and having to type `\$'. Therefore, we can define line objects using the
+following maps:
+\begin{lstlisting}
+onoremap <silent> <expr> _ v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+vnoremap <silent> <expr> _ v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+onoremap <silent> <expr> i_ v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
+vnoremap <silent> <expr> i_ v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
+\end{lstlisting}
+With '\_' alone the indentation is left intact and 'i\_' is without indentation. So, for example, `,sr\_' will send
+the line under the cursor to the window on the right with indentation and `,sr8\_' will send four lines under the
+cursor to the window on the right. Note that this is important for Python as if you try send a for loop with `i\_' and
+leave out the indentation, then it may not run.
+
+%---------------------------------------------------------------
+\subsection{With tmux}
+%---------------------------------------------------------------   
+There are many plugins that allow interaction between Vim and tmux. For example, there is Vim-Slime
+\cite{jpalardy2012slime} and Vimux \cite{benmills2009vimux}. The one I use is Slimux \cite{esamattis2015slimux}. There
+is a blog post about it here \cite{suuronen2012slimux}. As discussed in the blog post, Slimux differs from Vimux in
+that it is more disjoint from tmux. In particular, Vimux will create a pane on which you must run your commands whereas
+slimux allows you to select the pane you wish to use. Also, unlike Vim-Slime, you do not need to manually type in the
+pane to select it; in Slimux an interactive prompt is given. It's also worth noting that Vim-Slime supports many
+terminal multiplexers such as GNU Screen, kitty and Vim's native terminal.\\
+
+However, there is an issue with sending commands to IPython where the indentation is constantly carried over
+\cite{kmARC2015indentationerror}. There are three proposed fixes
+\cite{lotabout2017remove,karadaharu2016add,zcesur2018fix}. The first modifies python.vim, the second modifies both
+slimux.vim and python.vim by implementing IPython's cpaste function and the third modifies a single line of slimux.vim.
+Since the repo owner hasn't pulled any of these fixes, I opted for the third fix which requires changing line 328 of
+slimux.vim to:
+\begin{lstlisting}
+let b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.
+\end{lstlisting}
+
+
+%---------------------------------------------------------------
+\subsection{Other Useful References}
+%---------------------------------------------------------------   
+\begin{itemize}
+    \item Another lightweight workflow can be found in \cite{hornung2019boosting}. For this, you will need three
+        plugins: Vimux \cite{benmills2009vimux}, vim-pyShell \cite{hornung2019pyShell} and vim-cellmode
+        \cite{julienr2016vimcellmode}. However, I have trouble getting this to work. Starting and stopping a pyShell
+        session works fine as well as sending one line of code, but I have issues sending over cells.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+%                         Bibliography
+%---------------------------------------------------------------
+\nocite{*}
+\bibliography{references}
+\bibliographystyle{abbrv}
+\end{document}

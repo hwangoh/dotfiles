@@ -1,0 +1,177 @@
+\begin{thebibliography}{10}
+
+\bibitem{benmills2009vimux}
+benmills.
+\newblock vimux.
+\newblock \url{https://github.com/benmills/vimux}.
+
+\bibitem{cantor2016how}
+M.~Cantor.
+\newblock How to do 90\% of what plugins do (with just vim).
+\newblock \url{https://www.youtube.com/watch?v=E-ZbrtoSuzw}.
+
+\bibitem{castel2019how}
+G.~Castel.
+\newblock How i'm able to take notes in mathematics lectures using latex and
+  vim.
+\newblock \url{https://castel.dev/post/lecture-notes-1/#vim-and-latex}.
+
+\bibitem{chang2020vim}
+L.~Chang.
+\newblock Vim: Tutorial on customization and configuration (2020).
+\newblock
+  \url{https://www.youtube.com/watch?v=JFr28K65-5E&list=FLVuBBjy7NC7Q0xVUm8SEjrw&index=3&t=3083s}.
+
+\bibitem{chang2018vim}
+L.~Chang.
+\newblock Vim: Tutorial on editing, navigation, and file management (2018).
+\newblock \url{https://www.youtube.com/watch?v=E-ZbrtoSuzw}.
+
+\bibitem{dyke2020getting}
+J.~V. Dyke.
+\newblock Getting started with latex and vim.
+\newblock
+  \url{https://web.ma.utexas.edu/users/vandyke/notes/tex/getting_started/getting_started.pdf}.
+
+\bibitem{esamattis2015slimux}
+esamattis.
+\newblock Slimux.
+\newblock \url{https://github.com/esamattis/slimux/blob/master/README.md}.
+
+\bibitem{gunther2014vimtex}
+M.~Gunther.
+\newblock Vimtex tool for working vim, tex and zathura.
+\newblock
+  \url{https://wikimatze.de/vimtex-the-perfect-tool-for-working-with-tex-and-vim/}.
+
+\bibitem{hornung2019boosting}
+G.~Hornung.
+\newblock Boosing your data science workflow with vim+tmux.
+\newblock
+  \url{https://towardsdatascience.com/boosting-your-data-science-workflow-with-vim-tmux-14505c5e016e}.
+
+\bibitem{hornung2019pyShell}
+G.~Hornung.
+\newblock vim-pyshell.
+\newblock \url{https://github.com/greghor/vim-pyShell}.
+
+\bibitem{ivanov2011vim-ipython}
+P.~Ivanov.
+\newblock vim-ipython.
+\newblock \url{https://github.com/ivanov/vim-ipython}.
+
+\bibitem{jdhao2019complete}
+jdhao.
+\newblock A complete guide on writing latex with vimtex in neovim.
+\newblock \url{https://jdhao.github.io/2019/03/26/nvim_latex_write_preview/}.
+
+\bibitem{jpalardy2012slime}
+jpalardy.
+\newblock vim-slime.
+\newblock \url{https://github.com/jpalardy/vim-slime}.
+
+\bibitem{julienr2016vimcellmode}
+julienr.
+\newblock vim-cellmode.
+\newblock \url{https://github.com/julienr/vim-cellmode}.
+
+\bibitem{karadaharu2016add}
+karadaharu.
+\newblock Add an option to use cpaste for ipython \#68.
+\newblock \url{https://github.com/esamattis/slimux/pull/68}.
+
+\bibitem{KKPMW2019send}
+KKPMW.
+\newblock `sendtowindow' - a small plugin with operator for sending text to
+  repls (or any other vim window).
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/au8eo5/sendtowindow_a_small_plugin_with_operator_for/}.
+
+\bibitem{KKPMW2016send}
+KKPMW.
+\newblock vim-sendtowindow.
+\newblock \url{https://github.com/KKPMW/vim-sendtowindow}.
+
+\bibitem{kmARC2015indentationerror}
+kmARC.
+\newblock Python repl indentationerror: unexpected indent \# 38.
+\newblock \url{https://github.com/esamattis/slimux/issues/38}.
+
+\bibitem{lafourcade2014how}
+R.~Lafourcade.
+\newblock How to use tim pope's pathogen.
+\newblock \url{https://gist.github.com/romainl/9970697}.
+
+\bibitem{lerner2004enable}
+Y.~Lerner.
+\newblock Enable servername capability in vim/xterm.
+\newblock
+  \url{https://vim.fandom.com/wiki/Enable_servername_capability_in_vim/xterm}.
+
+\bibitem{lervag2015vim}
+K.~Lervag.
+\newblock What are the differences between latex plugins?
+\newblock
+  \url{https://vi.stackexchange.com/questions/2047/what-are-the-differences-between-latex-plugins}.
+
+\bibitem{lotabout2017remove}
+lotabout.
+\newblock remove indent for selected blocks \#74.
+\newblock \url{https://github.com/esamattis/slimux/pull/74}.
+
+\bibitem{moolenaar2000seven}
+B.~Moolenaar.
+\newblock Seven habits of effective text editing.
+\newblock \url{https://www.moolenaar.net/habits.html}.
+
+\bibitem{neil2010synchronizing}
+D.~Neil.
+\newblock Synchronizing plugins with git submodules and pathogen.
+\newblock
+  \url{http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/}.
+
+\bibitem{pope2009pathogen}
+T.~Pope.
+\newblock pathogen.vim.
+\newblock \url{https://github.com/tpope/vim-pathogen}.
+
+\bibitem{princker2019buffer}
+princker.
+\newblock Is it possible to skip over :terminal buffers when using :bn and :bp
+  in vim 8?
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/8njgul/is_it_possible_to_skip_over_terminal_buffers_when/}.
+
+\bibitem{ryder2018attack}
+T.~Ryder.
+\newblock Attack of the 5000-line vimrc.
+\newblock \url{https://vimways.org/2018/from-vimrc-to-vim/}.
+
+\bibitem{smith2016my}
+L.~Smith.
+\newblock My dank vim \& latex setup (wordcucks btfo once again).
+\newblock \url{https://www.youtube.com/watch?v=Mphdtdv2_xs}.
+
+\bibitem{smith2017start}
+L.~Smith.
+\newblock Start turning vim into a /comfy/ ide!
+\newblock
+  \url{https://www.youtube.com/watch?v=Q4I_Ft-VLAg&list=FLVuBBjy7NC7Q0xVUm8SEjrw&index=3&t=462s}.
+
+\bibitem{suuronen2012slimux}
+E.-M. Suuronen.
+\newblock Slimux - tmux plugin for vim.
+\newblock
+  \url{http://esa-matti.suuronen.org/blog/2012/04/19/slimux-tmux-plugin-for-vim/}.
+
+\bibitem{toomey2015mastering}
+C.~Toomey.
+\newblock Mastering the vim language.
+\newblock \url{https://www.youtube.com/watch?v=wlR5gYd6um0}.
+
+\bibitem{zcesur2018fix}
+zcesur.
+\newblock Fix ipython issues when sending multiple lines \#80.
+\newblock \url{https://github.com/esamattis/slimux/pull/80}.
+
+\end{thebibliography}

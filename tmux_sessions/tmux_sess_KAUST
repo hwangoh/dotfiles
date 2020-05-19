@@ -1,0 +1,53 @@
+#!/bin/bash
+tmux new-session -d -s KAUST
+
+tmux select-window -t 0
+tmux rename-window ex1
+tmux split-window -h 
+tmux send-keys 'cd ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/examples/tests/' C-m
+tmux select-pane -L
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/examples/tests/ex1.cpp' C-m
+
+tmux new-window -n 'driver'
+tmux send-keys 'vim ~/Documents/jointinversion/src/driver.cpp' C-m
+
+tmux new-window -n 'test'
+tmux split-window -h 
+tmux send-keys 'cd ~/Documents/jointinversion/sandbox/' C-m
+tmux select-pane -L
+tmux send-keys 'vim ~/Documents/jointinversion/sandbox/test.cpp' C-m
+
+tmux new-window -n 'coefficient'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petsc/arch-joint/externalpackages/git.mfem/fem/coefficient.cpp'
+tmux select-pane -L 
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petsc/arch-joint/include/mfem/fem/coefficient.hpp' C-m
+
+tmux new-window -n 'pdcoefficient'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/pdcoefficient.cpp'
+tmux select-pane -L 
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/include/mfemopt/pdcoefficient.hpp' C-m
+
+tmux new-window -n 'objective'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/objective.cpp'
+tmux select-pane -L 
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/include/mfemopt/objective.hpp' C-m
+
+tmux new-window -n 'reducedfunctional'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/reducedfunctional.cpp'
+tmux select-pane -L 
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/include/mfemopt/reducedfunctional.hpp' C-m
+
+tmux new-window -n 'taosolver'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/petsctaosolver.cpp'
+tmux select-pane -L
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/include/mfemopt/optsolver.hpp' C-m
+
+tmux new-window -n 'SNESsolver'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petscopt/src/mfemopt/optsolver.cpp'
+tmux select-pane -L
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petscopt/include/mfemopt/optsolver.hpp' C-m
+
+tmux new-window -n 'petsc'
+tmux split-window -h 'vim ~/Documents/jointinversion/pkgs/petsc/arch-joint/externalpackages/git.mfem/linalg/petsc.cpp'
+tmux select-pane -L
+tmux send-keys 'vim ~/Documents/jointinversion/pkgs/petsc/arch-joint/include/mfem/linalg/petsc.hpp' C-m

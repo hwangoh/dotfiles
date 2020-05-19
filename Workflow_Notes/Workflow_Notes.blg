@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7350)
+Capacity: max_strings=4000, hash_size=5000, hash_prime=4253
+The top-level auxiliary file: Workflow_Notes.aux
+The style file: abbrv.bst
+Database file #1: references.bib
+You've used 32 entries,
+            2118 wiz_defined-function locations,
+            624 strings with 7834 characters,
+and the built_in function-call counts, 6488 in all, are:
+= -- 576
+> -- 224
+< -- 0
++ -- 97
+- -- 64
+* -- 162
+:= -- 1067
+add.period$ -- 96
+call.type$ -- 32
+change.case$ -- 128
+chr.to.int$ -- 0
+cite$ -- 32
+duplicate$ -- 224
+empty$ -- 705
+format.name$ -- 64
+if$ -- 1409
+int.to.chr$ -- 0
+int.to.str$ -- 32
+missing$ -- 0
+newline$ -- 163
+num.names$ -- 64
+pop$ -- 352
+preamble$ -- 1
+purify$ -- 96
+quote$ -- 0
+skip$ -- 191
+stack$ -- 0
+substring$ -- 161
+swap$ -- 32
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 128
+warning$ -- 0
+while$ -- 64
+width$ -- 34
+write$ -- 290

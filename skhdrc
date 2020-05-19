@@ -1,0 +1,83 @@
+# =============================================================================
+#                               Basic Key-bindings 
+# ============================================================================= 
+# open terminal
+alt - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
+
+# restart yabai
+shift + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+
+# toggle full screen
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# balance size of windows
+shift + alt - 0 : yabai -m space --balance
+
+# focus window
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# move window
+shift + alt - h : yabai -m window --warp west
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - l : yabai -m window --warp east
+
+# send window to other monitor and follow focus
+alt - m : yabai -m window --display recent; yabai -m display --focus recent
+
+# split in horizontal orientation
+# shift + alt - backslash : yabai -m window --insert south
+
+# split in vertical orientation
+# shift + alt - kpminus : yabai -m window --insert east
+
+# close focused window
+shift + alt - q : yabai -m window --close
+
+# kill all iTerm2 terminals
+shift + alt - t : killall iTerm2
+
+# other shortcuts
+alt - z : /System/Library/CoreServices/Finder
+
+# =============================================================================
+#                                  Desktops
+# ============================================================================= 
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+shift + alt - c : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+                  yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}"
+
+# create desktop and follow focus - uses jq for parsing json (brew install jq)
+shift + alt - n : yabai -m space --create && \
+                index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+                yabai -m space --focus "${index}"
+
+# destroy desktop
+shift + alt - w : yabai -m space --destroy
+
+# focus desktop
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+
+# send window to desktop and follow focus
+shift + alt - 1 : yabai -m window --space  1
+shift + alt - 2 : yabai -m window --space  2
+shift + alt - 3 : yabai -m window --space  3
+shift + alt - 4 : yabai -m window --space  4
+shift + alt - 5 : yabai -m window --space  5
+shift + alt - 6 : yabai -m window --space  6
+shift + alt - 7 : yabai -m window --space  7
+shift + alt - 8 : yabai -m window --space  8
+shift + alt - 9 : yabai -m window --space  9
