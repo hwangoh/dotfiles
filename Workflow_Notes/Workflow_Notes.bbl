@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{abdeljalil732020anyone}
+abdeljalil73.
+\newblock Anyone uses vim for python and data science?
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/gjb97y/anyone_uses_vim_for_python_and_data_science/}.
+
 \bibitem{benmills2009vimux}
 benmills.
 \newblock vimux.
@@ -33,6 +39,11 @@ L.~Chang.
 \newblock Vim: Tutorial on editing, navigation, and file management (2018).
 \newblock \url{https://www.youtube.com/watch?v=E-ZbrtoSuzw}.
 
+\bibitem{toomey2013tmuxrunner}
+christoomey.
+\newblock vim-tmux-runner.
+\newblock \url{https://github.com/christoomey/vim-tmux-runner.git}.
+
 \bibitem{dyke2020getting}
 J.~V. Dyke.
 \newblock Getting started with latex and vim.
@@ -49,6 +60,17 @@ M.~Gunther.
 \newblock Vimtex tool for working vim, tex and zathura.
 \newblock
   \url{https://wikimatze.de/vimtex-the-perfect-tool-for-working-with-tex-and-vim/}.
+
+\bibitem{hanschen2019ipython}
+hanschen.
+\newblock vim-ipython-cell.
+\newblock \url{https://github.com/hanschen/vim-ipython-cell}.
+
+\bibitem{hanschen2019reddit}
+hanschen.
+\newblock vim-ipython-cell: Run python code and code cells in ipython.
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/by6omc/vimipythoncell_run_python_code_and_code_cells_in/}.
 
 \bibitem{hornung2019boosting}
 G.~Hornung.
@@ -129,6 +151,12 @@ K.~Lervag.
 lotabout.
 \newblock remove indent for selected blocks \#74.
 \newblock \url{https://github.com/esamattis/slimux/pull/74}.
+
+\bibitem{manasthakur2020managing}
+manasthakur.
+\newblock Managing plugins in vim: The basics.
+\newblock
+  \url{https://gist.github.com/manasthakur/ab4cf8d32a28ea38271ac0d07373bb53}.
 
 \bibitem{moolenaar2000seven}
 B.~Moolenaar.

@@ -104,9 +104,10 @@ is \cite{chang2020vim}. A document on effective text editing written by the crea
 \end{itemize}
 
 %===============================================================
-\section{Version Controlling Your Vim Configuration}
+\section{Plugin Management}
 %===============================================================
-This section follows \cite{neil2010synchronizing}. First, we work towards turning ~/.vim into a git repository: 
+The first part of this section follows \cite{neil2010synchronizing}. First, we work towards turning ~/.vim into a git
+repository:
 \begin{enumerate}
     \item Move \tsim/.vimrc into \tsim/vim.
     \item When vim boots, it's still going to look for .vimrc in the home directory. To ensure that it looks for vimrc
@@ -117,7 +118,7 @@ An issue now is if you install a plugin that itself is a git repository, you los
 that plugin. To circumvent this issue, we use a plugin manager; in this case \textit{Pathogen}.\\
 
 %---------------------------------------------------------------
-\subsection{Pathogen: the Plugin Manager} \label{SecPathogen}
+\subsection{Pathogen} \label{SecPathogen}
 %---------------------------------------------------------------   
 The pathogen plugin makes it possible to cleanly install plugins as a bundle. Rather than having to place all of your
 plugins side by side in the same directory, you can keep all of the files for each individual plugin together in one
@@ -221,7 +222,24 @@ To uninstall plugins:
     \item Delete `Plug \tlangle url \trangle' line from your vimrc
     \item :PlugClean
 \end{enumerate}
+%===============================================================
+\section{Native Plugin Management} \label{SecNativePluginManagement}
+%===============================================================
+Vim-plug provides a solution to the first of the two issues mentioned in the previous section, but not the second. To
+address the second issue, we can use Vim's native plugin management system to install a plugin and delete the .git
+repository. That way, we can track the files and any changes in our own git repository. This section follows
+\cite{manasthakur2020managing}. For a more detailed explanation, see \cite{ryder2018attack}.\\
 
+The package feature of Vim 8 follows a pathogen-like model and adds the plugins found inside a custom-path
+\tsim/.vim/pack/ to Vim's runtime path. You can check the version of Vim installed using `vim --version'. To install
+using this native feature, we use the following steps:
+\begin{enumerate}
+    \item mkdir -p \tsim/.vim/pack/plugins/start/
+    \item git clone \tlangle url\trangle
+    \item :helptags \tsim/.vim/pack/plugins/start/\tlangle plugin name\trangle
+\end{enumerate}
+and that's it! To remove a plugin, simply remove its directory: rm -r
+\tsim/.vim/pack/plugins/start/foo.
 
 %===============================================================
 \section{Vimtex}
@@ -343,12 +361,21 @@ slimux.vim to:
 \begin{lstlisting}
 let b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.
 \end{lstlisting}
-
+Note that this repository has not been updated in years and so all pull requests have not been fulfilled. Therefore, if
+you wish to track the fixes you've made, you may want to install the plugin using the method disussed in Section
+\ref{SecNativePluginManagement}.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
 %---------------------------------------------------------------   
 \begin{itemize}
+    \item A good Reddit thread on workflow with Vim and IPython can be found at \cite{abdeljalil732020anyone}. Note
+        that the majority of the responses indicate that they use vim-slime and tmux.
+    \item The vim-tmux-runner plugin \cite{toomey2013tmuxrunner} may be worth checking out. 
+    \item The vim-ipython-cell plugin \cite{hanschen2019ipython} may be worth checking out. There is a reddit post
+        \cite{hanschen2019reddit} by the author on this plugin. Note that this plugin is leverages vim-slime. According
+        to the author, the main contribution of this plugin is that it provides many ways to define and run cells, even
+        using Vim marks.
     \item Another lightweight workflow can be found in \cite{hornung2019boosting}. For this, you will need three
         plugins: Vimux \cite{benmills2009vimux}, vim-pyShell \cite{hornung2019pyShell} and vim-cellmode
         \cite{julienr2016vimcellmode}. However, I have trouble getting this to work. Starting and stopping a pyShell
