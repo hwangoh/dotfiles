@@ -13,7 +13,6 @@
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
     Plug 'https://github.com/tpope/vim-commentary.git'
     Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
-    Plug 'https://github.com/KKPMW/vim-sendtowindow.git'
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/lervag/vimtex.git'
 
