@@ -7,7 +7,6 @@
 " Plugins
     Plug 'https://github.com/tpope/vim-fugitive.git'
     Plug 'https://github.com/preservim/nerdtree.git'
-    Plug 'https://github.com/esamattis/slimux.git'
     Plug 'https://github.com/vim-syntastic/syntastic.git'
     Plug 'https://github.com/edkolev/tmuxline.vim.git'
     Plug 'https://github.com/vim-airline/vim-airline.git'

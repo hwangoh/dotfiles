@@ -295,16 +295,7 @@ nnoremap \tlangle leader\trangle p :botright vertical terminal ipython --no-auto
 When coding in Python with a Vim terminal on the side running IPython, I use the \textit{sendtowindow} plugin
 \cite{KKPMW2016send} to send lines of code to the terminal. See \cite{KKPMW2019send} for a Reddit post from the author
 discussing the plugin. It's a very simple plugin that allows the use of vim motions to move lines of text to terminals
-left, right, above or below the Vim window.
-
-Some notes on installation: notice that this repository only has one file called sendtosplit.vim which contains a
-couple of functions. Unless you are using a plugin manager like vim-plug or put all these functions into your vimrc, we
-can install this plugin in a slightly different way. All we need to do is create a directory ~/.vim/plugin and copy
-sendtosplit.vim into that directory. However, unlike the method with pathogen detailed in Section \ref{SecPathogen},
-your plugin won't be version controlled and so any updates added by the coder cannot be retrieved via git. More details
-about this type of plugin management can be found in \cite{ryder2018attack}.\\
-
-This plugin is simple and elegant in use. I use the following maps:\\
+left, right, above or below the Vim window. I use the following maps:\\
 \begin{lstlisting}
 let g:sendtowindow_use_defaults=0
 nmap ,sr <Plug> SendRight
