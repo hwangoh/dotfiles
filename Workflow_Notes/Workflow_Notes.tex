@@ -279,6 +279,9 @@ and that's it! To remove a plugin, simply remove its directory: rm -r
 %===============================================================
 \section{Vimtex}
 %===============================================================
+This section discusses the Vimtex \cite{lervag2015vim} plugin. See also the
+vimways article \cite{woodruff2019latex} for a good overview.
+
 %---------------------------------------------------------------
 \subsection{Installing and Running Vimtex}
 %---------------------------------------------------------------   
@@ -305,6 +308,29 @@ autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
 autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
 autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
 autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+\end{lstlisting}
+Here are some useful commands I use in my vimrc:
+\begin{lstlisting}
+" Avoids opening an empty .tx file only to have vimtex recognize it as plain Tex rather than Latex
+    let g:tex_flavor = 'latex'
+
+" Use folding. Use zx to unfold and zX to fold all
+    let g:vimtex_fold_enabled = 1 
+
+" Toggle Error Window On and Off
+    autocmd FileType tex map <F4> \le 
+
+" Shortcut for Compiling and Viewing PDF
+    autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
+    autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
+    autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
+    autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+
+" VimtexClean on exit
+  augroup vimtex_config
+    au! 
+    au User VimtexEventQuit call vimtex#compiler#clean(0)
+  augroup END 
 \end{lstlisting}
 
 %---------------------------------------------------------------
@@ -336,12 +362,14 @@ server; it's the backwards search that requires the Vim server.
 \subsection{Other Useful References}
 %---------------------------------------------------------------   
 \begin{itemize}
+    \item Good article overviewing Vimtex \cite{woodruff2019latex}
     \item Nice compilation of Vimtex commands \cite{gunther2014vimtex}
     \item Quick guide on the basics of Vimtex \cite{jdhao2019complete}
     \item For a comparison with other Vim LaTeX plugins \cite{lervag2015vim}
+    \item Some useful mappings such as the teleportation trick
+        \cite{smith2016my, smith2017start}.  
     \item Note-taking using Vim and LaTeX for math lectures \cite{castel2019how}
     \item Vim and LaTeX on MacOS \cite{dyke2020getting}
-    \item Some useful mappings such as the teleportation trick \cite{smith2016my, smith2017start}. 
 \end{itemize}
 
 %===============================================================

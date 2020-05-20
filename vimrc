@@ -325,6 +325,12 @@
         let g:vimtex_view_method = 'zathura'
     end
 
+" Avoids opening an empty .tx file only to have vimtex recognize it as plain Tex rather than Latex
+    let g:tex_flavor = 'latex'
+
+" Use folding. Use zx to unfold and zX to fold all
+    let g:vimtex_fold_enabled = 1
+
 " Turn off autoindent when using Vimtex
     let g:latex_indent_enabled = 0
 
