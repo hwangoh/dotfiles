@@ -289,15 +289,15 @@
     nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<cr>
 
 " Shortcut for Running Python Code
-    autocmd FileType python map <F6> <Esc>:w<CR>:!clear;python3  %<CR>
-    autocmd FileType python imap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
+    autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3  %<CR>
+    autocmd FileType python inoremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
 
 " Insert pdb.set_trace()
-    autocmd FileType python imap ;pdb pdb.set_trace()
+    autocmd FileType python inoremap ;pdb pdb.set_trace()
 
 " Slimux commands
-    nnoremap ,C :SlimuxShellRun clear<CR> 
-    nnoremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    autocmd FileType python noremap ,C :SlimuxShellRun clear<CR> 
+    autocmd FileType python noremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 
 " =============================================================================
 "                                    LaTeX
