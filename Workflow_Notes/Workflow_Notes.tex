@@ -403,13 +403,15 @@ xmap ,s <Plug>SendRightV
 " Insert current file name
 inoremap ;F <C-R>=expand("%:t")<CR>
 
-" Clear, Reset and Run Mappings
-nmap ,sC A<CR>clear<Esc>V,suu
-nmap ,sD A<CR>%reset<Esc>V,suiy<Esc>v,suu
-nmap ,sR A<CR>run ;F<Esc>V,suuu
+" Clear, Reset, Run and Run Section Mappings
+nmap ,sC mqA<CR>clear<Esc>V,suu`q 
+nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`q
+nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
+nmap ,sM mq'xV'z,s`q
 \end{lstlisting}
-Be sure to use recursive mappings which will allow us to reuse the `,s' mappings
-from before.
+Be sure to use recursive mappings which will allow us to reuse the `,s' mapping
+from before. Notice also that `mq' sets a mark at your current cursor location
+and `q returns to that location after executing the command.
 
 %---------------------------------------------------------------
 \subsection{With tmux}

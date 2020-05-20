@@ -160,9 +160,8 @@
 "                                   Slimux 
 " =============================================================================	
 " Key-bindings
-    nnoremap ,- :SlimuxREPLSendLine<CR>
+    nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
     vnoremap ,- :SlimuxREPLSendSelection<CR>
-    nnoremap ,A :SlimuxREPLSendBuffer<CR>
     nnoremap ,T :SlimuxShellRun 
     nnoremap ,l :SlimuxShellLast<CR>
 
@@ -302,14 +301,16 @@
     autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
 
 " sendtowindow commands
-    autocmd FileType python nmap ,sC A<CR>clear<Esc>V,suu 
-    autocmd FileType python nmap ,sD A<CR>%reset<Esc>V,suiy<Esc>v,suu
-    autocmd FileType python nmap ,sR A<CR>run ;F<Esc>V,suuu
+    autocmd FileType python nmap ,sC mqA<CR>clear<Esc>V,suu`q 
+    autocmd FileType python nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`q
+    autocmd FileType python nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
+    autocmd FileType python nmap ,sM mq'xV'z,s`q
 
 " Slimux commands
-    autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR> 
-    autocmd FileType python nnoremap ,D :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
-    autocmd FileType python nmap ,R A<CR>run ;F<Esc>V,-uuu
+    autocmd FileType python nnoremap ,C mq:SlimuxShellRun clear<CR>`q 
+    autocmd FileType python nnoremap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`q
+    autocmd FileType python nmap ,R mqA<CR>run ;F<Esc>V,-uuu`q
+    autocmd FileType python nmap ,M mq'xV'z,-`q
 
 " =============================================================================
 "                                    LaTeX
