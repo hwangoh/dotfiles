@@ -303,14 +303,14 @@
     autocmd FileType python nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`qdmq
     autocmd FileType python nmap ,sV mqviw,s`qdmq
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
-    autocmd FileType python nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
+    autocmd FileType python nmap ,sR :w!<CR>mqA<CR>run ;F<Esc>V,suuu`qdmq
 
 " Slimux commands:  clear, reset, run variable, run marked section, run code
     autocmd FileType python nnoremap ,C mq:SlimuxShellRun clear<CR>`qdmq
     autocmd FileType python nnoremap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`qdmq
     autocmd FileType python nmap ,V mqviw,-`qdmq
     autocmd FileType python nmap ,M mq'xV'z,-`qdmq
-    autocmd FileType python nmap ,R mqA<CR>run ;F<Esc>V,-uuu`qdmq
+    autocmd FileType python nmap ,R :w!<CR>mqA<CR>run ;F<Esc>V,-uuu`qdmq
 
 " =============================================================================
 "                                    LaTeX
