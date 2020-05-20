@@ -12,20 +12,20 @@ alias quick_daily_update="cd ~/Documents/Work/Codes/Share_Trading; bash quick_da
 # =============================================================================
 # Vim
 alias vrc="cd ~/.vim; vim vimrc"
-#alias LStex="vim -c LStex"
-#alias LSpy="vim -c LSpy"
-#alias LSc="vim -c LSc"
+alias LStex="vim -c LStex"
+alias LSpy="vim -c LSpy"
+alias LSc="vim -c LSc"
 
 # tmux
-alias NStex="tmux new -s tex"
-alias NSpy="tmux new -s py"
-alias NSc="tmux new -s c"
-alias LStex="tmux attach-session -t tex"
-alias LSpy="tmux attach-session -t python"
-alias LSc="tmux attach-session -t c"
+alias killmux="tmux kill-server"
 
-alias NSkp="cd ~/.vim/tmux_sessions; bash ./tmux_sess_KAUST"
-alias LSkp="tmux attach-session -t KAUST"
+alias texmux="tmux new -s tex"
+alias cmux="tmux new -s c"
+alias Ltexmux="tmux attach-session -t tex"
+alias Lcmux="tmux attach-session -t c"
+
+alias kpmux="cd ~/.vim/tmux_sessions; bash ./tmux_sess_KAUST"
+alias Lkpmux="tmux attach-session -t KAUST"
 
 # i3
 alias i3c="cd ~/.vim; vim i3_config"
