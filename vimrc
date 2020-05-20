@@ -127,7 +127,7 @@
 " Buffer Navigation
     noremap <F8> :bprev<CR>
     noremap <F9> :bnext<CR>
-    noremap <leader>b :ls<CR>:b<space>
+    noremap <Leader>b :ls<CR>:b<space>
 
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
     nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
