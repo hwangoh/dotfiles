@@ -302,18 +302,18 @@
     autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
 
 " sendtowindow commands: clear, reset, run variable, run marked section, run code
-    autocmd FileType python nmap ,sC mqA<CR>clear<Esc>V,suu`q 
-    autocmd FileType python nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`q
-    autocmd FileType python nmap ,sV mqviw,s`q
-    autocmd FileType python nmap ,sM mq'xV'z,s`q
-    autocmd FileType python nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
+    autocmd FileType python nmap ,sC mqA<CR>clear<Esc>V,suu`qdmq
+    autocmd FileType python nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`qdmq
+    autocmd FileType python nmap ,sV mqviw,s`qdmq
+    autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
+    autocmd FileType python nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
 
 " Slimux commands:  clear, reset, run variable, run marked section, run code
-    autocmd FileType python nnoremap ,C mq:SlimuxShellRun clear<CR>`q 
-    autocmd FileType python nnoremap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`q
-    autocmd FileType python nmap ,V mqviw,-`q
-    autocmd FileType python nmap ,M mq'xV'z,-`q
-    autocmd FileType python nmap ,R mqA<CR>run ;F<Esc>V,-uuu`q
+    autocmd FileType python nnoremap ,C mq:SlimuxShellRun clear<CR>`qdmq
+    autocmd FileType python nnoremap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`qdmq
+    autocmd FileType python nmap ,V mqviw,-`qdmq
+    autocmd FileType python nmap ,M mq'xV'z,-`qdmq
+    autocmd FileType python nmap ,R mqA<CR>run ;F<Esc>V,-uuu`qdmq
 
 " =============================================================================
 "                                    LaTeX

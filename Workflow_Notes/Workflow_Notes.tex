@@ -405,17 +405,19 @@ xmap ,s <Plug>SendRightV
 inoremap ;F <C-R>=expand("%:t")<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-nmap ,sC mqA<CR>clear<Esc>V,suu`q 
-nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`q
-nmap ,sV mqviw,s`q
-nmap ,sM mq'xV'z,s`q
-nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
+nmap ,sC mqA<CR>clear<Esc>V,suu`qdmq 
+nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`qdmq
+nmap ,sV mqviw,s`qdmq
+nmap ,sM mq'xV'z,s`qdmq
+nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
 \end{lstlisting}
 Be sure to use recursive mappings which will allow us to reuse the `,s' mapping
 from before. Notice also that `mq' sets a mark at your current cursor location
 and `q returns to that location after executing the command. Also, when using
 marked sections, the plugin vim-signature \cite{kshenoy2015signature} may come
-in handy for manipulating the marks.
+in handy for manipulating the marks. In particular, the plugin displays marks
+and the command `dm\tlangle mark name\trangle' deletes the mark; so `dmq' above
+deletes the mark called `q'.
 
 %---------------------------------------------------------------
 \subsection{With tmux}
@@ -455,11 +457,11 @@ nmap ,T :SlimuxShellRun
 nmap ,l :SlimuxShellLast<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-nmap ,C :SlimuxShellRun clear<CR>
-nmap ,D :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
-nmap ,V mqviw,-`q
-nmap ,M mq'xV'z,-`q
-nmap ,R A<CR>run ;F<Esc>V,-uuu
+nmap ,C mq:SlimuxShellRun clear<CR>`qdmq
+nmap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`qdmq
+nmap ,V mqviw,-`qdmq
+nmap ,M mq'xV'z,-`qdmq
+nmap ,R mqA<CR>run ;F<Esc>V,-uuu`qdmq
 \end{lstlisting}
 where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
 the last shell command. 
