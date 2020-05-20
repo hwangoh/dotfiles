@@ -34,7 +34,7 @@ alias i3c="cd ~/.vim; vim i3_config"
 #                                   Other 
 # =============================================================================
 alias rg="ranger"
-alias workflow_notes="cd .vim/Workflow_Notes; vtex Workflow_Notes."
+alias workflow_notes="cd ~/.vim/Workflow_Notes; vtex Workflow_Notes."
 alias vpn="/opt/cisco/anyconnect/bin/vpnui"
 alias pCloud="cd ~/Desktop; ./pcloud"
 
