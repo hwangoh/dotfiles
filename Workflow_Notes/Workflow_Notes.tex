@@ -344,7 +344,7 @@ server; it's the backwards search that requires the Vim server.
 \end{itemize}
 
 %===============================================================
-\section{Python}
+\section{IPython}
 %===============================================================
 The following mapping may prove useful for starting an IPython terminal:\\ 
 \begin{lstlisting}
@@ -403,11 +403,12 @@ xmap ,s <Plug>SendRightV
 " Insert current file name
 inoremap ;F <C-R>=expand("%:t")<CR>
 
-" Clear, Reset, Run and Run Section Mappings
+" Clear, Reset, Run Variable, Run Marked Section and Run Code
 nmap ,sC mqA<CR>clear<Esc>V,suu`q 
 nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`q
-nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
+nmap ,sV mqviw,s`q
 nmap ,sM mq'xV'z,s`q
+nmap ,sR mqA<CR>run ;F<Esc>V,suuu`q
 \end{lstlisting}
 Be sure to use recursive mappings which will allow us to reuse the `,s' mapping
 from before. Notice also that `mq' sets a mark at your current cursor location
@@ -447,15 +448,16 @@ I use the following mappings:
 \begin{lstlisting}
 nmap ,- :SlimuxREPLSendLine<CR>
 vmap ,- :SlimuxREPLSendSelection<CR>
-nmap ,A :SlimuxREPLSendBuffer<CR>
 nmap ,T :SlimuxShellRun 
 nmap ,l :SlimuxShellLast<CR>
+
+" Clear, Reset, Run Variable, Run Marked Section and Run Code
 nmap ,C :SlimuxShellRun clear<CR>
 nmap ,D :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 nmap ,R A<CR>run ;F<Esc>V,-uuu
 \end{lstlisting}
-where SlimuxREPLSendBuffer sends all the text in the bugger and SlimexShellRun
-awaits a command to send to shell.
+where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
+the last shell command. 
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
