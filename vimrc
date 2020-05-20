@@ -118,21 +118,21 @@
 
 " Toggle highlight 
     let hlstate=0
-    nnoremap <F2> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
+    noremap <F2> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
 
 " Toggle Spellcheck
-    map <F3> :setlocal spell! spelllang=en_us<CR>
+    noremap <F3> :setlocal spell! spelllang=en_us<CR>
 
 " Buffer Navigation
-    nmap <F8> :bprev<CR>
-    nmap <F9> :bnext<CR>
-    nnoremap <leader>b :ls<CR>:b<space>
+    noremap <F8> :bprev<CR>
+    noremap <F9> :bnext<CR>
+    noremap <leader>b :ls<CR>:b<space>
 
 " Use \t to open terminal vertically on the right
-    noremap <Leader>t :botright vertical terminal<CR>
+    nnoremap <Leader>T :botright vertical terminal<CR>
 
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
-    map <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
+    nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
 
 " Begins command line for search and replace for the word under the cursor
     nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
@@ -144,8 +144,8 @@
     let g:sendtowindow_use_defaults=0
 
 " Primer for Vim motions
-    nmap ,s <Plug>SendRight
-    xmap ,s <Plug>SendRightV
+    nnoremap ,s <Plug>SendRight
+    xnoremap ,s <Plug>SendRightV
 
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
@@ -157,11 +157,11 @@
 "                                   Slimux 
 " =============================================================================	
 " Key-bindings
-    nmap ,- :SlimuxREPLSendLine<CR>
-    vmap ,- :SlimuxREPLSendSelection<CR>
-    nmap ,A :SlimuxREPLSendBuffer<CR>
-    nmap ,T :SlimuxShellRun 
-    nmap ,l :SlimuxShellLast<CR>
+    nnoremap ,- :SlimuxREPLSendLine<CR>
+    vnoremap ,- :SlimuxREPLSendSelection<CR>
+    nnoremap ,A :SlimuxREPLSendBuffer<CR>
+    nnoremap ,T :SlimuxShellRun 
+    nnoremap ,l :SlimuxShellLast<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder 
@@ -216,7 +216,7 @@
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") && v:this_session == "" | NERDTree | endif
 
 " Shortcut to toggle NERDTree on and off
-    nmap <F12> :NERDTreeToggle<CR>
+    noremap <F12> :NERDTreeToggle<CR>
 
 " Window Size
     let g:NERDTreeWinSize=60
@@ -261,7 +261,7 @@
     nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " For toggling error window open and close
-    map <F4> <ESC>:call SyntasticToggle()<CR>
+    noremap <F4> <ESC>:call SyntasticToggle()<CR>
 
     let g:syntastic_is_open = 0
     function! SyntasticToggle()
@@ -286,7 +286,7 @@
 "                                   Python 
 " =============================================================================	
 " Shortcut to open IPython in a terminal to the right
-    nmap <leader>p :botright vertical terminal ipython --no-autoindent<cr>
+    noremap <leader>P :botright vertical terminal ipython --no-autoindent<cr>
 
 " Shortcut for Running Python Code
     autocmd FileType python map <F6> <Esc>:w<CR>:!clear;python3  %<CR>
@@ -296,8 +296,8 @@
     autocmd FileType python imap ;pdb pdb.set_trace()
 
 " Slimux commands
-    nmap ,C :SlimuxShellRun clear<CR> 
-    nmap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    noremap ,C :SlimuxShellRun clear<CR> 
+    noremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 
 " =============================================================================
 "                                    LaTeX
