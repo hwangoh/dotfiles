@@ -286,7 +286,7 @@
 "                                   Python 
 " =============================================================================	
 " Shortcut to open IPython in a terminal to the right
-    noremap <leader>P :botright vertical terminal ipython --no-autoindent<cr>
+    nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<cr>
 
 " Shortcut for Running Python Code
     autocmd FileType python map <F6> <Esc>:w<CR>:!clear;python3  %<CR>
@@ -296,8 +296,8 @@
     autocmd FileType python imap ;pdb pdb.set_trace()
 
 " Slimux commands
-    noremap ,C :SlimuxShellRun clear<CR> 
-    noremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    nnoremap ,C :SlimuxShellRun clear<CR> 
+    nnoremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 
 " =============================================================================
 "                                    LaTeX
