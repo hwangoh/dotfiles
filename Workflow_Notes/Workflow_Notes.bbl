@@ -108,6 +108,12 @@ junegunn.
 \newblock vim-plug.
 \newblock \url{https://github.com/junegunn/vim-plug/wiki/tutorial}.
 
+\bibitem{justrajdeep2018please}
+justrajdeep.
+\newblock Please help understand how to use <plug> mapping.
+\newblock
+  \url{https://www.reddit.com/r/vim/comments/78izt4/please_help_understand_how_to_use_plug_mapping/}.
+
 \bibitem{karadaharu2016add}
 karadaharu.
 \newblock Add an option to use cpaste for ipython \#68.

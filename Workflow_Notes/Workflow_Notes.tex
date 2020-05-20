@@ -306,7 +306,10 @@ Note that \tlangle leader\trangle lv forward search works without the Vim server
 \section{Python}
 %===============================================================
 The following mapping may prove useful for starting an IPython terminal:\\ 
-nnoremap \tlangle leader\trangle p :botright vertical terminal ipython --no-autoindent\tlangle cr\trangle
+\begin{lstlisting}
+nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
+\end{lstlisting}
+
 %---------------------------------------------------------------
 \subsection{sendtowindow Plugin}
 %---------------------------------------------------------------   
@@ -325,11 +328,12 @@ xmap ,suv <Plug> SendUpV
 nmap ,sd <Plug> SendDown
 xmap ,sdv <Plug> SendDownV
 \end{lstlisting}
-Any one of these mappings will specify to either send some text in normal mode or in visual mode. When in normal mode,
-to specify which text to send, use the usual Vim movements. For example, `,sr\$' will send from the cursor to the end
-of the line to the window on the right. However, if you are in the middle of a line, it may become tedious having to
-first go to the beginning of the line and having to type `\$'. Therefore, we can define line objects using the
-following maps:
+Note that these mappings must not be noremaps (no recursive mapping). For an explanation on why this is the case,
+please see \cite{justrajdeep2018please}. Any one of these mappings will specify to either send some text in normal mode
+or in visual mode. When in normal mode, to specify which text to send, use the usual Vim movements. For example,
+`,sr\$' will send from the cursor to the end of the line to the window on the right. However, if you are in the middle
+of a line, it may become tedious having to first go to the beginning of the line and having to type `\$'. Therefore, we
+can define line objects using the following maps:
 \begin{lstlisting}
 onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
 vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
@@ -339,7 +343,15 @@ vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>norma
 With '\_' alone the indentation is left intact and 'i\_' is without indentation. So, for example, `,sr\_' will send
 the line under the cursor to the window on the right with indentation and `,sr8\_' will send four lines under the
 cursor to the window on the right. Note that this is important for Python as if you try send a for loop with `i\_' and
-leave out the indentation, then it may not run.
+leave out the indentation, then it may not run.\\
+
+Finally, using these mappings, we can create a mapping that sends clear and \%reset commands to the IPython terminal. I
+am aware that these mappings are as hacky as the day is long, but they work:
+\begin{lstlisting}
+autocmd FileType python nmap ,sC A<CR>clear<Esc>V,suu
+autocmd FileType python nmap ,sR A<CR>%reset<Esc>V,suiy<Esc>v,suu
+\end{lstlisting}
+Be sure to use recursive mappings which will allow us to reuse the `,s' mappings from before.
 
 %---------------------------------------------------------------
 \subsection{With tmux}

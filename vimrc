@@ -143,9 +143,9 @@
 " Use own mappings for sendtowindow plugin
     let g:sendtowindow_use_defaults=0
 
-" Primer for Vim motions
-    nnoremap ,s <Plug>SendRight
-    xnoremap ,s <Plug>SendRightV
+" Primer for Vim motions. 
+    nmap ,s <Plug>SendRight
+    xmap ,s <Plug>SendRightV
 
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
@@ -286,7 +286,7 @@
 "                                   Python 
 " =============================================================================	
 " Shortcut to open IPython in a terminal to the right
-    nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<cr>
+    nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
 
 " Shortcut for Running Python Code
     autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3  %<CR>
@@ -295,9 +295,13 @@
 " Insert pdb.set_trace()
     autocmd FileType python inoremap ;pdb pdb.set_trace()
 
+" sendtowindow commands
+    autocmd FileType python nmap ,sC A<CR>clear<Esc>V,suu
+    autocmd FileType python nmap ,sR A<CR>%reset<Esc>V,suiy<Esc>v,suu
+
 " Slimux commands
-    autocmd FileType python noremap ,C :SlimuxShellRun clear<CR> 
-    autocmd FileType python noremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR> 
+    autocmd FileType python nnoremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
 
 " =============================================================================
 "                                    LaTeX
