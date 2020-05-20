@@ -348,8 +348,13 @@ leave out the indentation, then it may not run.\\
 Finally, using these mappings, we can create a mapping that sends clear and \%reset commands to the IPython terminal. I
 am aware that these mappings are as hacky as the day is long, but they work:
 \begin{lstlisting}
-autocmd FileType python nmap ,sC A<CR>clear<Esc>V,suu
-autocmd FileType python nmap ,sR A<CR>%reset<Esc>V,suiy<Esc>v,suu
+" Insert current file name
+inoremap ;F <C-R>=expand("%:t")<CR>
+
+" Clear, Reset and Run Mappings
+nmap ,sC A<CR>clear<Esc>V,suu
+nmap ,sD A<CR>%reset<Esc>V,suiy<Esc>v,suu
+nmap ,sR A<CR>run ;F<Esc>V,suuu
 \end{lstlisting}
 Be sure to use recursive mappings which will allow us to reuse the `,s' mappings from before.
 
@@ -385,7 +390,8 @@ nmap ,A :SlimuxREPLSendBuffer<CR>
 nmap ,T :SlimuxShellRun 
 nmap ,l :SlimuxShellLast<CR>
 nmap ,C :SlimuxShellRun clear<CR>
-nmap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+nmap ,D :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+nmap ,R A<CR>run ;F<Esc>V,-uuu
 \end{lstlisting}
 where SlimuxREPLSendBuffer sends all the text in the bugger and SlimexShellRun awaits a command to send to shell.
 
