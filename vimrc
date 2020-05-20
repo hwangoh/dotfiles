@@ -99,7 +99,7 @@
     inoremap <Tab> <Tab><c-g>u
     inoremap <CR> <CR><c-g>u
 
-" Shifting in visual mode stays in visual mode following shift
+" Shifting blocks of code selected in visual mode 
     xnoremap > >gv
     xnoremap < <gv
 
