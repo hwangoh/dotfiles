@@ -17,6 +17,21 @@ function vtex() {
     vim --servername "$1" "$1"tex
 }
 
+# tmux new session
+function newmux(){
+    tmux new -s $1
+}
+
+# tmux attach session
+function attmux(){
+    tmux attach-session -t $1
+}
+
+# tmux kill session
+function killmux(){
+    tmux kill-session -t $1
+}
+
 # tmux session with vim and IPython:
 function vpmux() {
     dir_name=$PWD # get path of current directory

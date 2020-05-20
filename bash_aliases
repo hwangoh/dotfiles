@@ -17,7 +17,8 @@ alias LSpy="vim -c LSpy"
 alias LSc="vim -c LSc"
 
 # tmux
-alias killmux="tmux kill-server"
+alias lsmux="tmux ls"
+alias killallmux="tmux kill-server"
 
 alias texmux="tmux new -s tex"
 alias cmux="tmux new -s c"
