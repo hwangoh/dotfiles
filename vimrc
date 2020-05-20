@@ -295,13 +295,18 @@
 " Insert pdb.set_trace()
     autocmd FileType python inoremap ;pdb pdb.set_trace()
 
+" Insert current file name
+    autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
+
 " sendtowindow commands
     autocmd FileType python nmap ,sC A<CR>clear<Esc>V,suu
-    autocmd FileType python nmap ,sR A<CR>%reset<Esc>V,suiy<Esc>v,suu
+    autocmd FileType python nmap ,sD A<CR>%reset<Esc>V,suiy<Esc>v,suu
+    autocmd FileType python nmap ,sR A<CR>run ;F<Esc>V,suuu
 
 " Slimux commands
     autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR> 
-    autocmd FileType python nnoremap ,R :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    autocmd FileType python nnoremap ,D :SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>
+    autocmd FileType python nmap ,R A<CR>run ;F<Esc>V,-uuu
 
 " =============================================================================
 "                                    LaTeX

@@ -5,6 +5,8 @@ tmux new-session -d -s $1
 tmux select-window -t 0
 tmux rename-window vim 
 tmux split-window -h
+tmux send-keys 'cd ' $2 C-m
 tmux send-keys 'ipython' C-m
+tmux send-keys 'clear' C-m
 tmux select-pane -L
 tmux send-keys 'cd ' $2 C-m
