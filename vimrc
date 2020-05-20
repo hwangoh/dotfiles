@@ -128,14 +128,17 @@
     noremap <F9> :bnext<CR>
     noremap <leader>b :ls<CR>:b<space>
 
-" Use \t to open terminal vertically on the right
-    nnoremap <Leader>T :botright vertical terminal<CR>
-
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
     nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
 
 " Begins command line for search and replace for the word under the cursor
     nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+
+" Use \T to open terminal vertically on the right
+    nnoremap <Leader>T :botright vertical terminal<CR>
+
+" Use \R to reload vimrc
+    nnoremap <Leader>R :source ~/.vimrc<CR>
 
 " =============================================================================
 "                                 sendtowindow 
@@ -195,14 +198,14 @@
 "                                    Sessions 
 " =============================================================================	
 " Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
-    :command SStex :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
-    :command LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
+    " :command SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
+    " :command LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
 
-    :command SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
-    :command LSpy :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
+    " :command SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
+    " :command LSpy :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
  
-    :command SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
-    :command LSc :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
+    " :command SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
+    " :command LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
 
 " =============================================================================
 "                                   NERDTree 
