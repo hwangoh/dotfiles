@@ -111,9 +111,6 @@
 " <Enter> to Insert Line Below Without Entering Insert Mode
     nnoremap <silent> <Enter>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
-" Teleportation!
-    inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
-
 " Toggle line numbers
     noremap <F1> :set invnumber invrelativenumber<CR>
 
@@ -352,6 +349,9 @@
 " Section and Subsection
     autocmd FileType tex inoremap ;sec %===============================================================<Enter>\section{}<Enter>%===============================================================<Enter><++><Esc>2k0f}i
     autocmd FileType tex inoremap ;ssec %---------------------------------------------------------------<Enter>\subsection{}<Enter>%---------------------------------------------------------------   <Enter><++><Esc>2k0f}i
+
+" Teleportation!
+    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
 
 " Inline Stuff
     autocmd FileType tex inoremap ;mm $$<++><Esc>5ha
