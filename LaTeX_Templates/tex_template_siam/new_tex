@@ -16,6 +16,6 @@ mv $dir_name $file_name #rename dir_name directory to file_name
 
 cd $file_name
 
-mv $dir_name.tex $file_name.tex
+rm -rf new_tex
 
-vim $file_name.tex
+vim main.tex

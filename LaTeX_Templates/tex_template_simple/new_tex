@@ -1,21 +1,20 @@
 #!/bin/bash
 
-file_name=$1 #new name of directory and files
+new_name=$1 #new name of directory and files
 
-dir_name=$(basename $PWD) #name of directory
-full_path=$PWD #full path of directory
+dir_name=$(basename $PWD) #name of template directory
+full_path=$PWD #full path of template directory
 
-cd ../..
+cd ..
 
-two_levels_up=$PWD #full path of two levels up
-mkdir $dir_name
+one_level_up=$PWD #full path of one level up
 
-cp -r $full_path $two_levels_up #copy to two-levels up
+cp -R $full_path $one_level_up/$new_name #copy to two-levels up
 
-mv $dir_name $file_name #rename dir_name directory to file_name
+cd $new_name
 
-cd $file_name
+mv $dir_name.tex $new_name.tex
 
-mv $dir_name.tex $file_name.tex
+rm -rf new_tex
 
-vim $file_name.tex
+vim $new_name.tex
