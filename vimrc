@@ -108,6 +108,9 @@
     nnoremap ' `
     nnoremap Y y$
 
+" Toggle Spellcheck
+    noremap <Leader>S :setlocal spell! spelllang=en_us<CR>
+
 " <Enter> to Insert Line Below Without Entering Insert Mode
     nnoremap <silent> <Enter>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
@@ -120,10 +123,7 @@
 
 " Buffer Navigation
     noremap <F8> <c-^>
-    noremap <Leader>b :ls<CR>:b<space>
-
-" Toggle Spellcheck
-    noremap <F9> :setlocal spell! spelllang=en_us<CR>
+    noremap <F9> :ls<CR>:b<space>
 
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
     nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
