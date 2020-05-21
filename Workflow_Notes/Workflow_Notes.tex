@@ -20,7 +20,7 @@
 %For C++ Code
 \usepackage{listings}
 \usepackage{xcolor}
-\lstset { % 
+\lstset { %
     language=C++,
     backgroundcolor=\color{black!5}, % set backgroundcolor
     basicstyle=\footnotesize,% basic font setting
@@ -49,7 +49,7 @@
 
 
 %---------------------------------------------------------------
-%                         Document Body 
+%                         Document Body
 %---------------------------------------------------------------
 \begin{document}
 \maketitle
@@ -86,7 +86,7 @@ on effective text editing written by the creator of Vim can be found at
         whatever is in register `x'.  Use `:reg' to see the register list.
     \item Use `f\tlangle key\trangle' to forward search for \tlangle
         key\trangle. To backwards search, use `F\tlangle key\trangle'. To repeat
-        the search, use `;'. 
+        the search, use `;'.
     \item The `t' stands for `til'. For example, `dt=' will delete up to and not
         including an = sign.  \item The `*' can be used to search for the word
         under cursor.
@@ -136,7 +136,7 @@ we use a plugin manager; in this case \textit{Pathogen}.\\
 
 %---------------------------------------------------------------
 \subsection{Pathogen} \label{SecPathogen}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 The pathogen plugin makes it possible to cleanly install plugins as a bundle.
 Rather than having to place all of your plugins side by side in the same
 directory, you can keep all of the files for each individual plugin together in
@@ -145,9 +145,9 @@ more straightforward, and also simplifies the tasks of upgrading and even
 removing a plugin if you decide you no longer need it since they are carefully
 segregated from each other. For a good tutorial on Pathogen, see
 \cite{lafourcade2014how}.\\
- 
+
 Following the readme on the repo at \cite{pope2009pathogen}, to install Pathogen
-do the following: 
+do the following:
 \begin{enumerate}
     \item Run in terminal:\\
         mkdir -p \tsim/.vim/autoload \tsim/.vim/bundle \&\& \ \\ curl -LSso
@@ -162,7 +162,7 @@ https://github.com/tpope/vim-sensible.git".
 
 %---------------------------------------------------------------
 \subsection{Submodules: Installing Git Repositories Within Git Repositories}\label{SecSubmodules}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 This section follows \cite{neil2010synchronizing}. Now that we can install
 plugins via Pathogen, let's see how we preserve the version control capabilities
 of our plugins. As a worked example, let us install the \textit{Vimtex} plugin:
@@ -183,12 +183,12 @@ To upgrade ALL of your plugins, use:
 \end{enumerate}
 %---------------------------------------------------------------
 \subsection{Importing Your Vim Configuration and Plugins To a New Machines}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 One of the main benefits of version controlling your Vim configuration and
 plugins is the ease of which they can be imported into a new machine. To do so,
 use the following:
 \begin{enumerate}
-    \item cd \tsim 
+    \item cd \tsim
     \item git clone \tlangle git repo url\trangle \tsim/.vim
     \item ln -s \tsim/.vim/vimrc \tsim/.vimrc
     \item cd \tsim/.vim
@@ -197,7 +197,7 @@ use the following:
 \end{enumerate}
 %---------------------------------------------------------------
 \subsection{Vim-plug}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 Whilst Pathogen is the most basic plugin manager, there are limitations when
 porting your setup to a new machine:
 \begin{enumerate}
@@ -213,7 +213,7 @@ porting your setup to a new machine:
         Further, on your own repository for your configuration, the directories
         containing the plugins will be treated as repositories. Unless you
         manually install the plugins, there is no way to preserve your changes
-        onto Github.  
+        onto Github.
 \end{enumerate}
 The plugin manager Vim-plug \cite{junegunn2014vimplug} has a solution to the
 first problem. This plugin manager is extremely simple to use:
@@ -224,13 +224,13 @@ first problem. This plugin manager is extremely simple to use:
     \item In your vimrc, add the line:\\
         call plug\#begin('\tsim/.vim/plugged')
     \item To include a plugin you wish to install under the line above, in your
-        vimrc add the following line:\\ 
+        vimrc add the following line:\\
         Plug 'https://github.com/lervag/vimtex.git'
     \item Under `Plug \tlangle url \trangle' of your last plugin, in your vimrc
-        add the following line:\\ 
+        add the following line:\\
         call plug\#end()
     \item Reload your vimrc and use the command `:PlugInstall' while in vim. Now
-        all your plugins are installed.  
+        all your plugins are installed.
 \end{enumerate}
 Now to preserve the versions of your plugin:
 \begin{enumerate}
@@ -284,7 +284,7 @@ vimways article \cite{woodruff2019latex} for a good overview.
 
 %---------------------------------------------------------------
 \subsection{Installing and Running Vimtex}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 Assuming you are using the Pathogen plugin manager and version controlling your
 ~/.vim directory, follow the steps used in Section \ref{SecSubmodules}. Then use
 `:Helptags' which is Pathogen's method for generating help tags. With this, we
@@ -292,7 +292,7 @@ can use `:h vimtex' to see the manual for Vimtex. To confirm that the plugin
 works, type ":VimtexInfo" to see a summary of the tex file.
 %---------------------------------------------------------------
 \subsection{Compiling a Tex File}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 The following commands are useful:
 \begin{itemize}
     \item :VimtexCompile \# this is a continuous compiler meaning that everytime
@@ -300,7 +300,7 @@ The following commands are useful:
     \item :VimtexStop \# this stops the continuous compiler
     \item :VimtexCompileSS \# this is a single shot compiler. Note that you have
         to save your file first \item :VimtexClean \# Cleans auxiliary files
-        generated in compilation process 
+        generated in compilation process
 \end{itemize}
 I set the following mappings in my vimrc:
 \begin{lstlisting}
@@ -315,10 +315,10 @@ Here are some useful commands I use in my vimrc:
     let g:tex_flavor = 'latex'
 
 " Use folding. Use zx to unfold and zX to fold all
-    let g:vimtex_fold_enabled = 1 
+    let g:vimtex_fold_enabled = 1
 
 " Toggle Error Window On and Off
-    autocmd FileType tex map <F4> \le 
+    autocmd FileType tex map <F4> \le
 
 " Shortcut for Compiling and Viewing PDF
     autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
@@ -328,14 +328,14 @@ Here are some useful commands I use in my vimrc:
 
 " VimtexClean on exit
   augroup vimtex_config
-    au! 
+    au!
     au User VimtexEventQuit call vimtex#compiler#clean(0)
-  augroup END 
+  augroup END
 \end{lstlisting}
 
 %---------------------------------------------------------------
 \subsection{Forward and Backwards Searching with Synctex}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 This section follows \cite{gunther2014vimtex}. For this, you will need a Vimtex
 server which allows you to do forward and backward to navigate between
 corresponding sections of the tex file and the pdf. You will also need the pdf
@@ -349,10 +349,10 @@ vim-gnome'. Finally, to edit a tex file with navigation capabilities:
     \item In the directory containing the tex file, use:\\
         vim --servername \tlangle servername\trangle \tlangle texfile\trangle.tex
     \item While in tex file, to jump to the text on the pdf corresponding to the
-        line under your cursor, use:\\ 
+        line under your cursor, use:\\
         \tlangle leader\trangle lv
     \item Move your mouse cursor over some text on the pdf. Then, to jump to
-        corresponding text on the tex file, use:\\ 
+        corresponding text on the tex file, use:\\
         Ctrl + left-click
 \end{enumerate}
 Note that \tlangle leader\trangle lv forward search works without the Vim
@@ -360,14 +360,14 @@ server; it's the backwards search that requires the Vim server.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 \begin{itemize}
     \item Good article overviewing Vimtex \cite{woodruff2019latex}
     \item Nice compilation of Vimtex commands \cite{gunther2014vimtex}
     \item Quick guide on the basics of Vimtex \cite{jdhao2019complete}
     \item For a comparison with other Vim LaTeX plugins \cite{lervag2015vim}
     \item Some useful mappings such as the teleportation trick
-        \cite{smith2016my, smith2017start}.  
+        \cite{smith2016my, smith2017start}.
     \item Note-taking using Vim and LaTeX for math lectures \cite{castel2019how}
     \item Vim and LaTeX on MacOS \cite{dyke2020getting}
 \end{itemize}
@@ -383,7 +383,7 @@ nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><
 
 %---------------------------------------------------------------
 \subsection{sendtowindow Plugin}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 When coding in Python with a Vim terminal on the side running IPython, I use the
 \textit{sendtowindow} plugin \cite{KKPMW2016send} to send lines of code to the
 terminal. See \cite{KKPMW2019send} for a Reddit post from the author discussing
@@ -456,7 +456,7 @@ deletes the mark called `q'.
 
 %---------------------------------------------------------------
 \subsection{Slimux plugin}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 There are many plugins that allow interaction between Vim and tmux. For example,
 there is Vim-Slime \cite{jpalardy2012slime} and Vimux \cite{benmills2009vimux}.
 The one I use is Slimux \cite{esamattis2015slimux}. There is a blog post about
@@ -479,9 +479,9 @@ which requires changing line 328 of slimux.vim in the SlimuxSendCode() function:
 \begin{lstlisting}
 let b:code_packet["text"] = a:text
 \end{lstlisting}
-to: 
+to:
 \begin{lstlisting} let
-b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.  
+b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.
 \end{lstlisting}
 Note that this repository has not been updated in years and so all pull requests
 have not been fulfilled. Therefore, if you wish to track the fixes you've made,
@@ -493,8 +493,8 @@ I use the following mappings:
 \begin{lstlisting}
 nmap ,- :SlimuxREPLSendLine<CR>
 vmap ,- :SlimuxREPLSendSelection<CR>
-nmap ,T :SlimuxShellRun 
-nmap ,E :SlimuxShellRun exit<CR> 
+nmap ,T :SlimuxShellRun
+nmap ,E :SlimuxShellRun exit<CR>
 nmap ,l :SlimuxShellLast<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
@@ -506,16 +506,16 @@ nmap ,M mq'xV'z,-`qdmq
 nmap ,R :w!<CR>mqA<CR>run ;F<Esc>V,-uuu`qdmq
 \end{lstlisting}
 where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
-the last shell command. 
+the last shell command.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
-%---------------------------------------------------------------   
+%---------------------------------------------------------------
 \begin{itemize}
     \item A good Reddit thread on workflow with Vim and IPython can be found at
         \cite{abdeljalil732020anyone}. Note that the majority of the responses
         indicate that they use vim-slime and tmux.
-    \item The vim-tmux-runner plugin \cite{toomey2013tmuxrunner} may be worth checking out. 
+    \item The vim-tmux-runner plugin \cite{toomey2013tmuxrunner} may be worth checking out.
     \item The vim-ipython-cell plugin \cite{hanschen2019ipython} may be worth
         checking out. There is a reddit post \cite{hanschen2019reddit} by the
         author on this plugin. Note that this plugin is leverages vim-slime.

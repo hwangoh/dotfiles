@@ -1,6 +1,6 @@
 " =============================================================================
-"                                   Plugins 
-" =============================================================================	
+"                                   Plugins
+" =============================================================================
 " Specify a director for plugins
     call plug#begin('~/.vim/plugged')
 
@@ -21,15 +21,15 @@
     call plug#end()
 
 " =============================================================================
-"                                General Settings 
-" =============================================================================	
+"                                General Settings
+" =============================================================================
 " Standard Stuff
     syntax on
     filetype plugin indent on
     set encoding=utf-8
 
 " Quality of Life Stuff
-    colorscheme apprentice 
+    colorscheme apprentice
     set backspace=indent,eol,start
     set noerrorbells
     set title
@@ -41,7 +41,7 @@
     set nostartofline
     set splitbelow splitright
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disable automatic comment
-    
+
 " Line Wrapping and Indentation
     set wrap
     set linebreak
@@ -73,15 +73,22 @@
     set wildmenu
     set wildmode=longest,list,full
 
-" Automatically set working directory to directory of current file 
+" Automatically set working directory to directory of current file
     autocmd BufEnter * silent! lcd %:p:h
 
-" This allows buffers to be hidden if you've modified a buffer
+" Allows you to switch between buffers without first saving the buffer
     set hidden
 
+" Displays unprintable characters like indents and trailing white spaces
+    set list
+    set listchars=tab:•\ ,trail:•,extends:»,precedes:«
+
+" Automatically remove all trailing whitespaces upon saving
+    autocmd BufWritePre * %s/\s\+$//e
+
 " =============================================================================
-"                               General Mappings 
-" =============================================================================	
+"                               General Mappings
+" =============================================================================
 " All up and down movements agnostic to text wrap type. Further, these follow relative numbers and treat wrapped lines as one line
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
     nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -100,7 +107,7 @@
     inoremap <Tab> <Tab><c-g>u
     inoremap <CR> <CR><c-g>u
 
-" Shifting blocks of code selected in visual mode 
+" Shifting blocks of code selected in visual mode
     xnoremap > >gv
     xnoremap < <gv
 
@@ -114,7 +121,7 @@
 " Toggle line numbers
     noremap <F1> :set invnumber invrelativenumber<CR>
 
-" Toggle highlight 
+" Toggle highlight
     let hlstate=0
     noremap <F3> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
 
@@ -129,10 +136,16 @@
     nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 " Toggle Spellcheck
-    noremap <Leader>sp :setlocal spell! spelllang=en_us<CR>
+    nnoremap <Leader>sp :setlocal spell! spelllang=en_us<CR>
 
-" Force save 
+" Toggle displaying unprintable characters
+    nnoremap <Leader>tr :setlocal invlist<CR>
+
+" Force save
     nnoremap <Leader>S :w!<CR>
+
+" Closer buffer
+    nnoremap <Leader>W :bd!<CR>
 
 " Force quit
     nnoremap <Leader>Q :q!<CR>
@@ -141,21 +154,21 @@
     nnoremap <Leader>T :botright vertical terminal<CR>
 
 " Cancel process on the terminal on the right
-    nnoremap <Leader>C <c-w>l<c-c><c-w>h 
+    nnoremap <Leader>C <c-w>l<c-c><c-w>h
 
 " Exit terminal on the right and quit Vim window
-    nnoremap <Leader>W <c-w>lexit<CR><c-w>q
+    nnoremap <Leader>H <c-w>lexit<CR><c-w>q
 
 " Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
 
 " =============================================================================
-"                                 sendtowindow 
-" =============================================================================	
+"                                 sendtowindow
+" =============================================================================
 " Use own mappings for sendtowindow plugin
     let g:sendtowindow_use_defaults = 0
 
-" Primer for Vim motions 
+" Primer for Vim motions
     nmap ,s <Plug>SendRight
     xmap ,s <Plug>SendRightV
 
@@ -166,23 +179,23 @@
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 
 " Send exit command (I realise this does not utilize the sendtowindow plugin. But it's here to maintain consistency)
-    nnoremap ,sE <c-w>lexit<CR><c-w>h  
+    nnoremap ,sE <c-w>lexit<CR><c-w>h
 
 " =============================================================================
-"                                   Slimux 
-" =============================================================================	
+"                                   Slimux
+" =============================================================================
 " Send line and send visual selection
     nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
     vnoremap ,- :SlimuxREPLSendSelection<CR>
 
 " Send terminal commands
-    nnoremap ,T :SlimuxShellRun 
+    nnoremap ,T :SlimuxShellRun
     nnoremap ,L :SlimuxShellLast<CR>
     nnoremap ,E :SlimuxShellRun exit<CR>
 
 " =============================================================================
-"                                  Fuzzy Finder 
-" =============================================================================	
+"                                  Fuzzy Finder
+" =============================================================================
 " Search down into subfolders
 " Provides tab-completion for all file-related tasks
     set path+=**
@@ -193,11 +206,11 @@
 " - :b lets you autocomplete any open buffer
 
 " =============================================================================
-"                                  Tag Jumping 
-" =============================================================================	
+"                                  Tag Jumping
+" =============================================================================
 " Might need to install ctags first: sudo apt-get install ctags
 
-" Command to create the `tags' file 
+" Command to create the `tags' file
     command! MakeTags !ctags -R .
 
 " Instructions
@@ -209,21 +222,21 @@
 " - This doesn't help if you want a visual list of tags
 
 " =============================================================================
-"                                    Sessions 
-" =============================================================================	
+"                                    Sessions
+" =============================================================================
 " Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
     :command! SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
     :command! LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
 
     :command! SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
     :command! LSpy :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
- 
+
     :command! SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
     :command! LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
 
 " =============================================================================
-"                                   NERDTree 
-" =============================================================================	
+"                                   NERDTree
+" =============================================================================
 " Startup NERDTree automatically if no files were specified
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -238,13 +251,13 @@
 " Window Size
     let g:NERDTreeWinSize=60
 
-" Relative Numbers on Startup 
+" Relative Numbers on Startup
     let NERDTreeShowLineNumbers=1
     autocmd FileType nerdtree setlocal relativenumber
 
 " =============================================================================
 "                                   Airline
-" =============================================================================	
+" =============================================================================
 " Airline plugin buffers
     let g:airline#extensions#tabline#enabled = 1 "enable list of buffers
     let g:airline#extensions#tabline#fnamemod = ':t' "show just the file name
@@ -256,10 +269,10 @@
 " tmuxline plugin
     let g:airline#extensions#tmuxline#enabled = 1
     let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
-    
+
 " =============================================================================
-"                                  Syntastic 
-" =============================================================================	
+"                                  Syntastic
+" =============================================================================
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
@@ -292,22 +305,22 @@
     endfunction
 
 " =============================================================================
-"                                Signature 
-" =============================================================================	
+"                                Signature
+" =============================================================================
 " Toggling marks on and off
     noremap <F2> :SignatureToggle<CR>
 
 " =============================================================================
-"                            Cpp Enhanced Highlight 
-" =============================================================================	
+"                            Cpp Enhanced Highlight
+" =============================================================================
     let g:cpp_class_scope_highlight = 0
     let g:cpp_member_variable_highlight = 0
     let g:cpp_class_decl_highlight = 0
     let g:cpp_posix_standard = 0
 
 " =============================================================================
-"                                   Python 
-" =============================================================================	
+"                                   Python
+" =============================================================================
 " Shortcut for Running Python Code
     autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3  %<CR>
     autocmd FileType python inoremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
@@ -326,7 +339,7 @@
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
     autocmd FileType python nmap ,sR :w!<CR>mqA<CR>run ;F<Esc>V,suuu`qdmq
 
-" Slimux for IPython in tmux terminal : IPython, clear, reset, exit, run variable, run marked section, run code 
+" Slimux for IPython in tmux terminal : IPython, clear, reset, exit, run variable, run marked section, run code
     autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
     autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR>
     autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
@@ -336,7 +349,7 @@
 
 " =============================================================================
 "                                    LaTeX
-" =============================================================================	
+" =============================================================================
 " Use Zathura pdf viewer which enables forward and backward navigation between tex file and pdf. On MacOS, use skim
     if has('macunix')
         let g:vimtex_view_method = 'skim'
