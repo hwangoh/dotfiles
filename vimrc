@@ -118,13 +118,12 @@
     let hlstate=0
     noremap <F2> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
 
-" Toggle Spellcheck
-    noremap <F3> :setlocal spell! spelllang=en_us<CR>
-
 " Buffer Navigation
-    noremap <F8> :bprev<CR>
-    noremap <F9> :bnext<CR>
+    noremap <F8> <c-^>
     noremap <Leader>b :ls<CR>:b<space>
+
+" Toggle Spellcheck
+    noremap <F9> :setlocal spell! spelllang=en_us<CR>
 
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
     nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
@@ -161,7 +160,7 @@
     nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
     vnoremap ,- :SlimuxREPLSendSelection<CR>
     nnoremap ,T :SlimuxShellRun 
-    nnoremap ,l :SlimuxShellLast<CR>
+    nnoremap ,L :SlimuxShellLast<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder 
@@ -273,6 +272,12 @@
         let g:syntastic_is_open = 1
     endif
     endfunction
+
+" =============================================================================
+"                                Signature 
+" =============================================================================	
+" Toggling marks on and off
+    noremap <F3> :SignatureToggle<CR> 
 
 " =============================================================================
 "                            Cpp Enhanced Highlight 
