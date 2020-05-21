@@ -375,7 +375,8 @@ server; it's the backwards search that requires the Vim server.
 %===============================================================
 \section{IPython}
 %===============================================================
-The following mapping may prove useful for starting an IPython terminal:\\ 
+The following mapping may prove useful for starting an IPython terminal in
+Vim:\\
 \begin{lstlisting}
 nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
 \end{lstlisting}
@@ -400,7 +401,7 @@ xmap ,suv <Plug> SendUpV
 nmap ,sd <Plug> SendDown
 xmap ,sdv <Plug> SendDownV
 \end{lstlisting}
-Note that these mappings must not be noremaps (no recursive mapping). For an
+Note that these mappings must not be noremaps (mappings that are non-recursive). For an
 explanation on why this is the case, please see \cite{justrajdeep2018please}.
 Any one of these mappings will specify to either send some text in normal mode
 or in visual mode. When in normal mode, to specify which text to send, use the
@@ -415,11 +416,11 @@ vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal
 onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
 vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 \end{lstlisting}
-With '\_' alone the indentation is left intact and 'i\_' is without indentation.
-So, for example, `,sr\_' will send the line under the cursor to the window on
-the right with indentation and `,sr8\_' will send four lines under the cursor to
+With '-' alone the indentation is left intact and 'i-' is without indentation.
+So, for example, `,sr-' will send the line under the cursor to the window on
+the right with indentation and `,sr8-' will send four lines under the cursor to
 the window on the right. Note that this is important for Python as if you try
-send a for loop with `i\_' and leave out the indentation, then it may not run.\\
+send a for loop with `i-' and leave out the indentation, then it may not run.\\
 
 Finally, using these mappings, we can create a mapping that sends clear and
 \%reset commands to the IPython terminal. I am aware that these mappings are as
@@ -440,13 +441,15 @@ nmap ,sM mq'xV'z,s`qdmq
 nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
 \end{lstlisting}
 Notice that the clear and reset commands don't utilize the sendtovariable
-plugins. However, the other commands do as text needs to be sent to the terminal
+plugin. However, the other commands do as text in the editor needs to be sent to the terminal
 to the right.\\
 
-Be sure to use recursive mappings which will allow us to reuse the `,s' mapping
-from before. Notice also that `mq' sets a mark at your current cursor location
-and `q returns to that location after executing the command. Also, when using
-marked sections, the plugin vim-signature \cite{kshenoy2015signature} may come
+Be sure to use recursive mappings which will allow us to reuse the `,s' and `;F'
+mapping. In order to preserve the cursor position, I use `mq' to set a mark at
+your current cursor location and `q to return to that location after executing
+the command. When executing marked sections, the mapping above specifies that you
+need to mark the beginning of the section you wish to run with `x' and the end
+of that with `z'. The plugin vim-signature \cite{kshenoy2015signature} may come
 in handy for manipulating the marks. In particular, the plugin displays marks
 and the command `dm\tlangle mark name\trangle' deletes the mark; so `dmq' above
 deletes the mark called `q'.
@@ -459,26 +462,31 @@ there is Vim-Slime \cite{jpalardy2012slime} and Vimux \cite{benmills2009vimux}.
 The one I use is Slimux \cite{esamattis2015slimux}. There is a blog post about
 it here \cite{suuronen2012slimux}. As discussed in the blog post, Slimux differs
 from Vimux in that it is more disjoint from tmux. In particular, Vimux will
-create a pane on which you must run your commands whereas slimux allows you to
+create a pane on which you must run your commands whereas Slimux allows you to
 select the pane you wish to use. Also, unlike Vim-Slime, you do not need to
 manually type in the pane to select it; in Slimux an interactive prompt is
 given. It's also worth noting that Vim-Slime supports many terminal multiplexers
 such as GNU Screen, kitty and Vim's native terminal.\\
 
-However, there is an issue with sending commands to IPython where the
+However, with Slimux, there is an issue with sending commands to IPython where the
 indentation is constantly carried over \cite{kmARC2015indentationerror}. There
 are three proposed fixes
 \cite{lotabout2017remove,karadaharu2016add,zcesur2018fix}. The first modifies
 python.vim, the second modifies both slimux.vim and python.vim by implementing
 IPython's cpaste function and the third modifies a single line of slimux.vim.
 Since the repo owner hasn't pulled any of these fixes, I opted for the third fix
-which requires changing line 328 of slimux.vim to: 
+which requires changing line 328 of slimux.vim in the SlimuxSendCode() function:
+\begin{lstlisting}
+let b:code_packet["text"] = a:text
+\end{lstlisting}
+to: 
 \begin{lstlisting} let
 b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.  
 \end{lstlisting}
 Note that this repository has not been updated in years and so all pull requests
 have not been fulfilled. Therefore, if you wish to track the fixes you've made,
-you may want to install the plugin using the method disussed in Section
+you may want to install the plugin manually so that it does not follow the
+original repository. This was disussed in Section
 \ref{SecNativePluginManagement}.\\
 
 I use the following mappings:
