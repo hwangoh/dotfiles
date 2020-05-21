@@ -61,7 +61,7 @@
     set shiftwidth=4
     set shiftround
 
-" Disable swap and backup files (I save all the time)
+" Disable swap and backup files
     set nobackup
     set nowritebackup
     set noswapfile
@@ -295,7 +295,7 @@
 "                                Signature 
 " =============================================================================	
 " Toggling marks on and off
-    noremap <F2> :SignatureToggle<CR> 
+    noremap <F2> :SignatureToggle<CR>
 
 " =============================================================================
 "                            Cpp Enhanced Highlight 
