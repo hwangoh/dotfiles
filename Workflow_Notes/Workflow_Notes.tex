@@ -433,12 +433,16 @@ xmap ,s <Plug>SendRightV
 inoremap ;F <C-R>=expand("%:t")<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-nmap ,sC mqA<CR>clear<Esc>V,suu`qdmq 
-nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`qdmq
+nnoremap ,sC <c-w>lclear<CR><c-w>h
+nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
 nmap ,sV mqviw,s`qdmq
 nmap ,sM mq'xV'z,s`qdmq
 nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
 \end{lstlisting}
+Notice that the clear and reset commands don't utilize the sendtovariable
+plugins. However, the other commands do as text needs to be sent to the terminal
+to the right.\\
+
 Be sure to use recursive mappings which will allow us to reuse the `,s' mapping
 from before. Notice also that `mq' sets a mark at your current cursor location
 and `q returns to that location after executing the command. Also, when using
@@ -448,7 +452,7 @@ and the command `dm\tlangle mark name\trangle' deletes the mark; so `dmq' above
 deletes the mark called `q'.
 
 %---------------------------------------------------------------
-\subsection{With tmux}
+\subsection{Slimux plugin}
 %---------------------------------------------------------------   
 There are many plugins that allow interaction between Vim and tmux. For example,
 there is Vim-Slime \cite{jpalardy2012slime} and Vimux \cite{benmills2009vimux}.
@@ -482,14 +486,16 @@ I use the following mappings:
 nmap ,- :SlimuxREPLSendLine<CR>
 vmap ,- :SlimuxREPLSendSelection<CR>
 nmap ,T :SlimuxShellRun 
+nmap ,E :SlimuxShellRun exit<CR> 
 nmap ,l :SlimuxShellLast<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-nmap ,C mq:SlimuxShellRun clear<CR>`qdmq
-nmap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`qdmq
+nnoremap ,P :SlimuxShellRun ipython<CR>
+nnoremap ,C :SlimuxShellRun clear<CR>
+nnoremap ,D :SlimuxShellRun %reset -f<CR>
 nmap ,V mqviw,-`qdmq
 nmap ,M mq'xV'z,-`qdmq
-nmap ,R mqA<CR>run ;F<Esc>V,-uuu`qdmq
+nmap ,R :w!<CR>mqA<CR>run ;F<Esc>V,-uuu`qdmq
 \end{lstlisting}
 where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
 the last shell command. 

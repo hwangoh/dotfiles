@@ -108,9 +108,6 @@
     nnoremap ' `
     nnoremap Y y$
 
-" Toggle Spellcheck
-    noremap <Leader>S :setlocal spell! spelllang=en_us<CR>
-
 " <Enter> to Insert Line Below Without Entering Insert Mode
     nnoremap <silent> <Enter>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
@@ -119,29 +116,44 @@
 
 " Toggle highlight 
     let hlstate=0
-    noremap <F2> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
+    noremap <F3> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
 
 " Buffer Navigation
     noremap <F8> <c-^>
     noremap <F9> :ls<CR>:b<space>
 
 " Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
-    nnoremap <c-f> "zyiw:exe "%s/".@z."//gn"<CR>
+    nnoremap <Leader>f "zyiw:exe "%s/".@z."//gn"<CR>
 
 " Begins command line for search and replace for the word under the cursor
     nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
-" Use \T to open terminal vertically on the right
+" Toggle Spellcheck
+    noremap <Leader>sp :setlocal spell! spelllang=en_us<CR>
+
+" Force save 
+    nnoremap <Leader>S :w!<CR>
+
+" Force quit
+    nnoremap <Leader>Q :q!<CR>
+
+" Open terminal vertically on the right
     nnoremap <Leader>T :botright vertical terminal<CR>
 
-" Use \R to reload vimrc
+" Cancel process on the terminal on the right
+    nnoremap <Leader>C <c-w>l<c-c><c-w>h 
+
+" Exit terminal on the right and quit Vim window
+    nnoremap <Leader>E <c-w>lexit<CR><c-w>q
+
+" Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
 
 " =============================================================================
 "                                 sendtowindow 
 " =============================================================================	
 " Use own mappings for sendtowindow plugin
-    let g:sendtowindow_use_defaults=0
+    let g:sendtowindow_use_defaults = 0
 
 " Primer for Vim motions. 
     nmap ,s <Plug>SendRight
@@ -161,6 +173,7 @@
     vnoremap ,- :SlimuxREPLSendSelection<CR>
     nnoremap ,T :SlimuxShellRun 
     nnoremap ,L :SlimuxShellLast<CR>
+    nnoremap ,E :SlimuxShellRun exit<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder 
@@ -277,7 +290,7 @@
 "                                Signature 
 " =============================================================================	
 " Toggling marks on and off
-    noremap <F3> :SignatureToggle<CR> 
+    noremap <F2> :SignatureToggle<CR> 
 
 " =============================================================================
 "                            Cpp Enhanced Highlight 
@@ -303,16 +316,17 @@
 " Insert current file name
     autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
 
-" sendtowindow commands: clear, reset, run variable, run marked section, run code
-    autocmd FileType python nmap ,sC mqA<CR>clear<Esc>V,suu`qdmq
-    autocmd FileType python nmap ,sD mqA<CR>%reset<Esc>V,suiy<Esc>v,suu`qdmq
+" clear, reset, run variable, run marked section, run code (exit is a general mapping)
+    autocmd FileType python nnoremap ,sC <c-w>lclear<CR><c-w>h
+    autocmd FileType python nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
     autocmd FileType python nmap ,sV mqviw,s`qdmq
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
     autocmd FileType python nmap ,sR :w!<CR>mqA<CR>run ;F<Esc>V,suuu`qdmq
 
-" Slimux commands:  clear, reset, run variable, run marked section, run code
-    autocmd FileType python nnoremap ,C mq:SlimuxShellRun clear<CR>`qdmq
-    autocmd FileType python nnoremap ,D mq:SlimuxShellRun %reset<CR>:SlimuxShellRun y<CR>`qdmq
+" Slimux commands: IPython, clear, reset, exit, run variable, run marked section, run code 
+    autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
+    autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR>
+    autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
     autocmd FileType python nmap ,V mqviw,-`qdmq
     autocmd FileType python nmap ,M mq'xV'z,-`qdmq
     autocmd FileType python nmap ,R :w!<CR>mqA<CR>run ;F<Esc>V,-uuu`qdmq
@@ -331,7 +345,7 @@
     let g:tex_flavor = 'latex'
 
 " Use folding. Use zx to unfold and zX to fold all
-    let g:vimtex_fold_enabled = 1
+    let g:vimtex_fold_enabled = 0
 
 " Turn off autoindent when using Vimtex
     let g:latex_indent_enabled = 0
