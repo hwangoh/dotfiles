@@ -144,7 +144,7 @@
     nnoremap <Leader>C <c-w>l<c-c><c-w>h 
 
 " Exit terminal on the right and quit Vim window
-    nnoremap <Leader>E <c-w>lexit<CR><c-w>q
+    nnoremap <Leader>W <c-w>lexit<CR><c-w>q
 
 " Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
@@ -155,7 +155,7 @@
 " Use own mappings for sendtowindow plugin
     let g:sendtowindow_use_defaults = 0
 
-" Primer for Vim motions. 
+" Primer for Vim motions 
     nmap ,s <Plug>SendRight
     xmap ,s <Plug>SendRightV
 
@@ -165,12 +165,17 @@
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 
+" Send exit command (I realise this does not utilize the sendtowindow plugin. But it's here to maintain consistency)
+    nnoremap ,sE <c-w>lexit<CR><c-w>h  
+
 " =============================================================================
 "                                   Slimux 
 " =============================================================================	
-" Key-bindings
+" Send line and send visual selection
     nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
     vnoremap ,- :SlimuxREPLSendSelection<CR>
+
+" Send terminal commands
     nnoremap ,T :SlimuxShellRun 
     nnoremap ,L :SlimuxShellLast<CR>
     nnoremap ,E :SlimuxShellRun exit<CR>
@@ -303,9 +308,6 @@
 " =============================================================================
 "                                   Python 
 " =============================================================================	
-" Shortcut to open IPython in a terminal to the right
-    nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
-
 " Shortcut for Running Python Code
     autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3  %<CR>
     autocmd FileType python inoremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
@@ -316,14 +318,15 @@
 " Insert current file name
     autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
 
-" clear, reset, run variable, run marked section, run code (exit is a general mapping)
+" sendtowindow for IPython in Vim Terminal: clear, reset, run variable, run marked section, run code (exit is a general mapping)
+    nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
     autocmd FileType python nnoremap ,sC <c-w>lclear<CR><c-w>h
     autocmd FileType python nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
     autocmd FileType python nmap ,sV mqviw,s`qdmq
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
     autocmd FileType python nmap ,sR :w!<CR>mqA<CR>run ;F<Esc>V,suuu`qdmq
 
-" Slimux commands: IPython, clear, reset, exit, run variable, run marked section, run code 
+" Slimux for IPython in tmux terminal : IPython, clear, reset, exit, run variable, run marked section, run code 
     autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
     autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR>
     autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
