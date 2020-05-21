@@ -398,12 +398,13 @@
     autocmd FileType tex inoremap ;rf \ref{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;erf (\ref{})<++><Esc>7hf}i
 
-" Create Environments
+" Environments
     autocmd FileType tex inoremap ;itm \begin{itemize}<Enter><Enter>\end{itemize}<Enter><++><Esc>2kA\item<Space>
     autocmd FileType tex inoremap ;enu \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><++><Esc>2kA\item<Space>
     autocmd FileType tex inoremap ;aln \begin{align}<Enter><Enter>\end{align}<Enter><++><Esc>2kA
     autocmd FileType tex inoremap ;sub \begin{subequations}<Enter>\begin{align}<Enter><Enter>\end{align}<Enter>\end{subequations}<Enter><++><Esc>3kA<Tab>
     autocmd FileType tex inoremap ;mat \begin{bmatrix}<Enter><Enter>\end{bmatrix}<Enter><++><Esc>2kA
+    autocmd FileType tex inoremap ;cas \begin{cases}<Enter><Enter>\end{cases}<Enter><++><Esc>2kA
     autocmd FileType tex inoremap ;lst \begin{lstlisting}<Enter><Enter>\end{lstlisting}<Enter><++><Esc>2kA
     autocmd FileType tex inoremap ;fig \begin{figure}[H]<Enter>\centering<Enter>\includegraphics[scale=\figscale]{}<Enter>\caption{<++>}<Enter>\label{<++>}<Enter>\end{figure}<Enter><++><Esc>4kf}i
 
