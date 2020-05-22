@@ -189,7 +189,7 @@
     vnoremap ,- :SlimuxREPLSendSelection<CR>
 
 " Send terminal commands
-    nnoremap ,T :SlimuxShellRun
+    nnoremap ,T :SlimuxShellRun<Space>
     nnoremap ,L :SlimuxShellLast<CR>
     nnoremap ,E :SlimuxShellRun exit<CR>
 
