@@ -80,7 +80,6 @@
     set hidden
 
 " Displays unprintable characters like indents and trailing white spaces
-    set list
     set listchars=tab:•\ ,trail:•,extends:»,precedes:«
 
 " Automatically remove all trailing whitespaces upon saving
