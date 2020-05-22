@@ -188,9 +188,15 @@
     vnoremap ,- :SlimuxREPLSendSelection<CR>
 
 " Send terminal commands
+    nnoremap ,X :SlimuxShellPrompt<CR>
     nnoremap ,T :SlimuxShellRun<Space>
-    nnoremap ,L :SlimuxShellLast<CR>
+    nnoremap ,t :SlimuxShellLast<CR>
     nnoremap ,E :SlimuxShellRun exit<CR>
+
+" Send keys using the 'tmux send-keys' syntax
+    nnoremap ,K :SlimuxSendKeys<Space>
+    nnoremap ,k :SlimuxSendKeysLast<CR>
+    nnoremap ,C :SlimuxSendKeys<Space>c-c<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder
@@ -332,7 +338,7 @@
 
 " sendtowindow for IPython in Vim Terminal: clear, reset, run variable, run marked section, run code (exit is a general mapping)
     nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
-    autocmd FileType python nnoremap ,sC <c-w>lclear<CR><c-w>h
+    autocmd FileType python nnoremap ,sL <c-w>lclear<CR><c-w>h
     autocmd FileType python nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
     autocmd FileType python nmap ,sV mqviw,s`qdmq
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
@@ -340,7 +346,7 @@
 
 " Slimux for IPython in tmux terminal : IPython, clear, reset, exit, run variable, run marked section, run code
     autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
-    autocmd FileType python nnoremap ,C :SlimuxShellRun clear<CR>
+    autocmd FileType python nnoremap ,L :SlimuxShellRun clear<CR>
     autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
     autocmd FileType python nmap ,V mqviw,-`qdmq
     autocmd FileType python nmap ,M mq'xV'z,-`qdmq

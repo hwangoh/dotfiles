@@ -114,7 +114,7 @@ on effective text editing written by the creator of Vim can be found at
     \item Use `:ls' to see the list of buffers then `:b' and the number to
         select one. A useful mapping for this process is:\\ nnoremap \tlangle
         leader\trangle b:ls\tlangle cr\trangle:b\tlangle space\trangle
-    \item Use `\tlangle number\trangle + \tlangle c-6\trangle' to switch to numbered buffer.
+    \item Use `\tlangle number\trangle +\tlangle c-6\trangle' to switch to numbered buffer.
     \item Use `\tlangle c-f\trangle' in command line mode to view the command history in a
         buffer.
     \item In general, all yank, change or delete actions such as `y, c, d, x'
@@ -127,8 +127,9 @@ on effective text editing written by the creator of Vim can be found at
     \item When using search `/\tlangle word\trangle', you can use \tlangle c-g
         \trangle and \tlangle c-t\trangle to cycle through them without
         confirming your search with \tlangle CR\trangle.
-    \item Use `\tlangle c-r\rtrangle' in command line mode to paste from the
+    \item Use `\tlangle c-r\trangle' in command line mode to paste from the
         register.
+    \item Use `\tlangle c-r\trangle' in insert mode to paste from the register.
 \end{enumerate}
 
 %===============================================================
@@ -346,6 +347,45 @@ Here are some useful commands I use in my vimrc:
     au User VimtexEventQuit call vimtex#compiler#clean(0)
   augroup END
 \end{lstlisting}
+And here are some useful mappings for creating common math related LaTeX tex
+objects:
+\begin{lstlisting}
+" Teleportation!
+    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+
+" Inline Stuff
+    autocmd FileType tex inoremap ;mm $$<++><Esc>5ha
+    autocmd FileType tex inoremap ;bf \textbf{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;it \textit{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;bfs \boldsymbol{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;ct \cite{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;lb \label{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;rf \ref{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;erf (\ref{})<++><Esc>7hf}i
+
+" Environments
+    autocmd FileType tex inoremap ;itm \begin{itemize}<Enter><Enter>\end{itemize}<Enter><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;enu \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;aln \begin{align}<Enter><Enter>\end{align}<Enter><++><Esc>2kA
+
+" Math Environments
+    autocmd Filetype tex inoremap ;def \begin{definition}<Enter><Enter>\end{definition}<Enter><++><Esc>2kA
+    autocmd Filetype tex inoremap ;thm \begin{theorem}<Enter><Enter>\end{theorem}<Enter><++><Esc>2kA
+    autocmd Filetype tex inoremap ;lem \begin{lemma}<Enter><Enter>\end{lemma}<Enter><++><Esc>2kA
+    autocmd Filetype tex inoremap ;cor \begin{corollary}<Enter><Enter>\end{corollary}<Enter><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prp \begin{proposition}<Enter><Enter>\end{proposition}<Enter><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prf \begin{proof}<Enter><Enter>\end{proof}<Esc>1kA
+
+" Math Stuff
+    autocmd Filetype tex inoremap ;T ^\mathrm{T}
+    autocmd FileType tex inoremap ;sd _{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;su ^{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;frc \frac{}{<++>}<++><Esc>12hf}i
+    autocmd FileType tex inoremap ;mbb \mathbb{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;lrp \left(\right)<++><Esc>12hf(a
+    autocmd FileType tex inoremap ;lrs \left[\right]<++><Esc>12hf[a
+    autocmd FileType tex inoremap ;lrn \left\lVert\right\rVert<++><Esc>15hi<Space>
+\end{lstlisting}
 
 %---------------------------------------------------------------
 \subsection{Forward and Backwards Searching with Synctex}
@@ -441,18 +481,18 @@ Finally, using these mappings, we can create a mapping that sends clear and
 hacky as the day is long, but they work:
 \begin{lstlisting}
 " Send to right window (I only really ever use the right window)
-nmap ,s <Plug>SendRight
-xmap ,s <Plug>SendRightV
+    nmap ,s <Plug>SendRight
+    xmap ,s <Plug>SendRightV
 
 " Insert current file name
-inoremap ;F <C-R>=expand("%:t")<CR>
+    inoremap ;F <C-R>=expand("%:t")<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-nnoremap ,sC <c-w>lclear<CR><c-w>h
-nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
-nmap ,sV mqviw,s`qdmq
-nmap ,sM mq'xV'z,s`qdmq
-nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
+    nnoremap ,sC <c-w>lclear<CR><c-w>h
+    nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
+    nmap ,sV mqviw,s`qdmq
+    nmap ,sM mq'xV'z,s`qdmq
+    nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
 \end{lstlisting}
 Notice that the clear and reset commands don't utilize the sendtovariable
 plugin. However, the other commands do as text in the editor needs to be sent to the terminal
@@ -497,27 +537,46 @@ to:
 \begin{lstlisting} let
 b:code_packet["text"] = "\e[200~" . a:text . "\e[201~\r\r.
 \end{lstlisting}
-Note that this repository has not been updated in years and so all pull requests
-have not been fulfilled. Therefore, if you wish to track the fixes you've made,
-you may want to install the plugin manually so that it does not follow the
-original repository. This was disussed in Section
-\ref{SecNativePluginManagement}.\\
+There is also an issue with the SlimuxSendKeys() function. This function sends
+keys to the terminal using the `tmux send-keys' syntax. A simple fix is to
+change line 228 of slimux.vim from
+\begin{lstlisting}
+call system(g:slimux_tmux_path . ' send-keys -t " . target . " " . keys)
+\end{lstlisting}
+to
+\begin{lstlisting}
+call system(g:slimux_tmux_path . " send-keys -t " . target . " " . keys)
+\end{lstlisting}
+It's surprising that this small typo went unnoticed. Note that this repository has not
+been updated in years and so all pull requests have not been fulfilled.
+Therefore, if you wish to track the fixes you've made, you may want to install
+the plugin manually so that it does not follow the original repository. This was
+disussed in Section \ref{SecNativePluginManagement}.\\
 
 I use the following mappings:
 \begin{lstlisting}
-nmap ,- :SlimuxREPLSendLine<CR>
-vmap ,- :SlimuxREPLSendSelection<CR>
-nmap ,T :SlimuxShellRun
-nmap ,E :SlimuxShellRun exit<CR>
-nmap ,l :SlimuxShellLast<CR>
+" Send line and send visual selection
+    nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
+    vnoremap ,- :SlimuxREPLSendSelection<CR>
 
-" Clear, Reset, Run Variable, Run Marked Section and Run Code
-nnoremap ,P :SlimuxShellRun ipython<CR>
-nnoremap ,C :SlimuxShellRun clear<CR>
-nnoremap ,D :SlimuxShellRun %reset -f<CR>
-nmap ,V mqviw,-`qdmq
-nmap ,M mq'xV'z,-`qdmq
-nnoremap ,R :SlimuxShellRun run <c-r>%<CR>
+" Send terminal commands
+    nnoremap ,X :SlimuxShellPrompt<CR>
+    nnoremap ,T :SlimuxShellRun<Space>
+    nnoremap ,t :SlimuxShellLast<CR>
+    nnoremap ,E :SlimuxShellRun exit<CR>
+
+" Send keys using the 'tmux send-keys' syntax
+    nnoremap ,K :SlimuxSendKeys<Space>
+    nnoremap ,k :SlimuxSendKeysLast<CR>
+    nnoremap ,C :SlimuxSendKeys<Space>c-c<CR>
+
+" IPython, Clear, Reset, Run Variable, Run Marked Section and Run Code
+    nnoremap ,P :SlimuxShellRun ipython<CR>
+    nnoremap ,L :SlimuxShellRun clear<CR>
+    nnoremap ,D :SlimuxShellRun %reset -f<CR>
+    nmap ,V mqviw,-`qdmq
+    nmap ,M mq'xV'z,-`qdmq
+    nnoremap ,R :SlimuxShellRun run <c-r>%<CR>
 \end{lstlisting}
 where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
 the last shell command. For the last command that runs the Python code, we
