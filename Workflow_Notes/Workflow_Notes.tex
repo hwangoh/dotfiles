@@ -114,9 +114,19 @@ on effective text editing written by the creator of Vim can be found at
     \item Use `:ls' to see the list of buffers then `:b' and the number to
         select one. A useful mapping for this process is:\\ nnoremap \tlangle
         leader\trangle b:ls\tlangle cr\trangle:b\tlangle space\trangle
-    \item Use `\tlangle number\trangle + <c-6>' to switch to numbered buffer.
-    \item Use `\tlangle c-Ft\trangle' in command line mode to view the command history in a
+    \item Use `\tlangle number\trangle + \tlangle c-6\trangle' to switch to numbered buffer.
+    \item Use `\tlangle c-F\trangle' in command line mode to view the command history in a
         buffer.
+    \item In general, all yank, change or delete actions such as `y, c, d, x'
+        etc will register the text object into the "" register. However, any
+        yank action will also register the text object into the "0 register and
+        any delete or change action will register the text object into the "-
+        register.
+    \item Use `s' or `S' to substitute. This is useful when you want to replace
+        one letter with multiple letters.
+    \item When using search `/\tlangle word\trangle', you can use \tlangle c-g
+        \trangle and \tlangle c-t\trangle to cycle through them without
+        confirming your search with \tlangle CR\trangle.
 \end{itemize}
 
 %===============================================================
