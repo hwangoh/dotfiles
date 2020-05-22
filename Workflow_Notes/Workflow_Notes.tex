@@ -319,10 +319,10 @@ The following commands are useful:
 \end{itemize}
 I set the following mappings in my vimrc:
 \begin{lstlisting}
-autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
-autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
-autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
-autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+autocmd FileType tex nnoremap <F5> :VimtexView<CR>
+autocmd FileType tex inoremap <F5> <Esc> :VimtexView<CR>
+autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<CR>
+autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<CR>
 \end{lstlisting}
 Here are some useful commands I use in my vimrc:
 \begin{lstlisting}
@@ -336,10 +336,10 @@ Here are some useful commands I use in my vimrc:
     autocmd FileType tex map <F4> \le
 
 " Shortcut for Compiling and Viewing PDF
-    autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
-    autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
-    autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
-    autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+    autocmd FileType tex nnoremap <F5> :VimtexView<CR>
+    autocmd FileType tex inoremap <F5> <Esc> :VimtexView<CR>
+    autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<CR>
+    autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<CR>
 
 " VimtexClean on exit
   augroup vimtex_config
@@ -351,7 +351,7 @@ And here are some useful mappings for creating common math related LaTeX tex
 objects:
 \begin{lstlisting}
 " Teleportation!
-    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><CR>"_c4l
 
 " Inline Stuff
     autocmd FileType tex inoremap ;mm $$<++><Esc>5ha
@@ -364,17 +364,17 @@ objects:
     autocmd FileType tex inoremap ;erf (\ref{})<++><Esc>7hf}i
 
 " Environments
-    autocmd FileType tex inoremap ;itm \begin{itemize}<Enter><Enter>\end{itemize}<Enter><++><Esc>2kA\item<Space>
-    autocmd FileType tex inoremap ;enu \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><++><Esc>2kA\item<Space>
-    autocmd FileType tex inoremap ;aln \begin{align}<Enter><Enter>\end{align}<Enter><++><Esc>2kA
+    autocmd FileType tex inoremap ;itm \begin{itemize}<CR><CR>\end{itemize}<CR><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;enu \begin{enumerate}<CR><CR>\end{enumerate}<CR><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;aln \begin{align}<CR><CR>\end{align}<CR><++><Esc>2kA
 
 " Math Environments
-    autocmd Filetype tex inoremap ;def \begin{definition}<Enter><Enter>\end{definition}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;thm \begin{theorem}<Enter><Enter>\end{theorem}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;lem \begin{lemma}<Enter><Enter>\end{lemma}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;cor \begin{corollary}<Enter><Enter>\end{corollary}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;prp \begin{proposition}<Enter><Enter>\end{proposition}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;prf \begin{proof}<Enter><Enter>\end{proof}<Esc>1kA
+    autocmd Filetype tex inoremap ;def \begin{definition}<CR><CR>\end{definition}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;thm \begin{theorem}<CR><CR>\end{theorem}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;lem \begin{lemma}<CR><CR>\end{lemma}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;cor \begin{corollary}<CR><CR>\end{corollary}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prp \begin{proposition}<CR><CR>\end{proposition}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prf \begin{proof}<CR><CR>\end{proof}<Esc>1kA
 
 " Math Stuff
     autocmd Filetype tex inoremap ;T ^\mathrm{T}
@@ -606,7 +606,6 @@ only items present in the text can be sent to the terminal window.
         as well as sending one line of code, but I have issues sending over
         cells.
 \end{itemize}
-
 
 %---------------------------------------------------------------
 %                         Bibliography

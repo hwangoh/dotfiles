@@ -114,8 +114,8 @@
     nnoremap ' `
     nnoremap Y y$
 
-" <Enter> to Insert Line Below Without Entering Insert Mode
-    nnoremap <silent> <Enter>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
+" <CR> to Insert Line Below Without Entering Insert Mode
+    nnoremap <silent> <CR>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
 " Toggle line numbers
     noremap <F1> :set invnumber invrelativenumber<CR>
@@ -375,10 +375,10 @@
     autocmd FileType tex map <F4> \le
 
 " Shortcut for Compiling and Viewing PDF
-    autocmd FileType tex nnoremap <F5> :VimtexView<Enter>
-    autocmd FileType tex inoremap <F5> <Esc> :VimtexView<Enter>
-    autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<Enter>
-    autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<Enter>
+    autocmd FileType tex nnoremap <F5> :VimtexView<CR>
+    autocmd FileType tex inoremap <F5> <Esc> :VimtexView<CR>
+    autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<CR>
+    autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<CR>
 
 " VimtexClean on exit
   augroup vimtex_config
@@ -387,11 +387,11 @@
   augroup END
 
 " Section and Subsection
-    autocmd FileType tex inoremap ;sec %===============================================================<Enter>\section{}<Enter>%===============================================================<Enter><++><Esc>2k0f}i
-    autocmd FileType tex inoremap ;ssec %---------------------------------------------------------------<Enter>\subsection{}<Enter>%---------------------------------------------------------------   <Enter><++><Esc>2k0f}i
+    autocmd FileType tex inoremap ;sec %===============================================================<CR>\section{}<CR>%===============================================================<CR><++><Esc>2k0f}i
+    autocmd FileType tex inoremap ;ssec %---------------------------------------------------------------<CR>\subsection{}<CR>%---------------------------------------------------------------   <CR><++><Esc>2k0f}i
 
 " Teleportation!
-    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+    autocmd FileType tex inoremap <Space><Space> <Esc>/<++><CR>"_c4l
 
 " Inline Stuff
     autocmd FileType tex inoremap ;mm $$<++><Esc>5ha
@@ -404,22 +404,21 @@
     autocmd FileType tex inoremap ;erf (\ref{})<++><Esc>7hf}i
 
 " Environments
-    autocmd FileType tex inoremap ;itm \begin{itemize}<Enter><Enter>\end{itemize}<Enter><++><Esc>2kA\item<Space>
-    autocmd FileType tex inoremap ;enu \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><++><Esc>2kA\item<Space>
-    autocmd FileType tex inoremap ;aln \begin{align}<Enter><Enter>\end{align}<Enter><++><Esc>2kA
-    autocmd FileType tex inoremap ;sub \begin{subequations}<Enter>\begin{align}<Enter><Enter>\end{align}<Enter>\end{subequations}<Enter><++><Esc>3kA<Tab>
-    autocmd FileType tex inoremap ;mat \begin{bmatrix}<Enter><Enter>\end{bmatrix}<Enter><++><Esc>2kA
-    autocmd FileType tex inoremap ;cas \begin{cases}<Enter><Enter>\end{cases}<Enter><++><Esc>2kA
-    autocmd FileType tex inoremap ;lst \begin{lstlisting}<Enter><Enter>\end{lstlisting}<Enter><++><Esc>2kA
-    autocmd FileType tex inoremap ;fig \begin{figure}[H]<Enter>\centering<Enter>\includegraphics[scale=\figscale]{}<Enter>\caption{<++>}<Enter>\label{<++>}<Enter>\end{figure}<Enter><++><Esc>4kf}i
+    autocmd FileType tex inoremap ;itm \begin{itemize}<CR><CR>\end{itemize}<CR><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;enu \begin{enumerate}<CR><CR>\end{enumerate}<CR><++><Esc>2kA\item<Space>
+    autocmd FileType tex inoremap ;aln \begin{align}<CR><CR>\end{align}<CR><++><Esc>2kA
+    autocmd FileType tex inoremap ;sub \begin{subequations}<CR>\begin{align}<CR><CR>\end{align}<CR>\end{subequations}<CR><++><Esc>3kA<Tab>
+    autocmd FileType tex inoremap ;mat \begin{bmatrix}<CR><CR>\end{bmatrix}<CR><++><Esc>2kA
+    autocmd FileType tex inoremap ;cas \begin{cases}<CR><CR>\end{cases}<CR><++><Esc>2kA
+    autocmd FileType tex inoremap ;lst \begin{lstlisting}<CR><CR>\end{lstlisting}<CR><++><Esc>2kA
+    autocmd FileType tex inoremap ;fig \begin{figure}[H]<CR>\centering<CR>\includegraphics[scale=\figscale]{}<CR>\caption{<++>}<CR>\label{<++>}<CR>\end{figure}<CR><++><Esc>4kf}i
 
 " Math Environments
-    autocmd Filetype tex inoremap ;def \begin{definition}<Enter><Enter>\end{definition}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;thm \begin{theorem}<Enter><Enter>\end{theorem}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;lem \begin{lemma}<Enter><Enter>\end{lemma}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;cor \begin{corollary}<Enter><Enter>\end{corollary}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;prp \begin{proposition}<Enter><Enter>\end{proposition}<Enter><++><Esc>2kA
-    autocmd Filetype tex inoremap ;prf \begin{proof}<Enter><Enter>\end{proof}<Esc>1kA
+    autocmd Filetype tex inoremap ;def \begin{definition}<CR><CR>\end{definition}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;thm \begin{theorem}<CR><CR>\end{theorem}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;lem \begin{lemma}<CR><CR>\end{lemma}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;cor \begin{corollary}<CR><CR>\end{corollary}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prp \begin{proposition}<CR><CR>\end{proposition}<CR><++><Esc>2kA
 
 " Math Stuff
     autocmd Filetype tex inoremap ;T ^\mathrm{T}
