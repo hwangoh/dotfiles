@@ -61,7 +61,7 @@ Some good references are \cite{chang2018vim,toomey2015mastering}. A more
 advanced tutorial that I haven't watched yet is \cite{chang2020vim}. A document
 on effective text editing written by the creator of Vim can be found at
 \cite{moolenaar2000seven}.
-\begin{itemize}
+\begin{enumerate}
     \item In Linux based systems, put `setxkbmap -option "caps:escape' into
         ~/.bashrc to map the caps lock key to escape.
     \item To set Vim as your default text editor, use `sudo update-alternatives
@@ -115,7 +115,7 @@ on effective text editing written by the creator of Vim can be found at
         select one. A useful mapping for this process is:\\ nnoremap \tlangle
         leader\trangle b:ls\tlangle cr\trangle:b\tlangle space\trangle
     \item Use `\tlangle number\trangle + \tlangle c-6\trangle' to switch to numbered buffer.
-    \item Use `\tlangle c-F\trangle' in command line mode to view the command history in a
+    \item Use `\tlangle c-f\trangle' in command line mode to view the command history in a
         buffer.
     \item In general, all yank, change or delete actions such as `y, c, d, x'
         etc will register the text object into the "" register. However, any
@@ -127,7 +127,9 @@ on effective text editing written by the creator of Vim can be found at
     \item When using search `/\tlangle word\trangle', you can use \tlangle c-g
         \trangle and \tlangle c-t\trangle to cycle through them without
         confirming your search with \tlangle CR\trangle.
-\end{itemize}
+    \item Use `\tlangle c-r\rtrangle' in command line mode to paste from the
+        register.
+\end{enumerate}
 
 %===============================================================
 \section{Plugin Management}
@@ -515,10 +517,14 @@ nnoremap ,C :SlimuxShellRun clear<CR>
 nnoremap ,D :SlimuxShellRun %reset -f<CR>
 nmap ,V mqviw,-`qdmq
 nmap ,M mq'xV'z,-`qdmq
-nmap ,R :w!<CR>mqA<CR>run ;F<Esc>V,-uuu`qdmq
+nnoremap ,R :SlimuxShellRun run <c-r>%<CR>
 \end{lstlisting}
 where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
-the last shell command.
+the last shell command. For the last command that runs the Python code, we
+leverage the fact that `\tlangle c-r\trangle' in command mode will prime pasting
+from the register and \% in the register stores the file name. The same can't be
+done with sendtowindow as that plugin does not utilize the command line;
+only items present in the text can be sent to the terminal window.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
