@@ -291,7 +291,11 @@ feature, we use the following steps:
     \item :helptags \tsim/.vim/pack/plugins/start/\tlangle plugin name\trangle
 \end{enumerate}
 and that's it! To remove a plugin, simply remove its directory: rm -r
-\tsim/.vim/pack/plugins/start/foo.
+\tsim/.vim/pack/plugins/start/foo.\\
+
+Alternatively, another solution to the second issue is to create a directory
+~/.vim/plugin and copy your git cloned plugins into there. This has a small
+advantage over the previous method as the directory structure is much simpler.
 
 %===============================================================
 \section{Vimtex}
