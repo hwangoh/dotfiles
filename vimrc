@@ -350,7 +350,7 @@
     autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
     autocmd FileType python nmap ,V mqviw,-`qdmq
     autocmd FileType python nmap ,M mq'xV'z,-`qdmq
-    autocmd FileType python nnoremap ,R :SlimuxShellRun run <c-r>%<CR>
+    autocmd FileType python nnoremap ,R :w!<CR>:SlimuxShellRun run <c-r>%<CR>
 
 " =============================================================================
 "                                    LaTeX
