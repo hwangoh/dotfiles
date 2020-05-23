@@ -338,8 +338,8 @@
     autocmd FileType python noremap ,sL :call SendTextToTerminalRight('clear')<CR>
     autocmd FileType python noremap ,sD :call SendTextToTerminalRight('%reset -f')<CR>
     autocmd FileType python nmap ,sR :w!<CR>:call SendTextToTerminalRight('run <c-r>%')<CR>
-    autocmd FileType python nmap ,sV mqviw,s`qdmq
-    autocmd FileType python nmap ,sM :call SendMarkedSectionRight()<CR>
+    autocmd FileType python nmap ,sV <Plug>SendVariableRight
+    autocmd FileType python nmap ,sM <Plug>SendMarkedSectionRight
 
 " Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
     autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
