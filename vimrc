@@ -172,8 +172,8 @@
     xmap ,s <Plug>SendRightV
 
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
-    onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
-    vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+    onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
+    vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 
