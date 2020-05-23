@@ -482,37 +482,23 @@ the right with indentation and `,sr8-' will send four lines under the cursor to
 the window on the right. Note that this is important for Python as if you try
 send a for loop with `i-' and leave out the indentation, then it may not run.\\
 
-Finally, using these mappings, we can create a mapping that sends clear and
-\%reset commands to the IPython terminal. I am aware that these mappings are as
-hacky as the day is long, but they work:
+I have extended the plugin with SendTextToTerminalRight(), SendVariableRight()
+and SendMarkedSectionRight() functions (and for the other three directions as
+well). Using these, we can send clear, \%reset and run code commands as well as
+variable and marked sections of code to the IPython terminal.
 \begin{lstlisting}
-" Send to right window (I only really ever use the right window)
-    nmap ,s <Plug>SendRight
-    xmap ,s <Plug>SendRightV
-
-" Insert current file name
-    inoremap ;F <C-R>=expand("%:t")<CR>
-
-" Clear, Reset, Run Variable, Run Marked Section and Run Code
-    nnoremap ,sL <c-w>lclear<CR><c-w>h
-    nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
-    nmap ,sV mqviw,s`qdmq
-    nmap ,sM mq'xV'z,s`qdmq
-    nmap ,sR mqA<CR>run ;F<Esc>V,suuu`qdmq
+" sendtowindow for IPython in Vim Terminal: clear, reset, run code, run variable, run marked section
+    noremap ,sL :call SendTextToTerminalRight('clear')<CR>
+    noremap ,sD :call SendTextToTerminalRight('%reset -f')<CR>
+    nmap ,sR :w!<CR>:call SendTextToTerminalRight('run <c-r>%')<CR>
+    nmap ,sV <Plug>SendVariableRight
+    nmap ,sM <Plug>SendMarkedSectionRight
 \end{lstlisting}
-Notice that the clear and reset commands don't utilize the sendtovariable
-plugin. However, the other commands do as text in the editor needs to be sent to the terminal
-to the right.\\
-
-Be sure to use recursive mappings which will allow us to reuse the `,s' and `;F'
-mapping. In order to preserve the cursor position, I use `mq' to set a mark at
-your current cursor location and `q to return to that location after executing
-the command. When executing marked sections, the mapping above specifies that you
-need to mark the beginning of the section you wish to run with `x' and the end
-of that with `z'. The plugin vim-signature \cite{kshenoy2015signature} may come
-in handy for manipulating the marks. In particular, the plugin displays marks
-and the command `dm\tlangle mark name\trangle' deletes the mark; so `dmq' above
-deletes the mark called `q'.
+The SendMarkedSectionRight() function has been coded such that the section must
+be marked with `x' on the top of the section and `z' on the bottom.  The plugin
+vim-signature \cite{kshenoy2015signature} may come in handy for manipulating the
+marks. In particular, the plugin displays marks and the command `dm\tlangle mark
+name\trangle' deletes the mark; so `dmq' above deletes the mark called `q'.
 
 %---------------------------------------------------------------
 \subsection{Slimux plugin}
