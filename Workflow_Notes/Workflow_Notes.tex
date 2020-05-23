@@ -130,6 +130,8 @@ on effective text editing written by the creator of Vim can be found at
     \item Use `\tlangle c-r\trangle' in command line mode to paste from the
         register.
     \item Use `\tlangle c-r\trangle' in insert mode to paste from the register.
+    \item Use <c-w>N in a Vim terminal to switch to normal mode, which allows
+        you to navigate as if you were in Vim.
 \end{enumerate}
 
 %===============================================================
@@ -488,7 +490,7 @@ hacky as the day is long, but they work:
     inoremap ;F <C-R>=expand("%:t")<CR>
 
 " Clear, Reset, Run Variable, Run Marked Section and Run Code
-    nnoremap ,sC <c-w>lclear<CR><c-w>h
+    nnoremap ,sL <c-w>lclear<CR><c-w>h
     nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
     nmap ,sV mqviw,s`qdmq
     nmap ,sM mq'xV'z,s`qdmq
