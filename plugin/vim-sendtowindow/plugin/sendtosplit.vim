@@ -149,3 +149,64 @@ endfunction
 function! SendTextToTerminalDown(text)
   call s:SendTextToTerminal(a:text, 'j')
 endfunction
+
+"================================================================================
+" Send marked section
+function! s:SendMarkedSectionToWindow(direction)
+
+  let s:saved_registerK = @k
+  let s:saved_pos = getpos(".")
+
+  " Obtain wanted text
+  keepjumps normal! `xV`zy
+
+  " Was the cursor at the end of line?
+  let s:endofline = 0
+  if col(".") >=# col("$")-1
+    let s:endofline = 1
+  endif
+
+  " Go to the wanted split
+  let s:winnr = winnr()
+  execute "wincmd " . a:direction
+  if winnr() == s:winnr
+    echom "No window in selected direction!"
+    call setpos(".", s:saved_pos)
+    return
+  endif
+
+  " Insert text and ammend end of line charater based on buffer type
+  if &buftype ==# "terminal"
+    let @k = "\r"
+    call term_sendkeys('', @0)
+    call term_sendkeys('', "\r")
+  elseif s:endofline
+    normal! gp
+    let @k = "\n"
+    normal! "kp
+  else
+    normal! gp
+  endif
+  wincmd p
+
+  " Recover cursor position
+  call setpos(".", s:saved_pos)
+
+  " Restore register
+  let @k = s:saved_registerK
+
+endfunction
+
+
+function! SendMarkedSectionRight()
+  call s:SendMarkedSectionToWindow('l')
+endfunction
+function! SendMarkedSectionLeft()
+  call s:SendMarkedSectionToWindow('h')
+endfunction
+function! SendMarkedSectionUp()
+  call s:SendMarkedSectionToWindow('k')
+endfunction
+function! SendMarkedSectionDown()
+  call s:SendMarkedSectionToWindow('j')
+endfunction
