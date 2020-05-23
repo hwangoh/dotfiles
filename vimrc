@@ -167,9 +167,6 @@
 " =============================================================================
 "                                 sendtowindow
 " =============================================================================
-" Use own mappings for sendtowindow plugin
-    let g:sendtowindow_use_defaults = 0
-
 " Primer for Vim motions
     nmap ,s <Plug>SendRight
     xmap ,s <Plug>SendRightV
@@ -180,8 +177,8 @@
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 
-" Send exit command (I realise this does not utilize the sendtowindow plugin. But it's here to maintain consistency)
-    nnoremap ,sE <c-w>lexit<CR><c-w>h
+" Send exit command
+    nnoremap ,sE :call SendTextToTerminalRight('exit')<CR>
 
 " =============================================================================
 "                                   Slimux
@@ -336,24 +333,21 @@
 " Insert pdb.set_trace()
     autocmd FileType python inoremap ;pdb pdb.set_trace()
 
-" Insert current file name
-    autocmd FileType python inoremap ;F <C-R>=expand("%:t")<CR>
-
-" sendtowindow for IPython in Vim Terminal: clear, reset, run variable, run marked section, run code (exit is a general mapping)
+" sendtowindow for IPython in Vim Terminal: clear, reset, run code, run variable, run marked section
     nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
-    autocmd FileType python nnoremap ,sL <c-w>lclear<CR><c-w>h
-    autocmd FileType python nnoremap ,sD <c-w>l%reset -f<CR><c-w>h
+    autocmd FileType python noremap ,sL :call SendTextToTerminalRight('clear')<CR>
+    autocmd FileType python noremap ,sD :call SendTextToTerminalRight('%reset -f')<CR>
+    autocmd FileType python nmap ,sR :w!<CR>:call SendTextToTerminalRight('run <c-r>%')<CR>
     autocmd FileType python nmap ,sV mqviw,s`qdmq
     autocmd FileType python nmap ,sM mq'xV'z,s`qdmq
-    autocmd FileType python nmap ,sR :w!<CR>mqA<CR>run ;F<Esc>V,suuu`qdmq
 
-" Slimux for IPython in tmux terminal : IPython, clear, reset, exit, run variable, run marked section, run code
+" Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
     autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
     autocmd FileType python nnoremap ,L :SlimuxShellRun clear<CR>
     autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
+    autocmd FileType python nnoremap ,R :w!<CR>:SlimuxShellRun run <c-r>%<CR>
     autocmd FileType python nmap ,V mqviw,-`qdmq
     autocmd FileType python nmap ,M mq'xV'z,-`qdmq
-    autocmd FileType python nnoremap ,R :w!<CR>:SlimuxShellRun run <c-r>%<CR>
 
 " =============================================================================
 "                                    LaTeX

@@ -102,15 +102,50 @@ vnoremap <silent> <Plug>SendDownV  :<C-U> call <SID>SendDown(visualmode())<CR>
 vnoremap <silent> <Plug>SendRightV :<C-U> call <SID>SendRight(visualmode())<CR>
 vnoremap <silent> <Plug>SendLeftV  :<C-U> call <SID>SendLeft(visualmode())<CR>
 
+"================================================================================
+" Send specific text
+function! s:SendTextToTerminal(text,direction)
 
-if !exists("g:sendtowindow_use_defaults") || g:sendtowindow_use_defaults
-  nmap <space>l <Plug>SendRight
-  xmap <space>l <Plug>SendRightV
-  nmap <space>h <Plug>SendLeft
-  xmap <space>h <Plug>SendLeftV
-  nmap <space>k <Plug>SendUp
-  xmap <space>k <Plug>SendUpV
-  nmap <space>j <Plug>SendDown
-  xmap <space>j <Plug>SendDownV
-endif
+  let s:saved_registerK = @k
 
+  " Was the cursor at the end of line?
+  let s:endofline = 0
+  if col(".") >=# col("$")-1
+    let s:endofline = 1
+  endif
+
+  " Go to the wanted split
+  let s:winnr = winnr()
+  execute "wincmd " . a:direction
+  if winnr() == s:winnr
+    echom "No window in selected direction!"
+    return
+  endif
+
+  " Insert text and ammend end of line charater based on buffer type
+  if &buftype ==# "terminal"
+    let @k = "\r"
+    call term_sendkeys('', a:text)
+    call term_sendkeys('', "\r")
+  else
+    echom "Not a terminal window!"
+  endif
+  wincmd p
+
+  " Restore register
+  let @k = s:saved_registerK
+
+endfunction
+
+function! SendTextToTerminalRight(text)
+  call s:SendTextToTerminal(a:text, 'l')
+endfunction
+function! SendTextToTerminalLeft(text)
+  call s:SendTextToTerminal(a:text, 'h')
+endfunction
+function! SendTextToTerminalUp(text)
+  call s:SendTextToTerminal(a:text, 'k')
+endfunction
+function! SendTextToTerminalDown(text)
+  call s:SendTextToTerminal(a:text, 'j')
+endfunction
