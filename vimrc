@@ -144,7 +144,7 @@
     nnoremap <Leader>S :w!<CR>
 
 " Closer buffer
-    nnoremap <Leader>W :bd!<CR>
+    nnoremap <Leader>W :Bclose!<CR>
 
 " Force quit
     nnoremap <Leader>Q :q!<CR>
