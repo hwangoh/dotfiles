@@ -164,40 +164,40 @@
 " Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
 
-" =============================================================================
-"                                 sendtowindow
-" =============================================================================
-" Primer for Vim motions
-    nmap ,s <Plug>SendRight
-    xmap ,s <Plug>SendRightV
-
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
 
+" =============================================================================
+"                                 sendtowindow
+" =============================================================================
+" Primer for Vim motions to select text to be sent
+    nmap ,s <Plug>SendRight
+
+" Send text selected in visual mode
+    xmap ,s <Plug>SendRightV
+
 " Send terminal commands
     nnoremap ,sT :SendCommandToWindowRight<Space>
-
-" Send exit command
     nnoremap ,sE :SendCommandToWindowRight exit<CR>
 
 " =============================================================================
 "                                   Slimux
 " =============================================================================
-" Send line and send visual selection
-    nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
-    vnoremap ,- :SlimuxREPLSendSelection<CR>
+" Primer for Vim motions to select text to be sent
+    nmap ,t <Plug>SlimuxREPLSendWithMotion
+
+" Send text selected in visual mode
+    vnoremap ,t :SlimuxREPLSendSelection<CR>
 
 " Send terminal commands
-    nnoremap ,X :SlimuxShellPrompt<CR>
-    nnoremap ,T :SlimuxShellRun<Space>
-    nnoremap ,t :SlimuxShellLast<CR>
-    nnoremap ,E :SlimuxShellRun exit<CR>
+    nnoremap ,tX :SlimuxShellPrompt<CR>
+    nnoremap ,tT :SlimuxShellRun<Space>
+    nnoremap ,tE :SlimuxShellRun exit<CR>
 
 " Send keys using the 'tmux send-keys' syntax
-    nnoremap ,K :SlimuxSendKeys<Space>
-    nnoremap ,k :SlimuxSendKeysLast<CR>
-    nnoremap ,C :SlimuxSendKeys<Space>c-c<CR>
+    nnoremap ,tK :SlimuxSendKeys<Space>
+    nnoremap ,tC :SlimuxSendKeys<Space>c-c<CR>
 
 " =============================================================================
 "                                  Fuzzy Finder

@@ -347,7 +347,34 @@ command! -range -bar -nargs=0 SlimuxREPLSendLine <line1>,<line2>call s:SlimeSend
 command! -range=% -bar -nargs=* SlimuxREPLSendBuffer call SlimuxSendCode(s:GetBuffer())
 command! SlimuxREPLConfigure call SlimuxConfigureCode()
 
+"===========================================================================================
+"                                   Send Text With Motion
+"===========================================================================================
+function! s:GetTextWithMotion(type)
+  let s:saved_registert = @t
 
+  " Obtain wanted text
+  if a:type ==# "char"
+    keepjumps normal! `[v`]"ty
+    call setpos(".", getpos("']"))
+  elseif a:type ==# "line"
+    keepjumps normal! `[V`]$"ty
+    call setpos(".", getpos("']"))
+  endif
+  let text = @t
+
+  " Restore register
+  let @t = s:saved_registert
+
+  return text
+endfunction
+
+function! s:SlimuxREPLSendWithMotion(type)
+   let text = s:GetTextWithMotion(a:type)
+   call SlimuxSendCode(text)
+endfunction
+
+nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>SlimuxREPLSendWithMotion<CR>g@
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shell interface
