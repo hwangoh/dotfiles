@@ -103,12 +103,13 @@ vnoremap <silent> <Plug>SendUpV    :<C-U> call <SID>SendUp(visualmode())<CR>
 vnoremap <silent> <Plug>SendDownV  :<C-U> call <SID>SendDown(visualmode())<CR>
 
 "================================================================================
-" Send specific cmd
-function! s:SendTextToTerminal(cmd,direction)
+" Send Command
+function! s:SendCommandToWindow(cmd,direction)
 
   let s:saved_register = @t
   let s:saved_registerK = @k
 
+  "Adding cmd to register
   let @t = a:cmd
 
   " Was the cursor at the end of line?
@@ -127,7 +128,7 @@ function! s:SendTextToTerminal(cmd,direction)
 
   " Insert text and ammend end of line charater based on buffer type
   if &buftype ==# "terminal"
-    call term_sendkeys('', a:cmd)
+    call term_sendkeys('', @t)
     call term_sendkeys('', "\r")
   elseif s:endofline
     normal! "tgp
@@ -146,14 +147,14 @@ endfunction
 
 
 function! s:SendCommand(cmd,direction)
-  call s:SendTextToTerminal(a:cmd,a:direction)
+  call s:SendCommandToWindow(a:cmd,a:direction)
 endfunction
 
 
-command! -nargs=1 -complete=shellcmd SendTextToTerminalRight call s:SendCommand("<args>",'l')
-command! -nargs=1 -complete=shellcmd SendTextToTerminalLeft call s:SendCommand("<args>",'l')
-command! -nargs=1 -complete=shellcmd SendTextToTerminalUp call s:SendCommand("<args>",'l')
-command! -nargs=1 -complete=shellcmd SendTextToTerminalDown call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendCommandToWindowRight call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendCommandToWindowLeft call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendCommandToWindowUp call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendCommandToWindowDown call s:SendCommand("<args>",'l')
 
 "================================================================================
 "Sent Variable
