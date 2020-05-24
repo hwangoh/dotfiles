@@ -103,8 +103,8 @@ vnoremap <silent> <Plug>SendUpV    :<C-U> call <SID>SendUp(visualmode())<CR>
 vnoremap <silent> <Plug>SendDownV  :<C-U> call <SID>SendDown(visualmode())<CR>
 
 "================================================================================
-" Send specific text
-function! s:SendTextToTerminal(text,direction)
+" Send specific cmd
+function! s:SendTextToTerminal(cmd,direction)
 
   let s:saved_registerK = @k
 
@@ -125,7 +125,7 @@ function! s:SendTextToTerminal(text,direction)
   " Insert text and ammend end of line charater based on buffer type
   if &buftype ==# "terminal"
     let @k = "\r"
-    call term_sendkeys('', a:text)
+    call term_sendkeys('', a:cmd)
     call term_sendkeys('', "\r")
   else
     echom "Not a terminal window!"
@@ -137,18 +137,16 @@ function! s:SendTextToTerminal(text,direction)
 
 endfunction
 
-function! SendTextToTerminalRight(text)
-  call s:SendTextToTerminal(a:text, 'l')
+
+function! s:SendCommand(cmd,direction)
+  call s:SendTextToTerminal(a:cmd,a:direction)
 endfunction
-function! SendTextToTerminalLeft(text)
-  call s:SendTextToTerminal(a:text, 'h')
-endfunction
-function! SendTextToTerminalUp(text)
-  call s:SendTextToTerminal(a:text, 'k')
-endfunction
-function! SendTextToTerminalDown(text)
-  call s:SendTextToTerminal(a:text, 'j')
-endfunction
+
+
+command! -nargs=1 -complete=shellcmd SendTextToTerminalRight call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendTextToTerminalLeft call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendTextToTerminalUp call s:SendCommand("<args>",'l')
+command! -nargs=1 -complete=shellcmd SendTextToTerminalDown call s:SendCommand("<args>",'l')
 
 "================================================================================
 "Sent Variable
