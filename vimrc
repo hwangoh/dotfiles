@@ -153,7 +153,7 @@
     nnoremap <Leader>Q :q!<CR>
 
 " Open terminal vertically on the right
-    nnoremap <Leader>T :botright vertical terminal<CR>
+    nnoremap <Leader>T :botright vertical terminal<CR><c-w>h
 
 " Cancel process on the terminal on the right
     nnoremap <Leader>C <c-w>l<c-c><c-w>h

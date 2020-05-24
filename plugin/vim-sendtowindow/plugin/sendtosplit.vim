@@ -1,6 +1,7 @@
 " vim-sendtowindow - Operator for sending text to adjacent windows.
 " Maintainer: Karolis Koncevičius (karolis.koncevicius@gmail.com)
 " Website: https://github.com/KKPMW/vim-sendtowindow
+" Modified by Hwan Goh (Hwan.Goh@gmail.com)
 
 
 if exists("g:loaded_sendtowindow") || &compatible
@@ -11,22 +12,24 @@ let g:loaded_sendtowindow = 1
 
 function! s:SendToWindow(type, direction)
 
+  " Storing original register and cursor position
+  let s:saved_register_t = @t
   let s:saved_register = @@
-  let s:saved_registerK = @k
+  let s:saved_register_k = @k
   let s:saved_pos = getpos(".")
 
-  " Obtain wanted text
+  " Obtain text
   if a:type == 'v' || a:type == 'V' || a:type == "\<C-V>"
-    keepjumps normal! `<v`>y
+    keepjumps normal! `<v`>"ty
     if a:type == 'V'
       let @@ = substitute(@@, '\n$', '', '')
     endif
     call setpos(".", getpos("'>"))
   elseif a:type ==# "char"
-    keepjumps normal! `[v`]y
+    keepjumps normal! `[v`]"ty
     call setpos(".", getpos("']"))
   elseif a:type ==# "line"
-    keepjumps normal! `[V`]$y
+    keepjumps normal! `[V`]$"ty
     call setpos(".", getpos("']"))
   endif
 
@@ -36,7 +39,7 @@ function! s:SendToWindow(type, direction)
     let s:endofline = 1
   endif
 
-  " Go to the wanted split
+  " Go to the target split
   let s:winnr = winnr()
   execute "wincmd " . a:direction
   if winnr() == s:winnr
@@ -45,16 +48,10 @@ function! s:SendToWindow(type, direction)
     return
   endif
 
-  " Insert text and ammend end of line charater based on buffer type
+  " Insert text and amend end of line charater based on buffer type
   if &buftype ==# "terminal"
-    let @k = "\r"
-    if has('nvim')
-      normal! gp
-      normal! "kp
-    else
-      call term_sendkeys('', @0)
-      call term_sendkeys('', "\r")
-    endif
+    call term_sendkeys('', @t)
+    call term_sendkeys('', "\r")
   elseif s:endofline
     normal! gp
     let @k = "\n"
@@ -65,15 +62,14 @@ function! s:SendToWindow(type, direction)
   wincmd p
 
   " Position the cursor for the next action
-  if s:endofline
-    normal! j0
-  elseif a:type ==# "char"
+  if a:type ==# "char"
     normal! l
   endif
 
   " Restore register
+  let @t = s:saved_register_t
   let @@ = s:saved_register
-  let @k = s:saved_registerK
+  let @k = s:saved_register_k
 
 endfunction
 
@@ -106,19 +102,13 @@ vnoremap <silent> <Plug>SendDownV  :<C-U> call <SID>SendDown(visualmode())<CR>
 " Send Command
 function! s:SendCommandToWindow(cmd,direction)
 
-  let s:saved_register = @t
-  let s:saved_registerK = @k
+  " Storing original register
+  let s:saved_register_t = @t
 
-  "Adding cmd to register
+  " Adding cmd to register
   let @t = a:cmd
 
-  " Was the cursor at the end of line?
-  let s:endofline = 0
-  if col(".") >=# col("$")-1
-    let s:endofline = 1
-  endif
-
-  " Go to the wanted split
+  " Go to the target split
   let s:winnr = winnr()
   execute "wincmd " . a:direction
   if winnr() == s:winnr
@@ -126,22 +116,17 @@ function! s:SendCommandToWindow(cmd,direction)
     return
   endif
 
-  " Insert text and ammend end of line charater based on buffer type
+  " Insert text and amend end of line charater based on buffer type
   if &buftype ==# "terminal"
     call term_sendkeys('', @t)
     call term_sendkeys('', "\r")
-  elseif s:endofline
-    normal! "tgp
-    let @k = "\n"
-    normal! "kp
   else
     normal! "tgp
   endif
   wincmd p
 
-  " Restore register
-  let @t = s:saved_register
-  let @k = s:saved_registerK
+  " Restoring original register
+  let @t = s:saved_register_t
 
 endfunction
 
@@ -160,19 +145,14 @@ command! -nargs=1 -complete=shellcmd SendCommandToWindowDown call s:SendCommand(
 "Send Variable
 function! s:SendVariableToWindow(direction)
 
-  let s:saved_registerK = @k
+" Storing original register and cursor position
+  let s:saved_register_t = @t
   let s:saved_pos = getpos(".")
 
-  " Obtain wanted text
-  keepjumps normal! viwy
+  " Obtain text
+  keepjumps normal! viw"ty
 
-  " Was the cursor at the end of line?
-  let s:endofline = 0
-  if col(".") >=# col("$")-1
-    let s:endofline = 1
-  endif
-
-  " Go to the wanted split
+  " Go to the target split
   let s:winnr = winnr()
   execute "wincmd " . a:direction
   if winnr() == s:winnr
@@ -181,15 +161,10 @@ function! s:SendVariableToWindow(direction)
     return
   endif
 
-  " Insert text and ammend end of line charater based on buffer type
+  " Insert text and amend end of line charater based on buffer type
   if &buftype ==# "terminal"
-    let @k = "\r"
-    call term_sendkeys('', @0)
+    call term_sendkeys('', @t)
     call term_sendkeys('', "\r")
-  elseif s:endofline
-    normal! gp
-    let @k = "\n"
-    normal! "kp
   else
     normal! gp
   endif
@@ -198,8 +173,8 @@ function! s:SendVariableToWindow(direction)
   " Recover cursor position
   call setpos(".", s:saved_pos)
 
-  " Restore register
-  let @k = s:saved_registerK
+  " Restoring original register
+  let @t = s:saved_register_t
 
 endfunction
 
@@ -227,19 +202,15 @@ nnoremap <silent> <Plug>SendVariableDown  :<C-U> call <SID>SendVariableDown()<CR
 " Send marked section
 function! s:SendMarkedSectionToWindow(direction)
 
-  let s:saved_registerK = @k
+  " Storing original register and cursor position
+  let s:saved_register_t = @t
+  let s:saved_register_k = @k
   let s:saved_pos = getpos(".")
 
   " Obtain wanted text
-  keepjumps normal! `xV`zy
+  keepjumps normal! `xV`z"ty
 
-  " Was the cursor at the end of line?
-  let s:endofline = 0
-  if col(".") >=# col("$")-1
-    let s:endofline = 1
-  endif
-
-  " Go to the wanted split
+  " Go to the target split
   let s:winnr = winnr()
   execute "wincmd " . a:direction
   if winnr() == s:winnr
@@ -248,25 +219,23 @@ function! s:SendMarkedSectionToWindow(direction)
     return
   endif
 
-  " Insert text and ammend end of line charater based on buffer type
+  " Insert text and amend end of line charater based on buffer type
   if &buftype ==# "terminal"
-    let @k = "\r"
-    call term_sendkeys('', @0)
+    call term_sendkeys('', @t)
     call term_sendkeys('', "\r")
-  elseif s:endofline
+  else
     normal! gp
     let @k = "\n"
     normal! "kp
-  else
-    normal! gp
   endif
   wincmd p
 
   " Recover cursor position
   call setpos(".", s:saved_pos)
 
-  " Restore register
-  let @k = s:saved_registerK
+  " Restoring original register
+  let @t = s:saved_register_t
+  let @k = s:saved_register_k
 
 endfunction
 
