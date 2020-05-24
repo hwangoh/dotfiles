@@ -12,11 +12,10 @@ let g:loaded_sendtowindow = 1
 
 function! s:SendToWindow(type, direction)
 
-  " Storing original register and cursor position
+  " Storing original register
   let s:saved_register_t = @t
   let s:saved_register = @@
   let s:saved_register_k = @k
-  let s:saved_pos = getpos(".")
 
   " Obtain text
   if a:type == 'v' || a:type == 'V' || a:type == "\<C-V>"
@@ -24,13 +23,10 @@ function! s:SendToWindow(type, direction)
     if a:type == 'V'
       let @@ = substitute(@@, '\n$', '', '')
     endif
-    call setpos(".", getpos("'>"))
   elseif a:type ==# "char"
     keepjumps normal! `[v`]"ty
-    call setpos(".", getpos("']"))
   elseif a:type ==# "line"
     keepjumps normal! `[V`]$"ty
-    call setpos(".", getpos("']"))
   endif
 
   " Was the cursor at the end of line?
@@ -44,7 +40,6 @@ function! s:SendToWindow(type, direction)
   execute "wincmd " . a:direction
   if winnr() == s:winnr
     echom "No window in selected direction!"
-    call setpos(".", s:saved_pos)
     return
   endif
 
@@ -61,11 +56,6 @@ function! s:SendToWindow(type, direction)
   endif
   wincmd p
 
-  " Position the cursor for the next action
-  if a:type ==# "char"
-    normal! l
-  endif
-
   " Restore register
   let @t = s:saved_register_t
   let @@ = s:saved_register
@@ -75,16 +65,24 @@ endfunction
 
 
 function! s:SendRight(type)
+  let s:saved_pos = getpos(".")
   call s:SendToWindow(a:type, 'l')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendLeft(type)
+  let s:saved_pos = getpos(".")
   call s:SendToWindow(a:type, 'h')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendUp(type)
+  let s:saved_pos = getpos(".")
   call s:SendToWindow(a:type, 'k')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendDown(type)
+  let s:saved_pos = getpos(".")
   call s:SendToWindow(a:type, 'j')
+  call setpos(".", s:saved_pos)
 endfunction
 
 
@@ -145,9 +143,8 @@ command! -nargs=1 -complete=shellcmd SendCommandToWindowDown call s:SendCommand(
 "Send Variable
 function! s:SendVariableToWindow(direction)
 
-" Storing original register and cursor position
+" Storing original register
   let s:saved_register_t = @t
-  let s:saved_pos = getpos(".")
 
   " Obtain text
   keepjumps normal! viw"ty
@@ -157,7 +154,6 @@ function! s:SendVariableToWindow(direction)
   execute "wincmd " . a:direction
   if winnr() == s:winnr
     echom "No window in selected direction!"
-    call setpos(".", s:saved_pos)
     return
   endif
 
@@ -170,9 +166,6 @@ function! s:SendVariableToWindow(direction)
   endif
   wincmd p
 
-  " Recover cursor position
-  call setpos(".", s:saved_pos)
-
   " Restoring original register
   let @t = s:saved_register_t
 
@@ -180,16 +173,24 @@ endfunction
 
 
 function! s:SendVariableRight()
+  let s:saved_pos = getpos(".")
   call s:SendVariableToWindow('l')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendVariableLeft()
+  let s:saved_pos = getpos(".")
   call s:SendVariableToWindow('h')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendVariableUp()
+  let s:saved_pos = getpos(".")
   call s:SendVariableToWindow('k')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendVariableDown()
+  let s:saved_pos = getpos(".")
   call s:SendVariableToWindow('j')
+  call setpos(".", s:saved_pos)
 endfunction
 
 
@@ -202,10 +203,9 @@ nnoremap <silent> <Plug>SendVariableDown  :<C-U> call <SID>SendVariableDown()<CR
 " Send marked section
 function! s:SendMarkedSectionToWindow(direction)
 
-  " Storing original register and cursor position
+  " Storing original register
   let s:saved_register_t = @t
   let s:saved_register_k = @k
-  let s:saved_pos = getpos(".")
 
   " Obtain wanted text
   keepjumps normal! `xV`z"ty
@@ -215,7 +215,6 @@ function! s:SendMarkedSectionToWindow(direction)
   execute "wincmd " . a:direction
   if winnr() == s:winnr
     echom "No window in selected direction!"
-    call setpos(".", s:saved_pos)
     return
   endif
 
@@ -230,9 +229,6 @@ function! s:SendMarkedSectionToWindow(direction)
   endif
   wincmd p
 
-  " Recover cursor position
-  call setpos(".", s:saved_pos)
-
   " Restoring original register
   let @t = s:saved_register_t
   let @k = s:saved_register_k
@@ -241,16 +237,24 @@ endfunction
 
 
 function! s:SendMarkedSectionRight()
+  let s:saved_pos = getpos(".")
   call s:SendMarkedSectionToWindow('l')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendMarkedSectionLeft()
+  let s:saved_pos = getpos(".")
   call s:SendMarkedSectionToWindow('h')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendMarkedSectionUp()
+  let s:saved_pos = getpos(".")
   call s:SendMarkedSectionToWindow('k')
+  call setpos(".", s:saved_pos)
 endfunction
 function! s:SendMarkedSectionDown()
+  let s:saved_pos = getpos(".")
   call s:SendMarkedSectionToWindow('j')
+  call setpos(".", s:saved_pos)
 endfunction
 
 

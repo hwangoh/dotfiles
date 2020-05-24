@@ -351,27 +351,28 @@ command! SlimuxREPLConfigure call SlimuxConfigureCode()
 "                                   Send Text With Motion
 "===========================================================================================
 function! s:GetTextWithMotion(type)
+  "Store original register
   let s:saved_register_t = @t
 
   " Obtain wanted text
   if a:type ==# "char"
     keepjumps normal! `[v`]"ty
-    call setpos(".", getpos("']"))
   elseif a:type ==# "line"
     keepjumps normal! `[V`]$"ty
-    call setpos(".", getpos("']"))
   endif
   let text = @t
 
-  " Restore register
+  " Restore original register
   let @t = s:saved_register_t
 
   return text
 endfunction
 
 function! s:SlimuxREPLSendWithMotion(type)
+   let s:saved_pos = getpos(".")
    let text = s:GetTextWithMotion(a:type)
    call SlimuxSendCode(text)
+   call setpos(".", s:saved_pos)
 endfunction
 
 nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>SlimuxREPLSendWithMotion<CR>g@
@@ -380,13 +381,14 @@ nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>Sl
 "                                       Send Variable
 "===========================================================================================
 function! s:GetVariable()
+  " Store original register
   let s:saved_register_t = @t
 
   " Obtain wanted text
   keepjumps normal! viw"ty
   let text = @t
 
-  " Restore register
+  " Restore original register
   let @t = s:saved_register_t
 
   return text
@@ -405,13 +407,14 @@ nnoremap <silent> <Plug>SlimuxREPLSendVariable :<C-U> call <SID>SlimuxREPLSendVa
 "                                   Send Marked Section
 "===========================================================================================
 function! s:GetMarkedSection()
+  " Store original register
   let s:saved_register_t = @t
 
   " Obtain wanted text
   keepjumps normal! `xV`z"ty
   let text = @t
 
-  " Restore register
+  " Restore original register
   let @t = s:saved_register_t
 
   return text
