@@ -481,17 +481,21 @@ the window on the right with indentation. Note that this is important for Python
 send a for loop with `i-' and leave out the indentation, then it may not run.\\
 
 I have extended the plugin with SendTextToTerminalRight command and SendVariableRight()
-and SendMarkedSectionRight() functions (and for the other three directions as
+and SendMarkedSectionRight() functions (I've also coded for the other three directions as
 well). Using these, we can send clear, \%reset and run code commands as well as
 variable and marked sections of code to the IPython terminal.
 \begin{lstlisting}
 " sendtowindow for IPython in Vim Terminal: clear, reset, run code, run variable, run marked section
     noremap ,sL :SendTextToTerminalRight clear<CR>
     noremap ,sD :SendTextToTerminalRight %reset -f<CR>
-    noremap ,sR :w!<CR>:SendTextToTerminalRight run <c-r><CR>
+    noremap ,sR :w!<CR>:SendTextToTerminalRight run <c-r>%<CR>
     nmap ,sV <Plug>SendVariableRight
     nmap ,sM <Plug>SendMarkedSectionRight
 \end{lstlisting}
+For the map that runs the Python code, we leverage the fact that
+`\tlangle c-r\trangle' in command mode will prime pasting from the register and
+\% in the register stores the file name.\\
+
 The SendMarkedSectionRight() function has been coded such that the section must
 be marked with `x' on the top of the section and `z' on the bottom.  The plugin
 vim-signature \cite{kshenoy2015signature} may come in handy for manipulating the
@@ -545,35 +549,62 @@ disussed in Section \ref{SecNativePluginManagement}.\\
 
 I use the following mappings:
 \begin{lstlisting}
-" Send line and send visual selection
-    nnoremap ,- mq:SlimuxREPLSendLine<CR>`q
-    vnoremap ,- :SlimuxREPLSendSelection<CR>
+" Primer for Vim motions to select text to be sent
+    nmap ,t <Plug>SlimuxREPLSendWithMotion
+
+" Send text selected in visual mode
+    vnoremap ,t :SlimuxREPLSendSelection<CR>
 
 " Send terminal commands
-    nnoremap ,X :SlimuxShellPrompt<CR>
-    nnoremap ,T :SlimuxShellRun<Space>
-    nnoremap ,t :SlimuxShellLast<CR>
-    nnoremap ,E :SlimuxShellRun exit<CR>
+    nnoremap ,tX :SlimuxShellPrompt<CR>
+    nnoremap ,tT :SlimuxShellRun<Space>
+    nnoremap ,tE :SlimuxShellRun exit<CR>
 
 " Send keys using the 'tmux send-keys' syntax
-    nnoremap ,K :SlimuxSendKeys<Space>
-    nnoremap ,k :SlimuxSendKeysLast<CR>
-    nnoremap ,C :SlimuxSendKeys<Space>c-c<CR>
+    nnoremap ,tK :SlimuxSendKeys<Space>
+    nnoremap ,tC :SlimuxSendKeys<Space>c-c<CR>
 
-" IPython, Clear, Reset, Run Variable, Run Marked Section and Run Code
-    nnoremap ,P :SlimuxShellRun ipython<CR>
-    nnoremap ,L :SlimuxShellRun clear<CR>
-    nnoremap ,D :SlimuxShellRun %reset -f<CR>
-    nmap ,V mqviw,-`qdmq
-    nmap ,M mq'xV'z,-`qdmq
-    nnoremap ,R :SlimuxShellRun run <c-r>%<CR>
+" Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
+    nnoremap ,tP :SlimuxShellRun ipython<CR>
+    nnoremap ,tL :SlimuxShellRun clear<CR>
+    nnoremap ,tD :SlimuxShellRun %reset -f<CR>
+    nnoremap ,tR :w!<CR>:SlimuxShellRun run <c-r>%<CR>
+    nmap ,tV <Plug>SlimuxREPLSendVariable
+    nmap ,tM <Plug>SlimuxREPLSendMarkedSection
 \end{lstlisting}
-where SlimexShellRun awaits a command to send to shell and SlimuxShellLast runs
-the last shell command. For the last command that runs the Python code, we
-leverage the fact that `\tlangle c-r\trangle' in command mode will prime pasting
-from the register and \% in the register stores the file name. The same can't be
-done with sendtowindow as that plugin does not utilize the command line;
-only items present in the text can be sent to the terminal window.
+where SlimexShellRun awaits a command to send to shell and SLimuxSendKeys sends
+key inputs using the 'tmux send-keys' syntax. The SlimuxREPLSendWithMotion was
+not part of the original slimux plugin. My code is as follows:
+\begin{lstlisting}
+function! s:GetTextWithMotion(type)
+  let s:saved_registert = @t
+
+  " Obtain wanted text
+  if a:type ==# "char"
+    keepjumps normal! `[v`]"ty
+    call setpos(".", getpos("']"))
+  elseif a:type ==# "line"
+    keepjumps normal! `[V`]$"ty
+    call setpos(".", getpos("']"))
+  endif
+  let text = @t
+
+  " Restore register
+  let @t = s:saved_registert
+
+  return text
+endfunction
+
+function! s:SlimuxREPLSendWithMotion(type)
+   let text = s:GetTextWithMotion(a:type)
+   call SlimuxSendCode(text)
+endfunction
+
+nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>SlimuxREPLSendWithMotion<CR>g@
+\end{lstlisting}
+The `g@' sets the mark `[' at the beginning of the motion and `]' at the end of
+the motion. This can then be leveraged in functions. The `@' in the context of
+functions refers to the register.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}

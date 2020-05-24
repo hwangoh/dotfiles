@@ -157,7 +157,7 @@ command! -nargs=1 -complete=shellcmd SendCommandToWindowUp call s:SendCommand("<
 command! -nargs=1 -complete=shellcmd SendCommandToWindowDown call s:SendCommand("<args>",'l')
 
 "================================================================================
-"Sent Variable
+"Send Variable
 function! s:SendVariableToWindow(direction)
 
   let s:saved_registerK = @k

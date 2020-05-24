@@ -347,7 +347,7 @@
     autocmd FileType python nnoremap ,tL :SlimuxShellRun clear<CR>
     autocmd FileType python nnoremap ,tD :SlimuxShellRun %reset -f<CR>
     autocmd FileType python nnoremap ,tR :w!<CR>:SlimuxShellRun run <c-r>%<CR>
-    autocmd FileType python nmap ,tV mqviw,-`qdmq
+    autocmd FileType python nmap ,tV <Plug>SlimuxREPLSendVariable
     autocmd FileType python nmap ,tM <Plug>SlimuxREPLSendMarkedSection
 
 " =============================================================================

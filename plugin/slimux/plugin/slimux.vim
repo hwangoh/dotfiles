@@ -377,6 +377,31 @@ endfunction
 nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>SlimuxREPLSendWithMotion<CR>g@
 
 "===========================================================================================
+"                                       Send Variable
+"===========================================================================================
+function! s:GetVariable()
+  let s:saved_registert = @t
+
+  " Obtain wanted text
+  keepjumps normal! viw"ty
+  let text = @t
+
+  " Restore register
+  let @t = s:saved_registert
+
+  return text
+endfunction
+
+function! s:SlimuxREPLSendVariable()
+  let s:saved_pos = getpos(".")
+  let text = s:GetVariable()
+  call SlimuxSendCode(text)
+  call setpos(".", s:saved_pos)
+endfunction
+
+nnoremap <silent> <Plug>SlimuxREPLSendVariable :<C-U> call <SID>SlimuxREPLSendVariable()<CR>
+
+"===========================================================================================
 "                                   Send Marked Section
 "===========================================================================================
 function! s:GetMarkedSection()
