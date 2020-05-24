@@ -471,8 +471,8 @@ line, it may become tedious having to first go to the beginning of the line and
 having to type `\$'. Therefore, we can define line objects using the following
 maps:
 \begin{lstlisting}
-onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
-onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
+onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<CR>"
+onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<CR>"
 \end{lstlisting}
 With '-' alone the indentation is left intact and 'i-' is without indentation.
 So, for example, `,sr-' will send the line under the cursor to the window on

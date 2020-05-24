@@ -165,8 +165,8 @@
     nnoremap <Leader>R :source ~/.vimrc<CR>
 
 " Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
-    onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
-    onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
+    onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<CR>"
+    onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<CR>"
 
 " =============================================================================
 "                                 sendtowindow
@@ -175,7 +175,7 @@
     nmap ,s <Plug>SendRight
 
 " Send text selected in visual mode
-    xmap ,s <Plug>SendRightV
+    vmap ,s <Plug>SendRightV
 
 " Send terminal commands
     nnoremap ,sT :SendCommandToWindowRight<Space>
