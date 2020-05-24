@@ -106,7 +106,10 @@ vnoremap <silent> <Plug>SendDownV  :<C-U> call <SID>SendDown(visualmode())<CR>
 " Send specific cmd
 function! s:SendTextToTerminal(cmd,direction)
 
+  let s:saved_register = @t
   let s:saved_registerK = @k
+
+  let @t = a:cmd
 
   " Was the cursor at the end of line?
   let s:endofline = 0
@@ -124,15 +127,19 @@ function! s:SendTextToTerminal(cmd,direction)
 
   " Insert text and ammend end of line charater based on buffer type
   if &buftype ==# "terminal"
-    let @k = "\r"
     call term_sendkeys('', a:cmd)
     call term_sendkeys('', "\r")
+  elseif s:endofline
+    normal! "tgp
+    let @k = "\n"
+    normal! "kp
   else
-    echom "Not a terminal window!"
+    normal! "tgp
   endif
   wincmd p
 
   " Restore register
+  let @t = s:saved_register
   let @k = s:saved_registerK
 
 endfunction

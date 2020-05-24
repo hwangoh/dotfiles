@@ -175,8 +175,11 @@
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<cr>"
 
+" Send terminal commands
+    nnoremap ,sT :SendTextToTerminalRight<Space>
+
 " Send exit command
-    nnoremap ,sE :call SendTextToTerminalRight('exit')<CR>
+    nnoremap ,sE :SendTextToTerminalRight exit<CR>
 
 " =============================================================================
 "                                   Slimux
@@ -333,9 +336,9 @@
 
 " sendtowindow for IPython in Vim Terminal: IPython, clear, reset, run code, run variable, run marked section
     nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
-    autocmd FileType python noremap ,sL :call SendTextToTerminalRight('clear')<CR>
-    autocmd FileType python noremap ,sD :call SendTextToTerminalRight('%reset -f')<CR>
-    autocmd FileType python nmap ,sR :w!<CR>:call SendTextToTerminalRight('run <c-r>%')<CR>
+    autocmd FileType python noremap ,sL :SendTextToTerminalRight clear<CR>
+    autocmd FileType python noremap ,sD :SendTextToTerminalRight %reset -f<CR>
+    autocmd FileType python noremap ,sR :w!<CR>:SendTextToTerminalRight run <c-r>%<CR>
     autocmd FileType python nmap ,sV <Plug>SendVariableRight
     autocmd FileType python nmap ,sM <Plug>SendMarkedSectionRight
 

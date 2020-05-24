@@ -480,15 +480,15 @@ the right with indentation and `,sr8-' will send four lines under the cursor to
 the window on the right with indentation. Note that this is important for Python as if you try
 send a for loop with `i-' and leave out the indentation, then it may not run.\\
 
-I have extended the plugin with SendTextToTerminalRight(), SendVariableRight()
+I have extended the plugin with SendTextToTerminalRight command and SendVariableRight()
 and SendMarkedSectionRight() functions (and for the other three directions as
 well). Using these, we can send clear, \%reset and run code commands as well as
 variable and marked sections of code to the IPython terminal.
 \begin{lstlisting}
 " sendtowindow for IPython in Vim Terminal: clear, reset, run code, run variable, run marked section
-    noremap ,sL :call SendTextToTerminalRight('clear')<CR>
-    noremap ,sD :call SendTextToTerminalRight('%reset -f')<CR>
-    nmap ,sR :w!<CR>:call SendTextToTerminalRight('run <c-r>%')<CR>
+    noremap ,sL :SendTextToTerminalRight clear<CR>
+    noremap ,sD :SendTextToTerminalRight %reset -f<CR>
+    noremap ,sR :w!<CR>:SendTextToTerminalRight run <c-r><CR>
     nmap ,sV <Plug>SendVariableRight
     nmap ,sM <Plug>SendMarkedSectionRight
 \end{lstlisting}
