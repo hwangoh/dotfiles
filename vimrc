@@ -164,7 +164,7 @@
 " Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
 
-" Text object full lines. With '_' alone the indentation is left intact and 'i_' is without indentation
+" Text object full lines. With '-' the indentation is included and with 'i_' the indentation is excluded
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<CR>"
     vnoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<CR>"
     onoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<CR>"
