@@ -343,12 +343,12 @@
     autocmd FileType python nmap ,sM <Plug>SendMarkedSectionRight
 
 " Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
-    autocmd FileType python nnoremap ,P :SlimuxShellRun ipython<CR>
-    autocmd FileType python nnoremap ,L :SlimuxShellRun clear<CR>
-    autocmd FileType python nnoremap ,D :SlimuxShellRun %reset -f<CR>
-    autocmd FileType python nnoremap ,R :w!<CR>:SlimuxShellRun run <c-r>%<CR>
-    autocmd FileType python nmap ,V mqviw,-`qdmq
-    autocmd FileType python nmap ,M mq'xV'z,-`qdmq
+    autocmd FileType python nnoremap ,tP :SlimuxShellRun ipython<CR>
+    autocmd FileType python nnoremap ,tL :SlimuxShellRun clear<CR>
+    autocmd FileType python nnoremap ,tD :SlimuxShellRun %reset -f<CR>
+    autocmd FileType python nnoremap ,tR :w!<CR>:SlimuxShellRun run <c-r>%<CR>
+    autocmd FileType python nmap ,tV mqviw,-`qdmq
+    autocmd FileType python nmap ,tM <Plug>SlimuxREPLSendMarkedSection
 
 " =============================================================================
 "                                    LaTeX

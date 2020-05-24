@@ -376,6 +376,31 @@ endfunction
 
 nnoremap <silent> <Plug>SlimuxREPLSendWithMotion :<C-U> set operatorfunc=<SID>SlimuxREPLSendWithMotion<CR>g@
 
+"===========================================================================================
+"                                   Send Marked Section
+"===========================================================================================
+function! s:GetMarkedSection()
+  let s:saved_registert = @t
+
+  " Obtain wanted text
+  keepjumps normal! `xV`z"ty
+  let text = @t
+
+  " Restore register
+  let @t = s:saved_registert
+
+  return text
+endfunction
+
+function! s:SlimuxREPLSendMarkedSection()
+  let s:saved_pos = getpos(".")
+  let text = s:GetMarkedSection()
+  call SlimuxSendCode(text)
+  call setpos(".", s:saved_pos)
+endfunction
+
+nnoremap <silent> <Plug>SlimuxREPLSendMarkedSection :<C-U> call <SID>SlimuxREPLSendMarkedSection()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shell interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
