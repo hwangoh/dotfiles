@@ -42,9 +42,9 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi MoreMsg ctermbg=NONE ctermfg=66 cterm=NONE guibg=NONE guifg=#5f8787 gui=NONE
     hi Question ctermbg=NONE ctermfg=108 cterm=NONE guibg=NONE guifg=#87af87 gui=NONE
     hi WarningMsg ctermbg=NONE ctermfg=131 cterm=NONE guibg=NONE guifg=#af5f5f gui=NONE
-    hi TabLine ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
+    hi TabLine ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
     hi TabLineFill ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
-    hi TabLineSel ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
+    hi TabLineSel ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
     hi ToolbarLine ctermbg=234 ctermfg=NONE cterm=NONE guibg=#1c1c1c guifg=NONE gui=NONE
     hi ToolbarButton ctermbg=240 ctermfg=250 cterm=NONE guibg=#585858 guifg=#bcbcbc gui=NONE
     hi Cursor ctermbg=242 ctermfg=NONE cterm=NONE guibg=#6c6c6c guifg=NONE gui=NONE
@@ -53,10 +53,10 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi CursorLine ctermbg=236 ctermfg=NONE cterm=NONE guibg=#303030 guifg=NONE gui=NONE
     hi helpLeadBlank ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi helpNormal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi StatusLine ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
-    hi StatusLineNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
-    hi StatusLineTerm ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
-    hi StatusLineTermNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
+    hi StatusLine ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
+    hi StatusLineNC ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
+    hi StatusLineTerm ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
+    hi StatusLineTermNC ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
     hi Visual ctermbg=235 ctermfg=110 cterm=reverse guibg=#262626 guifg=#8fafd7 gui=reverse
     hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=underline guibg=NONE guifg=NONE gui=underline
     hi VertSplit ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
@@ -206,7 +206,7 @@ let g:terminal_ansi_colors = [
         \ '#1c1c1c',
         \ '#af5f5f',
         \ '#5f875f',
-        \ '#87875f',
+        \ '#87afaf',
         \ '#5f87af',
         \ '#5f5f87',
         \ '#5f8787',
