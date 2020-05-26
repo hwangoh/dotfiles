@@ -29,7 +29,7 @@
     set encoding=utf-8
 
 " Quality of Life Stuff
-    colorscheme apprentice
+    colorscheme meditate
     set backspace=indent,eol,start
     set noerrorbells
     set title

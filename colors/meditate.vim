@@ -1,15 +1,17 @@
-" Apprentice.vim -- Vim color scheme.
-" Author:      Romain Lafourcade (romainlafourcade@gmail.com)
-" Webpage:     https://github.com/romainl/Apprentice
-" Description: Essentially a streamlining and conversion to xterm colors of 'sorcerer' by Jeet Sukumaran (jeetsukumaran@gmailcom)
-" Last Change: 2020-03-22
+" Meditate.vim -- Vim color scheme.
+" Author: Hwan Goh (Hwan.Goh@gmail.com
+" Description: Modified from 'apprentice' by Romain Lafourcade (https://github.com/romainl/Apprentice)
+" Changes: see https://jonasjacek.github.io/colors/ for good reference on colours
+        " Wheat4(101) to LightSkyBlue3(109)
+        " DarkOrange(167) to IndianRed(167)
+        " Wheat1(116) to DarkSlateGray3(116)
 
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "apprentice"
+let colors_name = "meditate"
 
 if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi Normal ctermbg=235 ctermfg=250 cterm=NONE guibg=#262626 guifg=#bcbcbc gui=NONE
@@ -18,11 +20,11 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi LineNr ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
     hi FoldColumn ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
     hi Folded ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
-    hi MatchParen ctermbg=234 ctermfg=229 cterm=NONE guibg=#1c1c1c guifg=#ffffaf gui=NONE
+    hi MatchParen ctermbg=234 ctermfg=116 cterm=NONE guibg=#1c1c1c guifg=#87d7d7 gui=NONE
     hi SignColumn ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
     hi Comment ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
     hi Conceal ctermbg=NONE ctermfg=250 cterm=NONE guibg=NONE guifg=#bcbcbc gui=NONE
-    hi Constant ctermbg=NONE ctermfg=208 cterm=NONE guibg=NONE guifg=#ff8700 gui=NONE
+    hi Constant ctermbg=NONE ctermfg=167 cterm=NONE guibg=NONE guifg=#d75f5f gui=NONE
     hi Error ctermbg=NONE ctermfg=131 cterm=reverse guibg=NONE guifg=#af5f5f gui=reverse
     hi Identifier ctermbg=NONE ctermfg=67 cterm=NONE guibg=NONE guifg=#5f87af gui=NONE
     hi Ignore ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
@@ -42,9 +44,9 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi MoreMsg ctermbg=NONE ctermfg=66 cterm=NONE guibg=NONE guifg=#5f8787 gui=NONE
     hi Question ctermbg=NONE ctermfg=108 cterm=NONE guibg=NONE guifg=#87af87 gui=NONE
     hi WarningMsg ctermbg=NONE ctermfg=131 cterm=NONE guibg=NONE guifg=#af5f5f gui=NONE
-    hi TabLine ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
+    hi TabLine ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
     hi TabLineFill ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
-    hi TabLineSel ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
+    hi TabLineSel ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
     hi ToolbarLine ctermbg=234 ctermfg=NONE cterm=NONE guibg=#1c1c1c guifg=NONE gui=NONE
     hi ToolbarButton ctermbg=240 ctermfg=250 cterm=NONE guibg=#585858 guifg=#bcbcbc gui=NONE
     hi Cursor ctermbg=242 ctermfg=NONE cterm=NONE guibg=#6c6c6c guifg=NONE gui=NONE
@@ -53,30 +55,30 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi CursorLine ctermbg=236 ctermfg=NONE cterm=NONE guibg=#303030 guifg=NONE gui=NONE
     hi helpLeadBlank ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi helpNormal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi StatusLine ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
-    hi StatusLineNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
-    hi StatusLineTerm ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#262626 gui=NONE
-    hi StatusLineTermNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
+    hi StatusLine ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
+    hi StatusLineNC ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
+    hi StatusLineTerm ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
+    hi StatusLineTermNC ctermbg=238 ctermfg=109 cterm=NONE guibg=#444444 guifg=#87afaf gui=NONE
     hi Visual ctermbg=235 ctermfg=110 cterm=reverse guibg=#262626 guifg=#8fafd7 gui=reverse
     hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=underline guibg=NONE guifg=NONE gui=underline
     hi VertSplit ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
     hi WildMenu ctermbg=110 ctermfg=235 cterm=NONE guibg=#8fafd7 guifg=#262626 gui=NONE
-    hi Function ctermbg=NONE ctermfg=229 cterm=NONE guibg=NONE guifg=#ffffaf gui=NONE
+    hi Function ctermbg=NONE ctermfg=116 cterm=NONE guibg=NONE guifg=#87d7d7 gui=NONE
     hi SpecialKey ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
     hi Title ctermbg=NONE ctermfg=231 cterm=NONE guibg=NONE guifg=#ffffff gui=NONE
     hi DiffAdd ctermbg=235 ctermfg=108 cterm=reverse guibg=#262626 guifg=#87af87 gui=reverse
     hi DiffChange ctermbg=235 ctermfg=103 cterm=reverse guibg=#262626 guifg=#8787af gui=reverse
     hi DiffDelete ctermbg=235 ctermfg=131 cterm=reverse guibg=#262626 guifg=#af5f5f gui=reverse
-    hi DiffText ctermbg=235 ctermfg=208 cterm=reverse guibg=#262626 guifg=#ff8700 gui=reverse
+    hi DiffText ctermbg=235 ctermfg=167 cterm=reverse guibg=#262626 guifg=#d75f5f gui=reverse
     hi IncSearch ctermbg=131 ctermfg=235 cterm=NONE guibg=#af5f5f guifg=#262626 gui=NONE
-    hi Search ctermbg=229 ctermfg=235 cterm=NONE guibg=#ffffaf guifg=#262626 gui=NONE
+    hi Search ctermbg=116 ctermfg=235 cterm=NONE guibg=#87d7d7 guifg=#262626 gui=NONE
     hi Directory ctermbg=NONE ctermfg=73 cterm=NONE guibg=NONE guifg=#5fafaf gui=NONE
     hi debugPC ctermbg=67 ctermfg=NONE cterm=NONE guibg=#5f87af guifg=NONE gui=NONE
     hi debugBreakpoint ctermbg=131 ctermfg=NONE cterm=NONE guibg=#af5f5f guifg=NONE gui=NONE
     hi SpellBad ctermbg=NONE ctermfg=131 cterm=undercurl guibg=NONE guifg=#af5f5f gui=undercurl guisp=#af5f5f
     hi SpellCap ctermbg=NONE ctermfg=73 cterm=undercurl guibg=NONE guifg=#5fafaf gui=undercurl guisp=#5fafaf
     hi SpellLocal ctermbg=NONE ctermfg=65 cterm=undercurl guibg=NONE guifg=#5f875f gui=undercurl guisp=#5f875f
-    hi SpellRare ctermbg=NONE ctermfg=208 cterm=undercurl guibg=NONE guifg=#ff8700 gui=undercurl guisp=#ff8700
+    hi SpellRare ctermbg=NONE ctermfg=167 cterm=undercurl guibg=NONE guifg=#d75f5f gui=undercurl guisp=#d75f5f
     hi ColorColumn ctermbg=234 ctermfg=NONE cterm=NONE guibg=#1c1c1c guifg=NONE gui=NONE
 
 elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
@@ -206,15 +208,15 @@ let g:terminal_ansi_colors = [
         \ '#1c1c1c',
         \ '#af5f5f',
         \ '#5f875f',
-        \ '#87875f',
+        \ '#87afaf',
         \ '#5f87af',
         \ '#5f5f87',
         \ '#5f8787',
         \ '#6c6c6c',
         \ '#444444',
-        \ '#ff8700',
+        \ '#d75f5f',
         \ '#87af87',
-        \ '#ffffaf',
+        \ '#87d7d7',
         \ '#8fafd7',
         \ '#8787af',
         \ '#5fafaf',
