@@ -299,7 +299,7 @@
     nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " For toggling error window open and close
-    noremap <F4> <ESC>:call SyntasticToggle()<CR>
+    autocmd FileType python,c,cpp noremap <F4> <ESC>:call SyntasticToggle()<CR>
 
     let g:syntastic_is_open = 0
     function! SyntasticToggle()
