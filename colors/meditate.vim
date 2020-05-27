@@ -5,7 +5,7 @@
         " Wheat4(101) to LightSkyBlue3(109)
         " DarkOrange(208) to IndianRed1(203)
         " Wheat1(229) to DarkSlateGray3(116)
-        " Grey74(250) to Grey85(253)
+        " Grey74(250) to Grey85(252)
 
 hi clear
 if exists("syntax_on")
@@ -15,7 +15,7 @@ endif
 let colors_name = "meditate"
 
 if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
-    hi Normal ctermbg=235 ctermfg=253 cterm=NONE guibg=#262626 guifg=#dadada gui=NONE
+    hi Normal ctermbg=235 ctermfg=252 cterm=NONE guibg=#262626 guifg=#d0d0d0 gui=NONE
     hi NonText ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
     hi EndOfBuffer ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
     hi LineNr ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
@@ -24,7 +24,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi MatchParen ctermbg=234 ctermfg=116 cterm=NONE guibg=#1c1c1c guifg=#87d7d7 gui=NONE
     hi SignColumn ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
     hi Comment ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
-    hi Conceal ctermbg=NONE ctermfg=253 cterm=NONE guibg=NONE guifg=#dadada gui=NONE
+    hi Conceal ctermbg=NONE ctermfg=252 cterm=NONE guibg=NONE guifg=#d0d0d0 gui=NONE
     hi Constant ctermbg=NONE ctermfg=203 cterm=NONE guibg=NONE guifg=#ff5f5f gui=NONE
     hi Error ctermbg=NONE ctermfg=131 cterm=reverse guibg=NONE guifg=#af5f5f gui=reverse
     hi Identifier ctermbg=NONE ctermfg=67 cterm=NONE guibg=NONE guifg=#5f87af gui=NONE
@@ -36,7 +36,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi Todo ctermbg=NONE ctermfg=NONE cterm=reverse guibg=NONE guifg=NONE gui=reverse
     hi Type ctermbg=NONE ctermfg=103 cterm=NONE guibg=NONE guifg=#8787af gui=NONE
     hi Underlined ctermbg=NONE ctermfg=66 cterm=underline guibg=NONE guifg=#5f8787 gui=underline
-    hi Pmenu ctermbg=238 ctermfg=253 cterm=NONE guibg=#444444 guifg=#dadada gui=NONE
+    hi Pmenu ctermbg=238 ctermfg=252 cterm=NONE guibg=#444444 guifg=#d0d0d0 gui=NONE
     hi PmenuSbar ctermbg=240 ctermfg=NONE cterm=NONE guibg=#585858 guifg=NONE gui=NONE
     hi PmenuSel ctermbg=66 ctermfg=235 cterm=NONE guibg=#5f8787 guifg=#262626 gui=NONE
     hi PmenuThumb ctermbg=66 ctermfg=66 cterm=NONE guibg=#5f8787 guifg=#5f8787 gui=NONE
@@ -49,7 +49,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi TabLineFill ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
     hi TabLineSel ctermbg=109 ctermfg=235 cterm=NONE guibg=#87afaf guifg=#262626 gui=NONE
     hi ToolbarLine ctermbg=234 ctermfg=NONE cterm=NONE guibg=#1c1c1c guifg=NONE gui=NONE
-    hi ToolbarButton ctermbg=240 ctermfg=253 cterm=NONE guibg=#585858 guifg=#dadada gui=NONE
+    hi ToolbarButton ctermbg=240 ctermfg=252 cterm=NONE guibg=#585858 guifg=#d0d0d0 gui=NONE
     hi Cursor ctermbg=242 ctermfg=NONE cterm=NONE guibg=#6c6c6c guifg=NONE gui=NONE
     hi CursorColumn ctermbg=236 ctermfg=NONE cterm=NONE guibg=#303030 guifg=NONE gui=NONE
     hi CursorLineNr ctermbg=236 ctermfg=73 cterm=NONE guibg=#303030 guifg=#5fafaf gui=NONE
