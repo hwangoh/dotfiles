@@ -4,7 +4,7 @@
 " Changes: see https://jonasjacek.github.io/colors/ for good reference on colours
         " Wheat4(101) to LightSkyBlue3(109)
         " DarkOrange(208) to IndianRed1(203)
-        " Wheat1(116) to DarkSlateGray3(116)
+        " Wheat1(229) to DarkSlateGray3(116)
         " Grey74(250) to Grey70(249)
 
 hi clear
