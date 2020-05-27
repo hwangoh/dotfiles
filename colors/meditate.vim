@@ -3,7 +3,7 @@
 " Description: Modified from 'apprentice' by Romain Lafourcade (https://github.com/romainl/Apprentice)
 " Changes: see https://jonasjacek.github.io/colors/ for good reference on colours
         " Wheat4(101) to LightSkyBlue3(109)
-        " DarkOrange(167) to IndianRed(167)
+        " DarkOrange(208) to IndianRed1(203)
         " Wheat1(116) to DarkSlateGray3(116)
         " Grey74(250) to Grey70(249)
 
@@ -25,7 +25,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi SignColumn ctermbg=234 ctermfg=242 cterm=NONE guibg=#1c1c1c guifg=#6c6c6c gui=NONE
     hi Comment ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
     hi Conceal ctermbg=NONE ctermfg=249 cterm=NONE guibg=NONE guifg=#b2b2b2 gui=NONE
-    hi Constant ctermbg=NONE ctermfg=167 cterm=NONE guibg=NONE guifg=#d75f5f gui=NONE
+    hi Constant ctermbg=NONE ctermfg=203 cterm=NONE guibg=NONE guifg=#ff5f5f gui=NONE
     hi Error ctermbg=NONE ctermfg=131 cterm=reverse guibg=NONE guifg=#af5f5f gui=reverse
     hi Identifier ctermbg=NONE ctermfg=67 cterm=NONE guibg=NONE guifg=#5f87af gui=NONE
     hi Ignore ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
@@ -70,7 +70,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi DiffAdd ctermbg=235 ctermfg=108 cterm=reverse guibg=#262626 guifg=#87af87 gui=reverse
     hi DiffChange ctermbg=235 ctermfg=103 cterm=reverse guibg=#262626 guifg=#8787af gui=reverse
     hi DiffDelete ctermbg=235 ctermfg=131 cterm=reverse guibg=#262626 guifg=#af5f5f gui=reverse
-    hi DiffText ctermbg=235 ctermfg=167 cterm=reverse guibg=#262626 guifg=#d75f5f gui=reverse
+    hi DiffText ctermbg=235 ctermfg=203 cterm=reverse guibg=#262626 guifg=#ff5f5f gui=reverse
     hi IncSearch ctermbg=131 ctermfg=235 cterm=NONE guibg=#af5f5f guifg=#262626 gui=NONE
     hi Search ctermbg=116 ctermfg=235 cterm=NONE guibg=#87d7d7 guifg=#262626 gui=NONE
     hi Directory ctermbg=NONE ctermfg=73 cterm=NONE guibg=NONE guifg=#5fafaf gui=NONE
@@ -79,7 +79,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi SpellBad ctermbg=NONE ctermfg=131 cterm=undercurl guibg=NONE guifg=#af5f5f gui=undercurl guisp=#af5f5f
     hi SpellCap ctermbg=NONE ctermfg=73 cterm=undercurl guibg=NONE guifg=#5fafaf gui=undercurl guisp=#5fafaf
     hi SpellLocal ctermbg=NONE ctermfg=65 cterm=undercurl guibg=NONE guifg=#5f875f gui=undercurl guisp=#5f875f
-    hi SpellRare ctermbg=NONE ctermfg=167 cterm=undercurl guibg=NONE guifg=#d75f5f gui=undercurl guisp=#d75f5f
+    hi SpellRare ctermbg=NONE ctermfg=203 cterm=undercurl guibg=NONE guifg=#ff5f5f gui=undercurl guisp=#d75f5f
     hi ColorColumn ctermbg=234 ctermfg=NONE cterm=NONE guibg=#1c1c1c guifg=NONE gui=NONE
 
 elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
@@ -215,7 +215,7 @@ let g:terminal_ansi_colors = [
         \ '#5f8787',
         \ '#6c6c6c',
         \ '#444444',
-        \ '#d75f5f',
+        \ '#ff5f5f',
         \ '#87af87',
         \ '#87d7d7',
         \ '#8fafd7',
