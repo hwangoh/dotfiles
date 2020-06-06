@@ -430,6 +430,7 @@
     autocmd FileType tex inoremap ;frc \frac{}{<++>}<++><Esc>12hf}i
     autocmd FileType tex inoremap ;mbb \mathbb{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;mrm \mathrm{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;txt \textrm{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;mcl \mathcal{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;lrp \left(\right)<++><Esc>12hf(a
     autocmd FileType tex inoremap ;lrs \left[\right]<++><Esc>12hf[a
