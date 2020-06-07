@@ -1,6 +1,10 @@
 # Rebinding capslock to escape
 setxkbmap -option "caps:escape"
 
+# Toggle suspended program
+stty susp undef
+bind '"\C-z":"fg\015"'
+
 # new latex templates:
 function new_tex_simple() {
     cd ~/.vim/LaTeX_Templates/tex_template_simple
