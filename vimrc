@@ -177,7 +177,7 @@
     nmap , <Plug>SendRight
 
 " Send text selected in visual mode
-    vmap , <Plug>SendRightV
+    vmap ,s <Plug>SendRightV
 
 " Send terminal commands
     nnoremap ,T :SendCommandToWindowRight<Space>
