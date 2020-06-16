@@ -174,14 +174,14 @@
 "                                 sendtowindow
 " =============================================================================
 " Primer for Vim motions to select text to be sent
-    nmap ,s <Plug>SendRight
+    nmap , <Plug>SendRight
 
 " Send text selected in visual mode
-    vmap ,s <Plug>SendRightV
+    vmap , <Plug>SendRightV
 
 " Send terminal commands
-    nnoremap ,sT :SendCommandToWindowRight<Space>
-    nnoremap ,sE :SendCommandToWindowRight exit<CR>
+    nnoremap ,T :SendCommandToWindowRight<Space>
+    nnoremap ,E :SendCommandToWindowRight exit<CR>
 
 " =============================================================================
 "                                   Slimux
@@ -341,11 +341,11 @@
 
 " sendtowindow for IPython in Vim Terminal: IPython, clear, reset, run code, run variable, run marked section
     nnoremap <leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
-    autocmd FileType python noremap ,sL :SendCommandToWindowRight clear<CR>
-    autocmd FileType python noremap ,sD :SendCommandToWindowRight %reset -f<CR>
-    autocmd FileType python noremap ,sR :w!<CR>:SendCommandToWindowRight run <c-r>%<CR>
-    autocmd FileType python nmap ,sV <Plug>SendVariableRight
-    autocmd FileType python nmap ,sM <Plug>SendMarkedSectionRight
+    autocmd FileType python noremap ,L :SendCommandToWindowRight clear<CR>
+    autocmd FileType python noremap ,D :SendCommandToWindowRight %reset -f<CR>
+    autocmd FileType python noremap ,R :w!<CR>:SendCommandToWindowRight run <c-r>%<CR>
+    autocmd FileType python nmap ,V <Plug>SendVariableRight
+    autocmd FileType python nmap ,M <Plug>SendMarkedSectionRight
 
 " Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
     autocmd FileType python nnoremap ,tP :SlimuxShellRun ipython<CR>
