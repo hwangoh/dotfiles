@@ -334,7 +334,7 @@
     autocmd FileType python inoremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
 
 " Reload IPython And Run Code
-    autocmd FileType python nmap <Leader>p <Leader>H<Leader>P,sR
+    autocmd FileType python nmap <Leader>p <Leader>H<Leader>P,R
 
 " Insert pdb.set_trace()
     autocmd FileType python inoremap ;pdb pdb.set_trace()
