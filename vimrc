@@ -218,6 +218,10 @@
 " =============================================================================
 " Might need to install ctags first: sudo apt-get install ctags
 
+" To check current folder for tags file and keep going one directory all the way to root folder
+" so you can be in any sub-folder in your project and it'll be able to find the tags files
+    set tags=tags;/
+
 " Command to create the `tags' file
     command! MakeTags !ctags -R .
 

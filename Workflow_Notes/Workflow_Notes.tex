@@ -140,6 +140,21 @@ on effective text editing written by the creator of Vim can be found at
         \end{lstlisting}
         in your bashrc to, overall, set `\tlangle c-z\trangle' to toggle a
         suspended progran.
+    \item Using `ctags -R' in terminal creates a tag file. Then, in vim, use
+        `\tlangle c-$]$ \trangle' while the cursor is over a function name to
+        jump to the code defining the function. You can also add the following
+        shortcut to your vimrc:
+        \begin{lstlisting}
+            command! MakeTags !ctags -R .
+        \end{lstlisting}
+        so that tags can be created from the command line within Vim.
+        Note that you need to add
+        \begin{lstlisting}
+            set tags=tags;/
+        \end{lstlisting}
+        to your vimrc so that ctags will check the current folder for tags file
+        and keep going one directory all the way to root folder. See
+        \cite{ben2011ctags} for more details.
 \end{enumerate}
 
 %===============================================================
