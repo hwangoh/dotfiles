@@ -260,3 +260,8 @@ bar {
         position top
         tray_output primary
 }
+
+# =============================================================================
+#                           Python Plots as Floats
+# =============================================================================
+for_window [class="matplotlib"] floating enable
