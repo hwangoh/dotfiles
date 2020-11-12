@@ -404,6 +404,7 @@
     autocmd FileType tex inoremap ;mm $$<++><Esc>5ha
     autocmd FileType tex inoremap ;bf \textbf{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;it \textit{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;em \emph{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;bfs \boldsymbol{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;ct \cite{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;lb \label{}<++><Esc>6hf}i

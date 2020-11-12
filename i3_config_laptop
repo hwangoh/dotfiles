@@ -38,7 +38,7 @@ floating_modifier $mod
 #                             Startup and Defaults
 # =============================================================================
 # Set second display to the left of the primary dispay
-exec --no-startup-id xrandr --output HDMI-1 --left-of eDP-1 --auto
+exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --auto
 
 # Wallpaper: need to sudo apt-get install feh
 # exec --no-startup-id feh --bg-fill ~/.vim/Wallpapers/aruban_pitsunda.jpg
