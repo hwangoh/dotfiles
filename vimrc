@@ -437,9 +437,9 @@
     autocmd FileType tex inoremap ;mrm \mathrm{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;txt \textrm{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;mcl \mathcal{}<++><Esc>6hf}i
-    autocmd FileType tex inoremap ;lrp \left(\right)<++><Esc>12hf(a
-    autocmd FileType tex inoremap ;lrs \left[\right]<++><Esc>12hf[a
-    autocmd FileType tex inoremap ;lrn \left\lVert\right\rVert<++><Esc>15hi<Space>
-    autocmd FileType tex inoremap ;lra \left\langle\right\rangle<++><Esc>16hi<Space>
-    autocmd FileType tex inoremap ;lrc \left\{\right\}<++><Esc>13hf{a
-    autocmd FileType tex inoremap ;lrb \left<Bar>\right<Bar><++><Esc>12hf<Bar>a
+    autocmd FileType tex inoremap ;lrp \left(<CR><CR>\right)<CR><++><Esc>2kA<Tab>
+    autocmd FileType tex inoremap ;lrs \left[<CR><CR>\right]<CR><++><Esc>2kA<Tab>
+    autocmd FileType tex inoremap ;lrn \left\lVert<CR><CR>\right\rVert<CR><++><Esc>2kA<Tab>
+    autocmd FileType tex inoremap ;lra \left\langle<CR><CR>\right\rangle<CR><++><Esc>2kA<Tab>
+    autocmd FileType tex inoremap ;lrc \left\{<CR><CR>\right\}<CR><++><Esc>2kA<Tab>
+    autocmd FileType tex inoremap ;lrb \left<Bar><CR><CR>\right<Bar><CR><++><Esc>2kA<Tab>
