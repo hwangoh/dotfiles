@@ -131,7 +131,10 @@
     noremap <F8> <c-^>
     noremap <F9> :ls<CR>:b<space>
 
-" Yanks the inner word to the z registure and then performs a search in the whole buffer outputting number of appearances
+" Yanks the visually selected text to the " redister and then performs a serch command
+    vnoremap <Leader>f y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" Yanks the inner word to the z register and then performs a search in the whole buffer outputting number of appearances
     nnoremap <Leader>f "zyiw:exe "%s/".@z."//gn"<CR>
 
 " Begins command line for search and replace for the word under the cursor
