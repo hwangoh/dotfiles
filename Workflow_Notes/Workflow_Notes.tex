@@ -216,7 +216,7 @@ Now, to upgrade this plugin, use:
     \item cd \tsim/.vim/bundle/vimtex
     \item git pull origin master
 \end{enumerate}
-To upgrade ALL of your plugins, use:
+To update ALL of your plugins, use:
 \begin{enumerate}
     \item cd \tsim/.vim
     \item git submodule foreach git pull origin master
@@ -301,8 +301,8 @@ Vim-plug provides a solution to the first of the two issues mentioned in the
 previous section, but not the second. To address the second issue, we can use
 Vim's native plugin management system to install a plugin and delete the .git
 repository. That way, we can track the files and any changes in our own git
-repository. This section follows \cite{manasthakur2020managing}. For a more
-detailed explanation, see \cite{ryder2018attack}.\\
+repository. This section follows \cite{shapeshed2019vim}. For a more
+detailed explanation, see \cite{manasthakur2020managing} or \cite{ryder2018attack}.\\
 
 The package feature of Vim 8 follows a pathogen-like model and adds the plugins
 found inside a custom-path \tsim/.vim/pack/ to Vim's runtime path. You can check
@@ -310,15 +310,41 @@ the version of Vim installed using `vim --version'. To install using this native
 feature, we use the following steps:
 \begin{enumerate}
     \item mkdir -p \tsim/.vim/pack/plugins/start/
-    \item git clone \tlangle url\trangle
-    \item :helptags \tsim/.vim/pack/plugins/start/\tlangle plugin name\trangle
+    \item cd \tsim/.vim/pack/plugins/start/
+    \item git clone \tlangle url\trangle or git submodule add \tlangle url
+        \trangle
 \end{enumerate}
 and that's it! To remove a plugin, simply remove its directory: rm -r
-\tsim/.vim/pack/plugins/start/foo.\\
+\tsim/.vim/pack/plugins/start/\tlangle plugin\_directory\_name \trangle if the
+plugin was cloned. Or, if it was added as a submodule, use:
+\begin{enumerate}
+    \item git submodule deinit vim/pack/shapeshed/start/\tlangle plugin\_directory\_name \trangle
+    \item git rm vim/pack/shapeshed/start/\tlangle plugin\_directory\_name \trangle
+    \item rm -Rf .git/modules/vim/pack/shapeshed/start/\tlangle plugin\_directory\_name \trangle
+\end{enumerate}
+To import your vim configuation and plugins to your new machine, simply use the
+same steps as required for Pathogen:
+\begin{enumerate}
+    \item cd \tsim
+    \item git clone \tlangle git repo url\trangle \tsim/.vim
+    \item ln -s \tsim/.vim/vimrc \tsim/.vimrc
+    \item cd \tsim/.vim
+    \item git submodule init
+    \item git submodule update
+\end{enumerate}
+and also, to update all your plugins, you again use
+\begin{enumerate}
+    \item cd \tsim/.vim
+    \item git submodule foreach git pull origin master
+\end{enumerate}
+If you have your own plugins that are not cloned from external repositories
+(i.e. you've written your own .vim files), you can simply create a directory
+~/.vim/plugin and copy your plugins into there.\\
 
-Alternatively, another solution to the second issue is to create a directory
-~/.vim/plugin and copy your git cloned plugins into there. This has a small
-advantage over the previous method as the directory structure is much simpler.
+In conclusion, although Pathogen seems to be the most cumbersome, it could be
+the case that the servers do not have Vim 8 installed and so the native plugin
+manager will not work nor do they allow Vim-plug to install plugins. In such a
+case, Pathogen is your best bet.
 
 %===============================================================
 \section{Vimtex}
