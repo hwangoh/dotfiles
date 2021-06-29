@@ -1,58 +1,6 @@
-\documentclass[10pt]{article}
-\usepackage{amsfonts,amssymb,amsmath,amsthm,ifthen}
-
-\setlength{\textwidth}{175mm}
-\setlength{\textheight}{255mm}
-\setlength{\topmargin}{-20mm}
-\setlength{\oddsidemargin}{-7mm}
-\setlength{\evensidemargin}{-7mm}
-\pagestyle{empty}
-
-% Packages
-\usepackage{graphicx}
-\graphicspath{{Figures/}}
-\newcommand{\figscale}{0.4}
-\usepackage{comment} %Comment environment
-\usepackage{float}
-\usepackage{multirow} %Tables
-\usepackage{hyperref}
-
-%For C++ Code
-\usepackage{listings}
-\usepackage{xcolor}
-\lstset { %
-    language=C++,
-    backgroundcolor=\color{black!5}, % set backgroundcolor
-    basicstyle=\footnotesize,% basic font setting
-    showstringspaces=false,% no squat-u as part of strings
-}
-
-% Math Layouts
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-
-% Additional Commands
-\newcommand{\tsim}{$\sim$}
-\newcommand{\tlangle}{$<$}
-\newcommand{\trangle}{$>$}
-
-% Title
-\title{Workflow Notes}
-\author{Hwan Goh}
-\date{17th May 2020}
-
-
-%---------------------------------------------------------------
-%                         Document Body
-%---------------------------------------------------------------
-\begin{document}
-\maketitle
+\chapter{Vim} \label{ChapVim}
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 %===============================================================
 \section{Vim Tips and Tricks}
@@ -350,7 +298,8 @@ case, Pathogen is your best bet.
 \section{Vimtex}
 %===============================================================
 This section discusses the Vimtex \cite{lervag2015vim} plugin. See also the
-vimways article \cite{woodruff2019latex} for a good overview.
+vimways article \cite{woodruff2019latex} for a good overview.  To install MikTex
+into Linux, run ``sudo apt-get install texlive-full''.
 
 %---------------------------------------------------------------
 \subsection{Installing and Running Vimtex}
@@ -737,11 +686,3 @@ Now that you're operating in the Linux kernel, Vim should also be ready to go!
 However note that, by default, you should be in your mounted Windows C drive.
 Simply type `cd $\sim$' to change to the home directory. From here, you can git
 clone your Linux .vim config and continue exactly as if you're on a Linux machine!
-
-%---------------------------------------------------------------
-%                         Bibliography
-%---------------------------------------------------------------
-\nocite{*}
-\bibliography{references}
-\bibliographystyle{abbrv}
-\end{document}

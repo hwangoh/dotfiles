@@ -1,0 +1,141 @@
+\documentclass[twoside,10pt]{book}
+\usepackage{amsmath, honstyle}				%Page style and numbering
+\usepackage{setspace, enumerate,graphicx,amssymb}
+
+%Put "\layout" in begin document to see the layout
+\usepackage{layout}
+
+%-------------------------------------------------------------------------------
+%Changes sizes of the leftside margins so that, for odd pages, there's a larger margin on the right and a larger margin on the left for even pages
+\setlength{\oddsidemargin}{7pt}
+\setlength{\evensidemargin}{-23pt}
+\setlength{\textwidth}{490pt}
+\setlength{\textheight}{600pt}
+\setlength{\topmargin}{0pt}
+% Length to control the \fancyheadoffset and the calculation of \headline
+% simultaneously
+\newlength\FHoffset
+\setlength\FHoffset{0cm}
+\addtolength\headwidth{2\FHoffset}
+\fancyheadoffset{\FHoffset}
+
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+%Some stuff I've added
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{placeins} %for \FloatBarrier
+\usepackage{comment} %Allow use of the \begin{comment} environment
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n} %for bold math symbols
+\usepackage{cancel} %for strikethrough
+
+%Stuff Paul had
+\usepackage{hyperref, tocvsec2} %Hyperlinks document and lets me set the depth of the toc
+\usepackage[title,titletoc]{appendix} %gives appendices environment and adds 'Appendix' into toc
+\settocdepth{section} %set depth of toc upto sections
+%%%%%%%%%\onehalfspacing
+\numberwithin{equation}{chapter} %numbers reset for each chapter
+\numberwithin{figure}{chapter}
+
+%Packages
+\usepackage{algorithm} %for writing pseudoalgorithms
+\usepackage{algpseudocode} %for writing pseudoalgorithms
+\usepackage{multirow} %for tables
+\usepackage{graphicx}
+\usepackage{hyperref}
+\graphicspath{{Figures/}}
+\usepackage{dsfont} %for mathds fonts
+
+%Including Python Code
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings} %for including Python code
+\lstset{
+	language=Python, % choose the language of the code
+	basicstyle=\tiny\ttfamily\color{white},
+	keywordstyle=\color{Cerulean}\bfseries, % style for keywords
+	commentstyle=\color{YellowGreen},
+	stringstyle=\color{yellow},
+	numbers=left, % where to put the line-numbers
+	stepnumber=1,
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers
+	backgroundcolor=\color{darkgray},
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	rulesepcolor=\color{gray},
+	rulecolor=\color{gray},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false,
+}
+
+% Additional Commands
+\newcommand{\tsim}{$\sim$}
+\newcommand{\tlangle}{$<$}
+\newcommand{\trangle}{$>$}
+
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+%Layouts
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+%-------------------------------------------------------------------------------
+\begin{document}
+	%\layout
+	\pagenumbering{roman}
+	\setcounter{page}{1}
+	\input{title}
+
+	\newpage\null\thispagestyle{empty}\newpage
+	\paragraph{ \vspace{3.5cm}}\begin{center}\end{center}
+
+
+%: --------------------------------------------------------------
+%:                  FRONT MATTER:  Abstract
+% ---------------------------------------------------------------
+
+\noindent \textbf{ {\Large Abstract}}
+
+\paragraph{}
+Notes detailing my workflow using Vim and i3wm. Also details emulation on
+Windows.
+
+%: -------------------------------------------------------------
+%:                  END:  Abstract
+% --------------------------------------------------------------
+
+\newpage
+\paragraph{ \vspace{3.5cm}}\begin{center}\end{center}
+% --------------------------------------------------------------
+%:                           Content
+% --------------------------------------------------------------
+
+\tableofcontents
+
+\include{chapter_vim}
+\include{chapter_i3wm}
+\include{chapter_misc}
+
+\cleardoublepage \phantomsection
+
+%---------------------------------------------------------------
+%:                  BACK MATTER:  Bibliography
+% --------------------------------------------------------------
+\nocite{*}
+\bibliography{references}{}
+\bibliographystyle{abbrv}
+%---------------------------------------------------------------
+%        END: Bibliography
+%---------------------------------------------------------------
+
+\end{document}

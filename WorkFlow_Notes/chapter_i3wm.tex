@@ -1,0 +1,281 @@
+\chapter{i3wm} \label{Chapi3wm}
+
+i3wm is a tiling windows manager for Linux. The benefits of using tiling windows
+managers in general is maximization of your screen real estate. Additionally,
+i3wm uses Vim-like keybindings to enable you to navigate your machine almost
+entirely using your keyboard. Here are some basic tips:
+\begin{itemize}
+    \item The official user guide can be found at \cite{stapelberg2015i3}
+    \item Good Youtube Video on Configuring i3: \cite{codecast2015i3wm}
+    \item To install: sudo apt-get install i3
+    \item Use mod$+$d (where mod is set by default to be your Windows key) to open
+        a search bar for your programs. For example, to run file explorer:
+        mod$+$d then type "nautilus"
+    \item To open Ubuntu settings, use "env XDG\_CURRENT\_DESKTOP$=$GNOME
+        gnome-control-center". You'll find that you may need to Google many
+        basic commands for navigating Ubuntu as many of the default icons are
+        not available.
+\end{itemize}
+
+%==============================================================================
+\section{Standard Configuration}
+%==============================================================================
+%------------------------------------------------------------------------------
+\subsection{Generate Default Config File and Symlink}
+%------------------------------------------------------------------------------
+\begin{enumerate}
+    \item You should be prompted to do so immediately upon first run of i3. However, you can also
+        do so by using "i3-config-wizard" in the terminal.
+    \item The config file is located in $\sim$/.config/i3/config
+    \item To create a symlink, CUT, paste and rename $\sim$/.config/i3/config to your desired folder
+        (say $\sim$/.vim/i3\_config)
+        then use "ln -s $\sim$/.vim/i3\_config $\sim$/.config/i3/config"
+    \item After making edits, use "mod+shift+r" to restart i3
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Configure i3 for Dual Monitors}
+%------------------------------------------------------------------------------
+\begin{enumerate}
+    \item In terminal, use "xrandr" to see your connected monitors
+    \item Then use "xrandr --output HDMI-1 --auto --left-of eDP-1" to set your HDMI-1 monitor to
+        the left of your eDP-1 monitor
+    \item To set it so that it starts up in this way, put "exec --no-startup-id xrandr --output
+        HDMI-1 --left-of eDP-1 --auto" in the config file
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Wallpaper}
+%------------------------------------------------------------------------------
+\begin{enumerate}
+    \item sudo apt-get install feh
+    \item Add to config: "exec --no-startup-id feh --bg-fill
+        $\sim$/.vim/Wallpapers/my\_wallpaper.jpg"
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Remove Title and Borders}
+%------------------------------------------------------------------------------
+Add the following to config file:
+\begin{enumerate}
+    \item new\_window pixel 0
+    \item new\_float pixel 0
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Volume and Brightness Controls for Laptop}
+%------------------------------------------------------------------------------
+From \cite{quidproquo2018volume}:
+\begin{enumerate}
+    \item sudo apt-get install xbacklight alsa-utils pulseaudio
+    \item Add the following to config:
+        \begin{itemize}
+            \item \# Pulse Audio controls
+                bindsym XF86AudioRaiseVolume exec --no-startup-id pactl --
+                set-sink-volume 0 +5\%
+            \item bindsym XF86AudioLowerVolume exec --no-startup-id pactl --
+                set-sink-volume 0 -5\%
+            \item bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute
+                0 toggle
+            \item bindsym XF86MonBrightnessUp exec xbacklight -inc 20 \#
+                increase screen brightness bindsym XF86MonBrightnessDown
+                exec xbacklight -dec 20
+        \end{itemize}
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Screenshots}
+%------------------------------------------------------------------------------
+From \cite{brainlessdeveloper2017screenshot}:
+\begin{enumerate}
+    \item sudo apt-get install scrot
+    \item sudo apt-get install xclip
+    \item Add this to config file:
+        \begin{itemize}
+            \item bindsym --release Print exec scrot
+                'screenshot\_\%Y\%m\%d\_\%H\%M\%S.png' -e 'mkdir -p ~/Downloads
+                \&\& mv \$f $\sim$/Downloads \&\& xclip -selection clipboard -t
+                image/png -i $\sim$/Downloads/`ls -1 -t $\sim$/Downloads | head -1`'
+            \item bindsym --release Shift+Print exec scrot -s
+                'screenshot\_\%Y\%m\%d\_\%H\%M\%S.png' -e 'mkdir -p
+                $\sim$/Downloads \&\& mv \$f $\sim$/Downloads \&\& xclip
+                -selection clipboard -t image/png -i $\sim$/Downloads/`ls -1 -t
+                $\sim$/Downloads/          screenshots | head -1`'
+        \end{itemize}
+\end{enumerate}
+Note that there is some strange issue on my machine where xclip takes up 99\%
+CPU usage. Therefore, after each screenshot, you'll need to terminate xclip via
+the gnome-system-manager.
+
+%------------------------------------------------------------------------------
+\subsection{Shutdown Options:}
+%------------------------------------------------------------------------------
+From \cite{jchamley2012how}:
+\begin{enumerate}
+    \item Add the following to your config file:
+        \begin{lstlisting}
+# Set shut down, restart and locking features
+bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+bindsym l exec --no-startup-id ~/.vim/i3_exit.sh lock, mode "default"
+bindsym s exec --no-startup-id ~/.vim/i3_exit.sh suspend, mode "default"
+bindsym u exec --no-startup-id ~/.vim/i3_exit.sh switch_user, mode "default"
+bindsym e exec --no-startup-id ~/.vim/i3_exit.sh logout, mode "default"
+bindsym h exec --no-startup-id ~/.vim/i3_exit.sh hibernate, mode "default"
+bindsym r exec --no-startup-id ~/.vim/i3_exit.sh reboot, mode "default"
+bindsym Shift+s exec --no-startup-id ~/.vim/i3_exit.sh shutdown, mode "default"
+# exit system mode: "Enter" or "Escape"
+bindsym Return mode "default"
+bindsym Escape mode "default"
+        \end{lstlisting}
+    \item Create and make executable $\sim$/.vim/i3\_exit.sh with the following contents:
+        \begin{lstlisting}
+#!/bin/sh
+lock() {
+    i3lock
+}
+case "$1" in
+    lock)
+        lock
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        lock && systemctl suspend
+        ;;
+    hibernate)
+        lock && systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        echo "Usage: $0                                                      {lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac
+
+exit 0
+        \end{lstlisting}
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Assigning Programs to Specific Windows}
+%------------------------------------------------------------------------------
+From \cite{codecast2015i3wm} at around 25:27.
+To check the class of an application:
+\begin{enumerate}
+    \item Open terminal
+    \item Use "xprop"
+    \item With cursor now as a cross-hair, click on application
+    \item WM\_CLASS should display on the terminal as the second value
+    \item Add to config:
+        assign [class="google-chrome"] \$workspace1
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{i3 Status Bar}
+%------------------------------------------------------------------------------
+I think by default, installing i3 on Ubuntu gives version 2.11. To check
+version, use "i3status --version" in terminal. If not installed at all, use
+"sudo apt-get install i3status".\\
+
+Note that the sample config file in the man pages uses stuff that doesn't exist
+in version 2.11. I followed the config file \cite{sampaioveiga2020i3status} from
+\cite{sampaioveiga2020i3medium} which also uses some options that do not exist
+in version 2.11. I couldn't figure out how to upgrade but since I only want the
+bare minimum, I didn't bother and just wrote a very minimal config file.\\
+
+Following \cite{stapelberg2015i3status}:
+\begin{itemize}
+    \item create the directory ~/.config/i3status
+    \item in your i3 config file add:
+        \begin{lstlisting}
+            bar {
+                    status_command i3status --config ~/.config/i3status/config
+            }
+        \end{lstlisting}
+    \item create i3status.conf somewhere (suppose in .vim folder)
+    \item ln -s $\sim$/.vim/i3status.conf $\sim$/.config/i3status/config
+    \item Edit the config then refresh i3 using mod+SHIFT+r
+    \item If there is an error, type "i3status -c" in terminal and the error will be displayed
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection{Setting Mouse Speed}
+%------------------------------------------------------------------------------
+Setting Mouse speed:
+\begin{enumerate}
+    \item "xinput list" in terminal to get list of connected devices. Find the id for mouse
+    \item "xinput list-props \tlangle id\trangle" to get list of settings for the device.
+    \item Find the bracketed number for "libinput Accel Speed (\tlangle number\trangle)"
+    \item "xinput --set-prop \tlangle id \trangle \tlangle number \trangle
+        \tlangle value \trangle" for value in [-1.0, 1.0]. This reduces the mouse speed
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Floats}
+%------------------------------------------------------------------------------
+To ensure that matplotlib opens as float, to your i3\_config, add:\\
+
+for\_window [class="matplotlib"] floating enable\\
+
+%==============================================================================
+\section{i3 in Windows}
+%==============================================================================
+There are quite a few AutoHotkey repos for binding keys to switch between
+desktops. However, many of them do not seem to work due to perhaps updates to
+the OS. The one I found to work best can be found here:
+\cite{pmb6tz2020windows}.\\
+
+However, it doesn't seem to be the best idea to emulate i3 by switching between
+desktops. The key difference I found is that you cannot assign separate monitors
+a separate desktop; each desktop takes into account all monitors. For that
+reason, I have simply opted to keep the default Win keybindings which correspond
+to the task bar order. Instead, I have elected to implement the other i3wm
+bindings such as Win-f to toggle maximize and Win-m to toggle moving windows
+between screens.
+
+%------------------------------------------------------------------------------
+\subsection{Disabling Win+l}
+%------------------------------------------------------------------------------
+Since this is not exactly a windows tiling manager, I have also opted to use the
+Win+arrow key functionality to organize my windows. However, I would like to do
+so using the sacred Vim keys. A major issue is that Win+l locks the computer.
+It's a bit of a hassle to disable this as you have to disable the whole computer
+lock function, but it can be done using the following steps \cite{glenn2016disable}:
+\begin{enumerate}
+    \item Use Win+r to open the run app
+    \item Type "regedit" and open
+    \item Navigate to "HKEY\_CURRENT\_USER/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/"
+    \item Right-click the "Policies" key and choose "New \trangle Key". Name the new
+        key "System". Note that this may already be there. If so, this step can
+        be skipped Right-click the "System" key and choose "New \trangle DWORD (32-bit)
+        Value". Name this "DisableLockWorkstation"
+    \item Double-click DisableLockWorkstation. Change the value from 0 to 1
+\end{enumerate}
+These changes should take place immediately without needing to restart. Now
+anything bound to Win+l can be used.
+
+%------------------------------------------------------------------------------
+\subsection{Autostart AutoHotKey Script}
+%------------------------------------------------------------------------------
+There are two methods, but the simpler shell:startup method doesn't seem to work for me.
+Instead, I use the Task Scheduler method \cite{bashkarla2016how}:
+\begin{enumerate}
+    \item Open the start menu and search "Task Scheduler"
+    \item On the right panel, select "Create Basic Task" option
+    \item Name the task anything you like and click next
+    \item Select "When I log on" option and click next
+    \item Select "Start a program" option and click next
+    \item In the "Program/script" text box, enter ""C:/Program Files/AutoHotkey/AutoHotkey.exe"
+    \item In the "Add arguments" text box, add the path to your .ahk file
+    \item Click Next then Finish
+    \item To check if it works, find your newly added task in the "Task Scheduler Library" and
+       click "Run"
+\end{enumerate}
+
