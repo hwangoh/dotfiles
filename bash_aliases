@@ -1,5 +1,5 @@
 # =============================================================================
-#                               Morning Routine 
+#                               Morning Routine
 # =============================================================================
 alias web_browsers="google-chrome & firefox & exit"
 alias morning_routine="google-chrome & firefox & quick_daily_update; exit"
@@ -8,7 +8,7 @@ alias Share_Trading="cd ~/Documents/Github_Codes/Share_Trading; bash"
 alias quick_daily_update="cd ~/Documents/Work/Codes/Share_Trading; bash quick_daily_report"
 
 # =============================================================================
-#                               Configuration  
+#                               Configuration
 # =============================================================================
 # Vim
 alias vrc="cd ~/.vim; vim vimrc"
@@ -32,12 +32,7 @@ alias Lkpmux="tmux attach-session -t KAUST"
 alias i3c="cd ~/.vim; vim i3_config"
 
 # =============================================================================
-#                                   Other 
+#                                   Other
 # =============================================================================
 alias rg="ranger"
-alias workflow_notes="cd ~/.vim/Workflow_Notes; vtex Workflow_Notes."
-alias vpn="/opt/cisco/anyconnect/bin/vpnui"
-alias pCloud="cd ~/Desktop; ./pcloud"
-
-alias PhoTai="ssh PhoTai"
-alias AE_Fwd_Inv="cd ~/Documents/Github_Codes/Autoencoder_Forward_Inverse; bash"
+alias pc="pcloudcc -u hwan.goh@gmail.com -d"
