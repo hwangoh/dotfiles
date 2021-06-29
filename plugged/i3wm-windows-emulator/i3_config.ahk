@@ -30,7 +30,7 @@ Capslock::Esc
 #;::#Right
 
 ; === Windows Terminal ===
-#Enter::openAndPositionTerminal()
+#Enter::SwitchToWindowsTerminal()
 
 ; === Linux File Explorer ===
 #z::
