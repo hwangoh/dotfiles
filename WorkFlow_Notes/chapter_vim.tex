@@ -685,4 +685,12 @@ press "ctrl+,". Then simply change "Default profile" to Ubuntu.\\
 Now that you're operating in the Linux kernel, Vim should also be ready to go!
 However note that, by default, you should be in your mounted Windows C drive.
 Simply type `cd $\sim$' to change to the home directory. From here, you can git
-clone your Linux .vim config and continue exactly as if you're on a Linux machine!
+clone your Linux .vim config and continue exactly as if you're on a Linux
+machine!\\
+
+To map the capslock key to escape, I recommend the following AutoHotKeys
+command:
+\begin{lstlisting}
+    SetCapsLockState, alwaysoff
+    Capslock::Esc
+\end{lstlisting}
