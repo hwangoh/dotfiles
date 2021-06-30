@@ -118,14 +118,18 @@ things to ensure that your FireWall does not obstruct the connection.
         "xlaunch.exe". This allows you to modify the settings. Navigate until
         you reach the "Extra Settings" page and check "Disable access control"
         as seen in the screenshot below:
-        % \begin{figure}[H]
-        %     \centering
-        %     \includegraphics[scale=\figscale]{vcxsrv_disable_access_control.jpg}
-        % \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.6]{vcxsrv_disable_access_control.png}
+        \end{figure}
     \item Following \cite{alextsil2020steps}, go to Settings -\trangle Windows
         Defender Firewall -\trangle "Allow an app or feature through Windows
         Defender Firewall" and enable BOTH "VcXsrv windows xserver (X2Go/Arctica
-        Builds).
+        Builds) as seen in the screenshot below:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.6]{vcxsrv_firewall.png}
+        \end{figure}
     \item To test that VcXsrv now works, with Zathura installed, run "zathura
         name.pdf" and see if it opens.
 \end{enumerate}
