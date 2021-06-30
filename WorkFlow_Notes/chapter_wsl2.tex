@@ -1,0 +1,152 @@
+\chapter{WSL2} \label{ChapWSL2}
+
+In this section, we utilize the Windows Subsystem for Linux. This creates an
+extremely lightweight virtual machine in within your Windows OS that emulates
+the Linux kernel with a home drive.
+
+%==============================================================================
+\section{Installing WSL2}
+%==============================================================================
+To get i3 on Windows without a virtual machine (but technically a very
+lightweight one is used), use WSL2. On the site \cite{microsoft2020wsl} , follow
+the "Manual Installation Steps" for when you are not using the Windows Insiders
+build.
+\begin{enumerate}
+    \item Open PowerShell as Administrator. If you use the Windows Terminal
+        which can be obtained from the Microsoft Store, you can pin it to taskbar then
+        press "shift+right-click" on the icon and click "Run as administrator".
+    \item To enable the Windows Subsystem for Linux, in PowerShell, run "dism.exe /online /enable-
+        feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
+    \item Update your windows version if necessary
+    \item To enable the Virtual Machine feature, in PowerShell, run "dism.exe /online /enable-
+        feature /featurename:VirtualMachinePlatform /all /norestart"
+    \item Restart your machine
+    \item To obtain WSL2, download the Linux kernel update package. The link for the download is
+        available on step 4 of the website.
+    \item Before installing a new Linux distribution, set WSL2 as the default version. To do this,
+        in PowerShell, run "wsl --set-default-version 2"
+    \item Go to the Microsoft Store and install your favourite Linux distribution. If the "Install"
+        button does not seem to work after you click "Get", you can go to your library and click
+        "Install" there.
+    \item Open Ubuntu and select your username and password. Username need not match your Windows
+        OS user name
+    \item To check that you have the correct version of WSL, in PowerShell run "wsl -l -v"
+    \item Run `sudo apt update', `sudo apt upgrade' and `sudo apt-get install
+        build-essential' so that you have access to the standard operations.
+\end{enumerate}
+%------------------------------------------------------------------------------
+\subsection{Errors}
+%------------------------------------------------------------------------------
+Here are some errors you might encounter and how to resolve them:
+\begin{itemize}
+    \item If you have an older machine, you may encounter
+        "WslRegisterDistribution failed with error: 0x80370102 and error 0x80070002". To
+        remedy this, you may need to do two modifications to your BIOs. First, disable
+        "Limit CPUID Maximum", then enable "Virtualization Technology".
+    \item For the error " WslRegisterDistribution  failed with error
+        0xc03a001a", you may need to disable compression in a specific folder.
+        Following runner-ed's answer in
+        https://github.com/microsoft/WSL/issues/4299: Find the package under
+        C:/Users/tlangle your user name/trangle/AppData/Local/Packages and right click the
+        folder, check advanced options and disable compression. Run the launch
+        again.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection{Basic Operations and Config}
+%------------------------------------------------------------------------------
+Now to run Ubuntu in the Windows terminal. With your Windows Terminal pinned to
+the start bar, simply right-click and select Ubuntu. To set Ubuntu as the
+default, open Windows Terminal (can be opened to PowerShell or anything) and
+press "ctrl+,". Then simply change "Default profile" to Ubuntu.\\
+
+Now that you're operating in the Linux kernel, Vim should also be ready to go!
+However note that, by default, you should be in your mounted Windows C drive.
+Simply type `cd $\sim$' to change to the home directory. From here, you can git
+clone your Linux .vim config and continue exactly as if you're on a Linux
+machine!\\
+
+To map the capslock key to escape, I recommend the following AutoHotKeys
+command:
+\begin{lstlisting}
+    SetCapsLockState, alwaysoff
+    Capslock::Esc
+\end{lstlisting}
+
+%==============================================================================
+\section{VcXsrv}
+%==============================================================================
+Unix systems use the X Window System as their standard GUI environment.  Under
+X, the "server" is the program that runs on your system to draw windows while a
+"client' is a graphical program. The naming convention is a little confusing to
+most computer users but, trust me, it makes sense.  While the Windows Subsystem
+for Linux is a very well done method for running Linux software on a Windows
+system, it lacks an X server so it is unable to run GUI applications by itself.
+VcXsrv is an X server for Windows that's written to compile as a native Windows
+application using Microsoft's Visual C++ (hence the name, Visual C++ X
+Server).\\
+
+The main motivation for using VcXsrv is so that we can utilize
+Vimtex+Zathura+Synctex for forward and backwards searching while writing PDF
+documents as discussed in Section \ref{SecFwdBckwdSynctex}. The initial idea to
+incorporate VcXsrv for this was obtained from \cite{jong2020blazing}. However,
+the installation process is quite involved and not fully captured in the
+aforementioned medium post. We detail the installation process now.
+
+%------------------------------------------------------------------------------
+\subsection{Installation}
+%------------------------------------------------------------------------------
+\begin{enumerate}
+    \item Go to the VcXsrv repo at \cite{articaproject2019vcxsrv} and follow the
+        "Releases" link.
+    \item Download the ``vcxsrv.1.17.0.0-3.x2go.arctica.installer.exe''
+        whichever the latest release version is
+    \item Run the installer
+\end{enumerate}
+Since WSL2 is a lightweight virtual machine, you'll need to do a couple of
+things to ensure that your FireWall does not obstruct the connection.
+\begin{enumerate}
+    \item Following whme's TLDR answer from \cite{whme2020how}, in your .bashrc,
+        add the following line:
+        \begin{lstlisting}
+            export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+            export LIBGL_ALWAYS_INDIRECT=1
+        \end{lstlisting}
+    \item Following whme's TLDR answer from \cite{whme2020how}, you need to
+        disable Access Control on the Extra Settings. You can achieve this my
+        first navigating to C:/Program Files (x86)/VcXsrv and opening
+        "xlaunch.exe". This allows you to modify the settings. Navigate until
+        you reach the "Extra Settings" page and check "Disable access control"
+        as seen in the screenshot below:
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[scale=\figscale]{vcxsrv_disable_access_control.jpg}
+        % \end{figure}
+    \item Following \cite{alextsil2020steps}, go to Settings -\trangle Windows
+        Defender Firewall -\trangle "Allow an app or feature through Windows
+        Defender Firewall" and enable BOTH "VcXsrv windows xserver (X2Go/Arctica
+        Builds).
+    \item To test that VcXsrv now works, with Zathura installed, run "zathura
+        name.pdf" and see if it opens.
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Vimtex+Zathura+Synctex}
+%------------------------------------------------------------------------------
+Now you're almost ready to run Vimtex+Zathura+Synctex! You'll need to also
+install xdotool by using "sudo apt-get install xdotool". To test whether this
+works with VcXsrv following the suggestion in \cite{paulrougieux2020vimtex} from
+lervag himself, run "xdotool search --class Zathura" and some numbers should
+appear. From here, you should be good to go! Simply follow the steps laid out in
+Section \ref{SecFwdBckwdSynctex}.\\
+
+If this fails and you've given up on Zathura, you can alternatively use the
+Sumatra PDF viewer. Once installed, simply add the following lines to your
+vimrc:
+\begin{lstlisting}
+    let g:vimtex_view_general_viewer  = '/mnt/c/Users/Hwan/AppData/Local/SumatraPDF/SumatraPDF.exe'
+    let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+    let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+\end{lstlisting}
+However, with this, you won't have access to forward and backward search via
+synctex.

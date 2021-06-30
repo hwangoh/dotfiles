@@ -365,12 +365,11 @@
 " =============================================================================
 "                                    LaTeX
 " =============================================================================
-" Use Zathura pdf viewer which enables forward and backward navigation between tex file and pdf. On MacOS, use skim
-    if has('macunix')
-        let g:vimtex_view_method = 'skim'
-    else
-        let g:vimtex_view_method = 'zathura'
-    end
+" Use Zathura pdf viewer which enables forward and backward navigation between tex file and pdf
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_view_general_viewer  = '/mnt/c/Users/Hwan/AppData/Local/SumatraPDF/SumatraPDF.exe'
+    let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+    let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
 " Avoids opening an empty .tx file only to have vimtex recognize it as plain Tex rather than Latex
     let g:tex_flavor = 'latex'

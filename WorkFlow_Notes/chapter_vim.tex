@@ -393,6 +393,7 @@ objects:
 
 %---------------------------------------------------------------
 \subsection{Forward and Backwards Searching with Synctex}
+\label{SecFwdBckwdSynctex}
 %---------------------------------------------------------------
 This section follows \cite{gunther2014vimtex}. For this, you will need a Vimtex
 server which allows you to do forward and backward to navigate between
@@ -625,72 +626,3 @@ functions refers to the register.
         as well as sending one line of code, but I have issues sending over
         cells.
 \end{itemize}
-
-%==============================================================================
-\section{Vim in Windows}
-%==============================================================================
-In this section, we utilize the Windows Subsystem for Linux. This creates an
-extremely lightweight virtual machine in within your Windows OS that emulates
-the Linux kernel with a home drive.
-
-%------------------------------------------------------------------------------
-\subsection{Installing WSL2}
-%------------------------------------------------------------------------------
-To get i3 on Windows without a virtual machine (but technically a very
-lightweight one is used), use WSL2. On the site \cite{microsoft2020wsl} , follow
-the "Manual Installation Steps" for when you are not using the Windows Insiders
-build.
-\begin{enumerate}
-    \item Open PowerShell as Administrator. If you use the Windows Terminal
-        which can be obtained from the Microsoft Store, you can pin it to taskbar then
-        press "shift+right-click" on the icon and click "Run as administrator".
-    \item To enable the Windows Subsystem for Linux, in PowerShell, run "dism.exe /online /enable-
-        feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
-    \item Update your windows version if necessary
-    \item To enable the Virtual Machine feature, in PowerShell, run "dism.exe /online /enable-
-        feature /featurename:VirtualMachinePlatform /all /norestart"
-    \item Restart your machine
-    \item To obtain WSL2, download the Linux kernel update package. The link for the download is
-        available on step 4 of the website.
-    \item Before installing a new Linux distribution, set WSL2 as the default version. To do this,
-        in PowerShell, run "wsl --set-default-version 2"
-    \item Go to the Microsoft Store and install your favourite Linux distribution. If the "Install"
-        button does not seem to work after you click "Get", you can go to your library and click
-        "Install" there.
-    \item Open Ubuntu and select your username and password. Username need not match your Windows
-        OS user name
-    \item To check that you have the correct version of WSL, in PowerShell run "wsl -l -v"
-    \item Run `sudo apt update', `sudo apt upgrade' and `sudo apt-get install
-        build-essential' so that you have access to the standard operations.
-\end{enumerate}
-Here are some errors you might encounter and how to resolve them:
-\begin{itemize}
-    \item If you have an older machine, you may encounter
-        "WslRegisterDistribution failed with error: 0x80370102 and error 0x80070002". To
-        remedy this, you may need to do two modifications to your BIOs. First, disable
-        "Limit CPUID Maximum", then enable "Virtualization Technology".
-    \item For the error " WslRegisterDistribution  failed with error
-        0xc03a001a", you may need to disable compression in a specific folder.
-        Following runner-ed's answer in
-        https://github.com/microsoft/WSL/issues/4299: Find the package under
-        C:/Users/tlangle your user name/trangle/AppData/Local/Packages and right click the
-        folder, check advanced options and disable compression. Run the launch
-        again.
-\end{itemize}
-Now to run Ubuntu in the Windows terminal. With your Windows Terminal pinned to
-the start bar, simply right-click and select Ubuntu. To set Ubuntu as the
-default, open Windows Terminal (can be opened to PowerShell or anything) and
-press "ctrl+,". Then simply change "Default profile" to Ubuntu.\\
-
-Now that you're operating in the Linux kernel, Vim should also be ready to go!
-However note that, by default, you should be in your mounted Windows C drive.
-Simply type `cd $\sim$' to change to the home directory. From here, you can git
-clone your Linux .vim config and continue exactly as if you're on a Linux
-machine!\\
-
-To map the capslock key to escape, I recommend the following AutoHotKeys
-command:
-\begin{lstlisting}
-    SetCapsLockState, alwaysoff
-    Capslock::Esc
-\end{lstlisting}

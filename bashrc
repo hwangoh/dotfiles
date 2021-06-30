@@ -44,3 +44,7 @@ function vpmux() {
     tmux attach -t $1
     cd $dir_name # return to current directory so you're there when session is detached
 }
+
+# Windows Client Server
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+export LIBGL_ALWAYS_INDIRECT=1
