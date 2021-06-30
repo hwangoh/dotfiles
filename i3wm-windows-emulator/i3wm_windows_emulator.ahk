@@ -270,7 +270,7 @@ toggleMaximize(){
 openAndPositionTerminal()
 {
     Run wt
-    Sleep 250
+    Sleep 200
 
     WinShow ahk_class CASCADIA_HOSTING_WINDOW_CLASS
     WinActivate ahk_class CASCADIA_HOSTING_WINDOW_CLASS
@@ -322,7 +322,7 @@ toggleTerminal()
     else
     {
         Run wt
-        Sleep, 750
+        Sleep, 200
         showAndPositionTerminal()
     }
 }
