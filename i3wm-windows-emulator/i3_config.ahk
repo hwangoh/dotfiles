@@ -1,9 +1,15 @@
+; =================================
+; === Quality of Life Settings  ===
+; =================================
+; === Disable Windows Visual Effects ===
+RegWrite, REG_DWORD, HKEY_CURRENT_USER, SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects, AnimateMinMax, 2
+
 ; === Remapping Capslock to Esc ===
 SetCapsLockState, alwaysoff
 Capslock::Esc
 
 ; ====================
-; === INSTRUCTIONS ===
+; === Key Bindings ===
 ; ====================
 ; 1. Any lines starting with ; are ignored
 ; 2. After changing this config file run script file "i3wm_windows_emulator.ahk"
@@ -16,31 +22,21 @@ Capslock::Esc
 ; #   <- Win
 ; For more, visit https://autohotkey.com/docs/Hotkeys.htm
 
-; ===========================
-; === END OF INSTRUCTIONS ===
-; ===========================
-
 ; === Window Manipulation ===
 #+q::quitWindow()
 #f::toggleMaximize()
 #m::#+Left
 #j::#Down
 #k::#Up
-#l::#Left
-#;::#Right
+#h::#Left
+#l::#Right
 
 ; === Windows Terminal ===
 #Enter::openAndPositionTerminal()
 
-; === Linux File Explorer ===
-#z::
-Run, Explorer /n`,/e`,\\wsl$\Ubuntu\home\hwangoh
-Exit
-
-; === Windows File Explorer ===
-#+z::
-Run, Explorer /n`,/e`,C:\
-Exit
+; === File Explorer ===
+#z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
+#+z::openAndPositionExplorer("C:\")
 
 ; === Desktop Navigation ===
 #+c::createVirtualDesktop()

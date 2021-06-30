@@ -269,18 +269,18 @@ toggleMaximize(){
 ; Terminal
 openAndPositionTerminal()
 {
-    Run wt
-    Sleep 200
+    Run, wt
+    Sleep, 750
 
     WinShow ahk_class CASCADIA_HOSTING_WINDOW_CLASS
     WinActivate ahk_class CASCADIA_HOSTING_WINDOW_CLASS
 
     SysGet, WorkArea, MonitorWorkArea
-    TerminalWidth := A_ScreenWidth * 0.9
+    TerminalWidth := A_ScreenWidth * 0.5
     if (A_ScreenWidth / A_ScreenHeight) > 1.5 {
-        TerminalWidth := A_ScreenWidth * 0.6
+        TerminalWidth := A_ScreenWidth * 0.5
     }
-    WinMove, ahk_class CASCADIA_HOSTING_WINDOW_CLASS,, 0, WorkAreaTop - 2, A_ScreenWidth*0.5, A_ScreenHeight*0.5,
+    WinMove, ahk_class CASCADIA_HOSTING_WINDOW_CLASS,, 0, WorkAreaTop - 2, TerminalWidth, A_ScreenHeight*0.5,
 }
 
 showAndPositionTerminal()
@@ -289,11 +289,11 @@ showAndPositionTerminal()
     WinActivate ahk_class CASCADIA_HOSTING_WINDOW_CLASS
 
     SysGet, WorkArea, MonitorWorkArea
-    TerminalWidth := A_ScreenWidth * 0.9
+    TerminalWidth := A_ScreenWidth * 0.5
     if (A_ScreenWidth / A_ScreenHeight) > 1.5 {
-        TerminalWidth := A_ScreenWidth * 0.6
+        TerminalWidth := A_ScreenWidth * 0.5
     }
-    WinMove, ahk_class CASCADIA_HOSTING_WINDOW_CLASS,, 0, WorkAreaTop - 2, A_ScreenWidth*0.5, A_ScreenHeight*0.5,
+    WinMove, ahk_class CASCADIA_HOSTING_WINDOW_CLASS,, 0, WorkAreaTop - 2, TerminalWidth, A_ScreenHeight*0.5,
 }
 
 toggleTerminal()
@@ -322,7 +322,24 @@ toggleTerminal()
     else
     {
         Run wt
-        Sleep, 200
+        Sleep, 750
         showAndPositionTerminal()
     }
+}
+
+; Explorer
+openAndPositionExplorer(path_directory)
+{
+    Run, explorer.exe /n`,/e`,%path_directory%
+    Sleep, 750
+
+    WinShow ahk_class CabinetWClass
+    WinActivate ahk_class CabinetWClass
+
+    SysGet, WorkArea, MonitorWorkArea
+    ExplorerWidth := A_ScreenWidth * 0.5
+    if (A_ScreenWidth / A_ScreenHeight) > 1.5 {
+        ExplorerWidth := A_ScreenWidth * 0.5
+    }
+    WinMove, ahk_class CabinetWClass,, A_ScreenWidth/2, WorkAreaTop - 2, ExplorerWidth, A_ScreenHeight*0.5,
 }
