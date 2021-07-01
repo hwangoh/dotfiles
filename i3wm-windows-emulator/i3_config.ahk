@@ -25,6 +25,7 @@ Capslock::Esc
 ; === Window Manipulation ===
 #+q::quitWindow()
 #f::toggleMaximize()
+#0::#x
 #m::#+Left
 #j::#Down
 #k::#Up
