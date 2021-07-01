@@ -35,4 +35,4 @@ alias i3c="cd ~/.vim; vim i3_config"
 #                                   Other
 # =============================================================================
 alias rg="ranger"
-alias pc="pcloudcc -u hwan.goh@gmail.com -d"
+alias pc="cd ~; ./pcloud &"
