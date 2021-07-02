@@ -15,25 +15,38 @@ build.
     \item Open PowerShell as Administrator. If you use the Windows Terminal
         which can be obtained from the Microsoft Store, you can pin it to taskbar then
         press "shift+right-click" on the icon and click "Run as administrator".
-    \item To enable the Windows Subsystem for Linux, in PowerShell, run "dism.exe /online /enable-
-        feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
+    \item To enable the Windows Subsystem for Linux, in PowerShell, run
+        \begin{lstlisting}
+        dism.exe /online /enable- feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+        \end{lstlisting}
     \item Update your windows version if necessary
-    \item To enable the Virtual Machine feature, in PowerShell, run "dism.exe /online /enable-
-        feature /featurename:VirtualMachinePlatform /all /norestart"
+    \item To enable the Virtual Machine feature, in PowerShell, run
+        \begin{lstlisting}
+        dism.exe /online /enable- feature /featurename:VirtualMachinePlatform /all /norestart
+        \end{lstlisting}
     \item Restart your machine
     \item To obtain WSL2, download the Linux kernel update package. The link for the download is
         available on step 4 of the website.
     \item Before installing a new Linux distribution, set WSL2 as the default version. To do this,
-        in PowerShell, run "wsl --set-default-version 2"
+        in PowerShell, run
+        \begin{lstlisting}
+        wsl --set-default-version 2
+        \end{lstlisting}
     \item Go to the Microsoft Store and install your favourite Linux distribution. If the "Install"
         button does not seem to work after you click "Get", you can go to your library and click
         "Install" there.
     \item Open Ubuntu and select your username and password. Username need not match your Windows
         OS user name
-    \item To check that you have the correct version of WSL, in PowerShell run "wsl -l -v"
+    \item To check that you have the correct version of WSL, in PowerShell run
+        \begin{lstlisting}
+        wsl -l -v
+        \end{lstlisting}
     \item Run `sudo apt update', `sudo apt upgrade' and `sudo apt-get install
         build-essential' so that you have access to the standard operations.
 \end{enumerate}
+From here, your home directory can be found at "//wsl\$/Ubuntu/home/username"
+(with backslashes instead of forward slashes as its a Windows directory address)
+
 %------------------------------------------------------------------------------
 \subsection{Errors}
 %------------------------------------------------------------------------------
@@ -47,7 +60,7 @@ Here are some errors you might encounter and how to resolve them:
         0xc03a001a", you may need to disable compression in a specific folder.
         Following runner-ed's answer in
         https://github.com/microsoft/WSL/issues/4299: Find the package under
-        C:/Users/tlangle your user name/trangle/AppData/Local/Packages and right click the
+        C:/Users/\tlangle your user name\trangle/AppData/Local/Packages and right click the
         folder, check advanced options and disable compression. Run the launch
         again.
 \end{itemize}

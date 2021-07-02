@@ -27,10 +27,19 @@ Capslock::Esc
 #f::toggleMaximize()
 #0::#x
 #m::#+Left
-#j::#Down
-#k::#Up
-#h::#Left
-#l::#Right
+; The following requires more complex code as shift is registered when Arrow is sent
+#+j::
+Send {Blind}{Shift up}{Down}{Shift down}
+return
+#+k::
+Send {Blind}{Shift up}{Up}{Shift down}
+return
+#+h::
+Send {Blind}{Shift up}{Left}{Shift down}
+return
+#+l::
+Send {Blind}{Shift up}{Right}{Shift down}
+return
 
 ; === Windows Terminal ===
 #Enter::openAndPositionTerminal()

@@ -69,18 +69,16 @@ From \cite{quidproquo2018volume}:
 \begin{enumerate}
     \item sudo apt-get install xbacklight alsa-utils pulseaudio
     \item Add the following to config:
-        \begin{itemize}
-            \item \# Pulse Audio controls
-                bindsym XF86AudioRaiseVolume exec --no-startup-id pactl --
-                set-sink-volume 0 +5\%
-            \item bindsym XF86AudioLowerVolume exec --no-startup-id pactl --
-                set-sink-volume 0 -5\%
-            \item bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute
-                0 toggle
-            \item bindsym XF86MonBrightnessUp exec xbacklight -inc 20 \#
-                increase screen brightness bindsym XF86MonBrightnessDown
-                exec xbacklight -dec 20
-        \end{itemize}
+        \begin{lstlisting}
+# Pulse Audio Controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% # increase volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% # decrease volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute volume
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+        \end{lstlisting}
 \end{enumerate}
 
 %------------------------------------------------------------------------------
@@ -259,13 +257,63 @@ lock function, but it can be done using the following steps \cite{glenn2016disab
     \item Double-click DisableLockWorkstation. Change the value from 0 to 1
 \end{enumerate}
 These changes should take place immediately without needing to restart. Now
-anything bound to Win+l can be used.
+anything bound to Win+l can be used. I should mention that in general this is
+inadvisable as you are not only disabling the Win+l binding but your computer's
+ability to lock itself (even after waking sleep mode).
 
 %------------------------------------------------------------------------------
+\subsection{Modifier Subtleties}
+%------------------------------------------------------------------------------
+Modifier keys refer to the control, alt, shift and windows keys.  The effect of
+these modifiers persist through remappings. For example, the remap a::b would be
+imply typing the capital A by either holding shift or having capslock on would
+print the capital B. Further, holding control and pressing the `a' key would
+output holding control and pressing the `b' key \cite{autohotkeys2005remap}.
+Under the hood, the "::" remapping command uses the \emph{Blind} mode which
+avoids releasing the modifier keys \cite{autohotkeys2005send}. That is, if the
+user continues to hold down the modified key, the remapping program will not
+logically register it as released. For example, the following remapping
+\begin{lstlisting}
++s::Send {Blind}abc
+\end{lstlisting}
+would send ABC rather than abc because the user is holding down Shift symbolized
+by the + symbol. Another example is the remapping
+\begin{lstlisting}
+^space::Send {Ctrl up}
+\end{lstlisting}
+automatically pushes control back down if the user is sill physically holding
+control whereas
+\begin{lstlisting}
+^space::Send {Blind}{Ctrl up}
+\end{lstlisting}
+allows control to be logically up even though it is physically down.\\
+
+Returning to the emulation of i3, suppose we want to map Win+Shift+h to Win+Left
+which moves a window left. Since shift is held down, it will instead logically
+register as move the window to the monitor to the left. Therefore, we require
+the following mapping:
+\begin{lstlisting}
+#+h::
+Send {Blind}{Shift up}{Left}{Shift down}
+return
+\end{lstlisting}
+where the \# symbolizes the Win key and the + symbolizes the shift key. The last
+\{Shift down \} allows for the use of Win+Shift+h,..h,h,h to continuously move
+the windows without needed to repress Win+Shift each time.
+
+%-----------------------------------------------------------------------------k
 \subsection{Autostart AutoHotKey Script} \label{SecAutostart}
 %------------------------------------------------------------------------------
-There are two methods, but the simpler shell:startup method doesn't seem to work for me.
-Instead, I use the Task Scheduler method \cite{bashkarla2016how}:
+There are two methods to setting your configuration to open on start up. I found
+that on different machines, at least one of the two methods will work.\\
+
+The first method is the simplest. Simply create a shortcut to your .ahk file
+and place it in the\\
+"C:/Users/Username/AppData/Roaming/Microsoft/Windows/Start
+Menu/Programs/Startup" directory.\\
+
+The second method is more complicated but, in general, more versatile. This
+requres the use of the Task Scheduler \cite{bashkarla2016how}:
 \begin{enumerate}
     \item Open the start menu and search "Task Scheduler"
     \item On the right panel, select "Create Basic Task" option
