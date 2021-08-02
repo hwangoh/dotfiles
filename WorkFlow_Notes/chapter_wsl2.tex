@@ -171,3 +171,49 @@ vimrc:
 \end{lstlisting}
 However, with this, you won't have access to forward and backward search via
 synctex.
+
+%------------------------------------------------------------------------------
+\subsection{Clash with Anaconda}
+%------------------------------------------------------------------------------
+You may notice that after installing Anaconda, when using
+Vimtex+Zathura+Synctex, you may get the error `vimtex cannot find zathura
+windows id' and forward/backwards search does not work. With some
+experimentation, I discovered that in your .bashrc, the following block of code
+that is added automatically with the installation of Anaconda:
+\begin{lstlisting}
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/hwangoh/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/hwangoh/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hwangoh/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/hwangoh/anaconda3/bin:$PATH"
+    fi
+fi
+# unset __conda_setup
+# <<< conda initialize <<<
+\end{lstlisting}
+causes the issue. Specifically, I noticed that if I comment out the line:
+\begin{lstlisting}
+__conda_setup="$('/home/hwangoh/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+\end{lstlisting}
+then everything works fine with Vimtex+Zathura+Synctex. However, the terminal
+command `conda' no longer works. When that line is removed, one no longer has
+`(base)' at the beginning of each line in the terminal, so I suspect that there
+is some clash with the anaconda environment. Therefore, a workaround follows
+from \cite{drylabrebel2019how} where the answers suggest to run the
+following command in terminal:
+\begin{lstlisting}
+conda config --set auto_activate_base false
+\end{lstlisting}
+which ensures that the Anaconda base envionment does not automatically appear by
+default when the terminal is started.\\
+
+This generally seems to fix the problem. However, I noticed that when compiling
+tex documents using the LaTeX template used to write these notes, I get the
+error `Compilation failed'. Despite this, you can still use `VimtexView' to open the
+pdf and notice that compilation does work as the pdf does change. Additionally,
+forward and backward search works as well. So I just ignore the error.
