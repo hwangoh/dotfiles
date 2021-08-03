@@ -349,7 +349,7 @@
     autocmd FileType python inoremap ;pdb pdb.set_trace()
 
 " sendtowindow for IPython in Vim Terminal: IPython, clear, reset, run code, run variable, run marked section
-    nnoremap <Leader>P :botright vertical terminal ipython --no-autoindent<CR><C-w><left>
+    nnoremap <Leader>P :botright vertical terminal ipython --no-autoindent<CR><c-w>h
     autocmd FileType python noremap ,L :SendCommandToWindowRight clear<CR>
     autocmd FileType python noremap ,D :SendCommandToWindowRight %reset -f<CR>
     autocmd FileType python noremap ,R :w!<CR>:SendCommandToWindowRight run <c-r>%<CR>
