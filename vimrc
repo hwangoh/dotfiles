@@ -16,6 +16,7 @@
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
+    Plug 'https://github.com/leafgarland/typescript-vim'
 
 " List ends here. Plugins become visible to Vim after this call
     call plug#end()
