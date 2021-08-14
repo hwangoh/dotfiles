@@ -38,7 +38,7 @@
     set undolevels=1001
     set history=10000
     set number relativenumber
-    set lines=62 columns=120
+    " set lines=62 columns=120
     set nostartofline
     set splitbelow splitright
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disable automatic comment

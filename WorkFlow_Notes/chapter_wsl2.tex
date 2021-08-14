@@ -173,6 +173,20 @@ However, with this, you won't have access to forward and backward search via
 synctex.
 
 %------------------------------------------------------------------------------
+\subsection{Vim Display Issues on Startup}
+%------------------------------------------------------------------------------
+When using Windows Terminal, you may notice that Vim has display issues when
+starting up. Specifically, the columns might appear `diagonally' and only
+resolves itself after playing around with the window i.e. toggling full screen
+on and off. This is because the following settings in your vimrc:
+\begin{lstlisting}
+    set lines=62 columns=120
+\end{lstlisting}
+garbles the initial startup of Vim in Windows Terminal. Simply disable this
+setting and the issue will disappear as suggested by waf's answer in
+\cite{tompounceonGit2020vim}.
+
+%------------------------------------------------------------------------------
 \subsection{Clash with Anaconda}
 %------------------------------------------------------------------------------
 You may notice that after installing Anaconda, when using
