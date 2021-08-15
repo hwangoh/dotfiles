@@ -172,6 +172,10 @@ vimrc:
 However, with this, you won't have access to forward and backward search via
 synctex.
 
+%==============================================================================
+\section{Troubleshooting}
+%==============================================================================
+
 %------------------------------------------------------------------------------
 \subsection{Vim Display Issues on Startup}
 %------------------------------------------------------------------------------
@@ -185,6 +189,20 @@ on and off. This is because the following settings in your vimrc:
 garbles the initial startup of Vim in Windows Terminal. Simply disable this
 setting and the issue will disappear as suggested by waf's answer in
 \cite{tompounceonGit2020vim}.
+
+%------------------------------------------------------------------------------
+\subsection{Visual Block Mode}
+%------------------------------------------------------------------------------
+To enter visual block mode in Vim, you need to press `ctrl+V'. However, in
+Windows, this is bound to paste. Therefore, open the Windows Terminal settings
+and open the `settings.json' file. Then locate the following code:
+\begin{lstlisting}
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+\end{lstlisting}
+and change it to `ctrl+shift+v' if you like to mimic Linux.
 
 %------------------------------------------------------------------------------
 \subsection{Clash with Anaconda}
