@@ -17,6 +17,8 @@
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
     Plug 'https://github.com/leafgarland/typescript-vim'
+    Plug 'https://github.com/mattn/emmet-vim'
+    Plug 'https://github.com/tmhedberg/matchit'
 
 " List ends here. Plugins become visible to Vim after this call
     call plug#end()
