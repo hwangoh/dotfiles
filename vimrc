@@ -92,7 +92,11 @@
     command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
 " Set comment syntax for tpope's vim-commentary plugin
-    autocmd FileType html setlocal commentstring=//\ %s
+    " autocmd FileType html setlocal commentstring=//\ %s
+
+" FileType specific properties
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " =============================================================================
 "                               General Mappings
