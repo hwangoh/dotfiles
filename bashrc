@@ -5,11 +5,6 @@ setxkbmap -option "caps:escape"
 stty susp undef
 bind '"\C-z":"fg\015"'
 
-# Run ls immediately after cd
-function cd {
-    builtin cd "$@" && ls -F
-}
-
 # new latex templates:
 function new_tex_simple() {
     cd ~/.vim/LaTeX_Templates/tex_template_simple
@@ -48,3 +43,9 @@ function vpmux() {
 # Windows Client Server
 export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 export LIBGL_ALWAYS_INDIRECT=1
+
+# Run ls after cd
+[ -z "$PS1" ] && return
+function cd {
+    builtin cd "$@" && ls -F
+}

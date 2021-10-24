@@ -1,0 +1,46 @@
+\chapter{Miscellaneous} \label{ChapMisc}
+
+%==============================================================================
+\section{.bashrc Stuff}
+%==============================================================================
+%------------------------------------------------------------------------------
+\subsection{Run \textbf{ls} after \textbf{cd}}
+%------------------------------------------------------------------------------
+Following `frabjous' answer to the StackOverflow question
+\cite{robkohr2011make}, you can add the following to your .bashrc:
+\begin{lstlisting}
+function cd {
+    builtin cd "$@" && ls -F
+}
+\end{lstlisting}
+He also mentions that he adds
+\begin{lstlisting}
+    [ -z "$PS1" ] && return
+\end{lstlisting}
+before this so that ``everything after that line only applies to interactive
+sessions, so this doesn't affect how \textbf{cd} behaves in scripts." How this
+works is also explained by him:\\
+``$[ -z "\$PS1" $] checks if the \$PS (interactive prompt variable) is `zero
+length' (-z). If it is zero length, this means it has not been set, so Bash must
+not be running in interactive mode. The \&\& return part exits from sourcing
+.bashrc at this point, under these conditions."
+
+%==============================================================================
+\section{Ranger}
+%==============================================================================
+Following \cite{linuxcompendium2019ranger}:
+\begin{enumerate}
+    \item git clone https://github.com/hut/ranger.git
+    \item cd ranger
+    \item sudo make install
+\end{enumerate}
+To start ranger use "ranger".
+
+%------------------------------------------------------------------------------
+\subsection{Configuration}
+%------------------------------------------------------------------------------
+After the configuration directory has been created by the Ranger, you can now copy its configuration files by running the following commands in terminal:
+\begin{itemize}
+    \item "ranger --copy-config=all". Now you can run "cd ~/.config/ranger" to see the
+        configuration files.
+\end{itemize}
