@@ -5,6 +5,11 @@ setxkbmap -option "caps:escape"
 stty susp undef
 bind '"\C-z":"fg\015"'
 
+# Run ls immediately after cd
+function cd {
+    builtin cd "$@" && ls -F
+}
+
 # new latex templates:
 function new_tex_simple() {
     cd ~/.vim/LaTeX_Templates/tex_template_simple

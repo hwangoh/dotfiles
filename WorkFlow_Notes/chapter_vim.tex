@@ -637,11 +637,15 @@ functions refers to the register.
 When deciding between \emph{You Complete Me (YCM)} \cite{ycmcore2017ycm} and
 \emph{Conquer of Completion (CoC)} \cite{neoclide2020conquer}, I found the
 following the discussion in \cite{desmap2020ycmvscoc} where a maintainer of YCM
-details the design philosophy of YCM in the comments. Specifically, the
-maintainer (puremourning) states that YCM prioritizes consistency, testing,
-stability and performance over a range of functoins such as snippet support of
-insertion of parenthese. This appeals to me because honestly all I want is to be
-able to jump to definition.\\
+details the design philosophy of YCM in the comments. Specifically, one of the
+maintainers (puremourning) states that YCM prioritizes consistency, testing,
+stability and performance over a range of functions such as snippet support of
+insertion of parentheses. This appeals to me because honestly all I want is to
+be able to jump to definition. Finally, as of writing this, I prefer to
+out-source error checking to the compiler and linting to some external linting
+program. Basically, I want my text-editor to just edit text and help me navigate
+my code. With this in mind, YCM seems ideal as you can easily configure and
+disable all these extra functions.\\
 
 Another helpful resource was the video \cite{primeagen2020cocvsycm} where the
 speaker uses both as YCM seems to perform better with TypeScript whilst CoC
@@ -708,7 +712,7 @@ Additionally, I found configuring the behaviour to be a very elegant procedure:
     let g:ycm_update_diagnostics_in_insert_mode = 0
 
 " Commands to control completion pop up
-    let g:ycm_key_invoke_completion = '<Leader>C'
+    let g:ycm_key_invoke_completion = '<C-Space>'
     let g:ycm_key_list_stop_completion = ['<C-c>']
 
 " Open Search
