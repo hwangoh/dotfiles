@@ -266,11 +266,14 @@
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") && v:this_session == "" | NERDTree | endif
 
-" Retain focus on NERDTree after opening a file
-    let g:NERDTreeMapPreview='L'
-
 " Shortcut to toggle NERDTree on and off
     noremap <F12> :NERDTreeToggle<CR>
+
+" Open a file and retain focus on NERDTree
+    let g:NERDTreeMapPreview='L'
+
+" Open a file and close NERDTree
+    let g:NERDTreeQuitOnOpen = 1
 
 " Window Size
     let g:NERDTreeWinSize=60
