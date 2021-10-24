@@ -89,9 +89,6 @@
 " Wipe register
     command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
-" Set comment syntax for tpope's vim-commentary plugin
-    " autocmd FileType html setlocal commentstring=//\ %s
-
 " =============================================================================
 "                               General Mappings
 " =============================================================================
@@ -169,7 +166,7 @@
     nnoremap <Leader>H <c-w>lexit<CR><c-w>q
 
 " Reload vimrc
-    nnoremap <Leader>R :source ~/.vimrc<CR>
+    " nnoremap <Leader>R :source ~/.vimrc<CR>
     nnoremap <Leader>R :source ~/.vim/vimrc<CR>
 
 " Text object full lines. With '-' the indentation is included and with 'i_' the indentation is excluded
