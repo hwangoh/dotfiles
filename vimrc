@@ -5,19 +5,18 @@
     call plug#begin('~/.vim/plugged')
 
 " Plugins
-    Plug 'https://github.com/tpope/vim-fugitive.git'
-    Plug 'https://github.com/preservim/nerdtree.git'
-    Plug 'https://github.com/vim-syntastic/syntastic.git'
-    Plug 'https://github.com/edkolev/tmuxline.vim.git'
+    Plug 'https://github.com/lervag/vimtex.git'
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
+    Plug 'https://github.com/tpope/vim-fugitive.git'
+    Plug 'https://github.com/preservim/nerdtree.git'
     Plug 'https://github.com/tpope/vim-commentary.git'
-    Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
     Plug 'https://github.com/tpope/vim-surround.git'
-    Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
+    Plug 'https://github.com/edkolev/tmuxline.vim.git'
     Plug 'https://github.com/leafgarland/typescript-vim'
-    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
 
 " List ends here. Plugins become visible to Vim after this call
     call plug#end()
@@ -298,40 +297,6 @@
     let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 " =============================================================================
-"                                  Syntastic
-" =============================================================================
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-    let g:syntastic_quiet_messages = { "type": "style" }
-
-" Start Syntastic in passive mode
-    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-
-" Mapping to start Syntastic
-    nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-
-" For toggling error window open and close
-    autocmd FileType python,c,cpp noremap <F4> <ESC>:call SyntasticToggle()<CR>
-
-    let g:syntastic_is_open = 0
-    function! SyntasticToggle()
-    if g:syntastic_is_open == 1
-        lclose
-        let g:syntastic_is_open = 0
-    else
-        Errors
-        let g:syntastic_is_open = 1
-    endif
-    endfunction
-
-" =============================================================================
 "                                Signature
 " =============================================================================
 " Toggling marks on and off
@@ -378,7 +343,7 @@
     let g:ycm_update_diagnostics_in_insert_mode = 0
 
 " Commands to control completion pop up
-    let g:ycm_key_invoke_completion = '<Leader>C'
+    let g:ycm_key_invoke_completion = '<C-Space>'
     let g:ycm_key_list_stop_completion = ['<C-c>']
 
 " Open Search
@@ -436,7 +401,6 @@
 " =============================================================================
 " Use Zathura pdf viewer which enables forward and backward navigation between tex file and pdf
     let g:vimtex_view_method = 'zathura'
-    let g:vimtex_view_general_viewer  = '/mnt/c/Users/Hwan/AppData/Local/SumatraPDF/SumatraPDF.exe'
     let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
     let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
