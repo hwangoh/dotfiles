@@ -634,14 +634,128 @@ functions refers to the register.
 %==============================================================================
 \section{Autocompletion with YCM}
 %==============================================================================
-When deciding
+When deciding between \emph{You Complete Me (YCM)} \cite{ycmcore2017ycm} and
+\emph{Conquer of Completion (CoC)} \cite{neoclide2020conquer}, I found the
+following the discussion in \cite{desmap2020ycmvscoc} where a maintainer of YCM
+details the design philosophy of YCM in the comments. Specifically, the
+maintainer (puremourning) states that YCM prioritizes consistency, testing,
+stability and performance over a range of functoins such as snippet support of
+insertion of parenthese. This appeals to me because honestly all I want is to be
+able to jump to definition.\\
+
+Another helpful resource was the video \cite{primeagen2020cocvsycm} where the
+speaker uses both as YCM seems to perform better with TypeScript whilst CoC
+performs better with C++. I'm not super sold on my choice, it was a bit of a
+coin flip in the end, but I decided to go with YCM. Another possible option was
+converting to Neovim and using it's native LSP, but I decided to hold out on the
+conversion until Vim 9 is released.
+
+%------------------------------------------------------------------------------
+\subsection{Installation}
+%------------------------------------------------------------------------------
+I'm not entirely sure why the repository \cite{ycmcore2017ycm} suggests to use
+Vundle accompanied by some complicated instructions. I instead found on
+\cite{yves2020why} that you can simply include
+\begin{lstlisting}
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+\end{lstlisting}
+into your vimrc. After running PlugInstall, it seems to work out of the box for
+TypeScript and Python!
+
+%------------------------------------------------------------------------------
+\subsection{Mappings}
+%------------------------------------------------------------------------------
+Here are a few additions I made to the vimrc, beginning with the jump commands:
+\begin{lstlisting}
+    nnoremap <Leader>gd :YcmCompleter GoTo<CR>
+    nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
+    nnoremap <Leader>gy :YcmCompleter GoToType<CR>
+    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
+\end{lstlisting}
+The repository README provides a fantastic description of each of these
+commands.\\
+
+Additionally, I found configuring the behaviour to be a very elegant procedure:
+\begin{lstlisting}
+" Turn off automatic summoning of completion suggestions
+    let g:ycm_auto_trigger = 0
+
+" Completion Pop-Up Settings
+    set pumheight=10
+    set completeopt+=popup
+    set previewpopup=height:10,width:60,highlight:PMenuSbar
+    set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
+    let g:ycm_max_num_candidates_to_detail = 5
+    let g:ycm_max_num_identifier_candidates = 5
+
+" Disable preview at bottom of terminal when using completion
+    set completeopt-=preview
+    let g:ycm_add_preview_to_completeopt = 0
+
+" If using preview, close window after using a selection
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Disable summoning of documentation when hovering
+    let g:ycm_auto_hover = ''
+
+" Diagnostics UI settings
+    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_enable_diagnostic_signs = 0
+    let g:ycm_enable_diagnostic_highlighting = 0
+    let g:ycm_echo_current_diagnostic = 0
+    let g:ycm_update_diagnostics_in_insert_mode = 0
+
+" Commands to control completion pop up
+    let g:ycm_key_invoke_completion = '<Leader>C'
+    let g:ycm_key_list_stop_completion = ['<C-c>']
+
+" Open Search
+    nmap <Leader>F <plug>(YCMFindSymbolInWorkspace)
+
+" Instead of triggering after hovering, summon documentation using a command
+    nmap <Leader>D <plug>(YCMHover)
+
+" Jumps
+    nnoremap <Leader>G :YcmCompleter GoTo<CR>
+    autocmd FileType python nnoremap <Leader>G :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
+    nnoremap <Leader>gy :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
+    nnoremap <Leader>gs :YcmCompleter GoToSymbol<CR>
+    nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
+\end{lstlisting}
+Some notes on this configuration. Firstly, for Python, both \textbf{GoTo} and
+\textbf{GoToDefinition} just sends you to the import at the top of the file.
+Intead, \textbf{GoToType} sends you to the file in which it was created.
+Therefore, I instead specified a special map for when in Python files.\\
+
+Interestingly enough, YCM does not offer the
+ability to limit the number of suggestions displayed \cite{ioeric2019size}. To
+be honest, I'm not entirely sure what the options:
+\begin{lstlisting}
+    let g:ycm_max_num_candidates_to_detail = 5
+    let g:ycm_max_num_identifier_candidates = 5
+\end{lstlisting}
+do. Instead, you have to use a vanilla Vim configuration and decrease the size
+of the window with
+\begin{lstlisting}
+    set pumheight=10
+\end{lstlisting}
+Now regarding the verbosity of the suggestions and the redundancy of its
+appearance in the popup, there seems to be lengthy discourse over this in
+\cite{dhleong2019abbreviate}. It doesn't seem like puremourning is in favour of
+truncating the signatures following the idea that, without them, you can only
+see details of the currently selected suggestion.
 
 %==============================================================================
 \section{Autocompletion with CoC}
 %==============================================================================
 If you want to attempt to emulate VSCode, autocompletion is a must have. One
 option for autocompletion is \emph{Conquer of Completion (CoC)}
-\cite{neoclide2020conquer}. If you're using VimPlug, to install, add:
+\cite{neoclide2020conquer}. If you're using VimPlug, to install, simply add:
 \begin{lstlisting}
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 \end{lstlisting}

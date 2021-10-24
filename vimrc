@@ -17,6 +17,7 @@
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
     Plug 'https://github.com/leafgarland/typescript-vim'
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 
 " List ends here. Plugins become visible to Vim after this call
     call plug#end()
@@ -340,6 +341,58 @@
     let g:cpp_member_variable_highlight = 0
     let g:cpp_class_decl_highlight = 0
     let g:cpp_posix_standard = 0
+
+" =============================================================================
+"                               You Complete Me
+" =============================================================================
+" Turn off automatic summoning of completion suggestions
+    let g:ycm_auto_trigger = 0
+
+" Completion Pop-Up Settings
+    set pumheight=10
+    set completeopt+=popup
+    set previewpopup=height:10,width:60,highlight:PMenuSbar
+    set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
+    let g:ycm_max_num_candidates_to_detail = 5
+    let g:ycm_max_num_identifier_candidates = 5
+
+" Disable preview at bottom of terminal when using completion
+    set completeopt-=preview
+    let g:ycm_add_preview_to_completeopt = 0
+
+" If using preview, close window after using a selection
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Disable summoning of documentation when hovering
+    let g:ycm_auto_hover = ''
+
+" Diagnostics UI settings
+    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_enable_diagnostic_signs = 0
+    let g:ycm_enable_diagnostic_highlighting = 0
+    let g:ycm_echo_current_diagnostic = 0
+    let g:ycm_update_diagnostics_in_insert_mode = 0
+
+" Commands to control completion pop up
+    let g:ycm_key_invoke_completion = '<Leader>C'
+    let g:ycm_key_list_stop_completion = ['<C-c>']
+
+" Open Search
+    nmap <Leader>F <plug>(YCMFindSymbolInWorkspace)
+
+" Instead of triggering after hovering, summon documentation using a command
+    nmap <Leader>D <plug>(YCMHover)
+
+" Jumps
+    nnoremap <Leader>G :YcmCompleter GoTo<CR>
+    autocmd FileType python nnoremap <Leader>G :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
+    nnoremap <Leader>gy :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
+    nnoremap <Leader>gs :YcmCompleter GoToSymbol<CR>
+    nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
 
 " =============================================================================
 "                                   Python
