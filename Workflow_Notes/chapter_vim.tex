@@ -41,9 +41,9 @@ on effective text editing written by the creator of Vim can be found at
     \item `J' is used to join the line below to the line currently under the
         cursor. This is useful for reformatting improperly wrapped lines but in
         general `gq' is more useful for this purpose.
-    \item `zt' or `z<CR>' will put the line under the cursor to the to of the
-        window. `z.' will put the line to the center of the window and `z-' will
-        put it to the bottom of the window.
+    \item `zt' or `z\tlangle CR\trangle' will put the line under the cursor to
+        the to of the window. `z.' will put the line to the center of the window
+        and `z-' will put it to the bottom of the window.
     \item `z=' will give spelling suggestions for the word under the cursor.
     \item `[s' and `]s' to cycle backwards and forwards through misspelled words.
     \item Use `g\$' to go to the end of an unwrapped line.
@@ -753,6 +753,86 @@ appearance in the popup, there seems to be lengthy discourse over this in
 \cite{dhleong2019abbreviate}. It doesn't seem like puremourning is in favour of
 truncating the signatures following the idea that, without them, you can only
 see details of the currently selected suggestion.
+
+%------------------------------------------------------------------------------
+\subsection{Python}
+%------------------------------------------------------------------------------
+You can find some detailed information about YCM with Python in the `Python
+Semantic Completion' section of \cite{ycmcore2017ycm}. One idiosyncracy of
+Python YCM must deal with is the use of virtual environments. There are two ways
+offered by YCM:
+\begin{itemize}
+    \item A local solution. Create a \textbf{.ycm\_extra\_conf.py} file at the
+        root directory of every project containing
+        \begin{lstlisting}
+            def Settings( **kwargs ):
+            return {
+                'interpreter_path': '/path/to/virtual/environment/python'
+            }
+        \end{lstlisting}
+    \item A global solution. In your vimrc, add:
+        \begin{lstlisting}
+            let g:ycm_python_interpreter_path = ''
+            let g:ycm_python_sys_path = []
+            let g:ycm_extra_conf_vim_data = [
+                \  'g:ycm_python_interpreter_path',
+                \  'g:ycm_python_sys_path'
+                \]
+            let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
+        \end{lstlisting}
+        and create the \textbf{\tsim/global\_extra\_conf.py} file containing:
+        \begin{lstlisting}
+            def Settings( **kwargs ):
+                client_data = kwargs[ 'client_data' ]
+                return {
+                    'interpreter_path': client_data[ 'g:ycm_python_interpreter_path' ],
+                    'sys_path': client_data[ 'g:ycm_python_sys_path' ]
+                }
+        \end{lstlisting}
+\end{itemize}
+What this does is it sets all the paths you need for code jumps. Indeed, with
+your file open in Vim, if you use \textbf{:YcmDebugInfo}, you'll be able to see
+something like:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=\figscale]{ycmdebuginfo.png}
+    \caption{YCM debug information}
+    \label{FigYcmDebugInfo}
+\end{figure}
+Notice in particular the `Extra configuration path' which I placed within
+\textbf{\tsim/.vim/plugins/YouCompleteMe}.\\
+
+One thing to take note of is that the code jumps may not work if you modify your
+\textbf{sys.path} within the code. For example:
+\begin{lstlisting}
+import os
+import sys
+sys.path.insert(0, os.path.realpath('../../../src'))
+sys.path.insert(0, os.path.realpath('..'))
+
+# Import src code
+from utils_io.filepaths_vae import FilePathsTraining
+
+# Import Project Utilities
+from utils_project.filepaths_project import FilePathsProject
+\end{lstlisting}
+Here, I have modified the path such that I can abbreviate the import of
+\textbf{../../../src/utils\_io/filepaths\_vae} to simply
+\textbf{utils\_io/filepaths\_vae}. The issue here is, in Figure
+\ref{FigYcmDebugInfo}, notice that \textbf{/home/hwangoh/codes/uq-vae/codes/src}
+is not included in the `Python path' segment. Therefore, unless one manually
+adds to their vimrc:
+\begin{lstlisting}
+    :let $PYTHONPATH="/path/to/project/directory"
+\end{lstlisting}
+or runs this in Vim and and then runs \textbf{:YcmRestartServer}, the code jumps
+will not work. Maybe one can add
+\begin{lstlisting}
+    let $PYTHONPATH .= getcwd()
+\end{lstlisting}
+into their Vimrc and somehow jank their way into automating the inclusion of the
+path. But ultimately, YCM works fine and it is the programmer's responsibility
+to properly manage how they import their paths.
 
 %==============================================================================
 \section{Autocompletion with CoC}

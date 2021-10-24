@@ -359,6 +359,15 @@
     nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
     nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
 
+" Python Settings
+    let g:ycm_python_interpreter_path = ''
+    let g:ycm_python_sys_path = []
+    let g:ycm_extra_conf_vim_data = [
+    \  'g:ycm_python_interpreter_path',
+    \  'g:ycm_python_sys_path'
+    \]
+    let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
+
 " =============================================================================
 "                                   Python
 " =============================================================================
