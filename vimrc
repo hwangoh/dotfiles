@@ -17,8 +17,6 @@
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
     Plug 'https://github.com/leafgarland/typescript-vim'
-    Plug 'https://github.com/mattn/emmet-vim'
-    Plug 'https://github.com/tmhedberg/matchit'
 
 " List ends here. Plugins become visible to Vim after this call
     call plug#end()
@@ -93,10 +91,6 @@
 
 " Set comment syntax for tpope's vim-commentary plugin
     " autocmd FileType html setlocal commentstring=//\ %s
-
-" FileType specific properties
-    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " =============================================================================
 "                               General Mappings
@@ -176,6 +170,7 @@
 
 " Reload vimrc
     nnoremap <Leader>R :source ~/.vimrc<CR>
+    nnoremap <Leader>R :source ~/.vim/vimrc<CR>
 
 " Text object full lines. With '-' the indentation is included and with 'i_' the indentation is excluded
     onoremap <silent> <expr> - v:count==0 ? ":<c-u>normal! 0vg_<CR>" : ":<c-u>normal! V" . (v:count) . "jk<CR>"
@@ -269,6 +264,9 @@
 " Prevent NERDTree from starting up again when session is reloaded
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") && v:this_session == "" | NERDTree | endif
+
+" Retain focus on NERDTree after opening a file
+    let g:NERDTreeMapPreview='L'
 
 " Shortcut to toggle NERDTree on and off
     noremap <F12> :NERDTreeToggle<CR>
@@ -371,6 +369,11 @@
     autocmd FileType python nnoremap ,tR :w!<CR>:SlimuxShellRun run <c-r>%<CR>
     autocmd FileType python nmap ,tV <Plug>SlimuxREPLSendVariable
     autocmd FileType python nmap ,tM <Plug>SlimuxREPLSendMarkedSection
+
+" =============================================================================
+"                                    Webdev
+" =============================================================================
+    autocmd FileType html,javascript,javascriptreact,typescript,typescriptreact setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " =============================================================================
 "                                    LaTeX

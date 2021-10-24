@@ -630,3 +630,55 @@ functions refers to the register.
         as well as sending one line of code, but I have issues sending over
         cells.
 \end{itemize}
+
+%==============================================================================
+\section{Autocompletion with YCM}
+%==============================================================================
+When deciding
+
+%==============================================================================
+\section{Autocompletion with CoC}
+%==============================================================================
+If you want to attempt to emulate VSCode, autocompletion is a must have. One
+option for autocompletion is \emph{Conquer of Completion (CoC)}
+\cite{neoclide2020conquer}. If you're using VimPlug, to install, add:
+\begin{lstlisting}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+\end{lstlisting}
+to your vimrc. This doesn't work immediately out of the box. You need to install
+language specific extensions. For example, add this to your vimrc:
+\begin{lstlisting}
+   let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-python']
+\end{lstlisting}
+to install the json, TypeScript and Python extensions. See
+\cite{neoclide2020extensions} for more information about extensions.\\
+
+The repo \cite{neoclide2020conquer} provides an example configuration. I don't
+exactly know what it all does so, I simply added the ones that I understand.
+These include:
+\begin{itemize}
+    \item For code navigation:
+        \begin{lstlisting}
+            " GoTo code navigation.
+            nmap <silent> gd <Plug>(coc-definition)
+            nmap <silent> gy <Plug>(coc-type-definition)
+            nmap <silent> gi <Plug>(coc-implementation)
+            nmap <silent> gr <Plug>(coc-references)
+        \end{lstlisting}
+    \item To show an inline preview of the definitions:
+        \begin{lstlisting}
+            " Use K to show documentation in preview window.
+            nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+            function! s:show_documentation()
+                if (index(['vim','help'], &filetype) >= 0)
+                    execute 'h '.expand('<cword>')
+                elseif (coc#rpc#ready())
+                    call CocActionAsync('doHover')
+                else
+                    execute '!' . &keywordprg . " " . expand('<cword>')
+                endif
+            endfunction
+        \end{lstlisting}
+\end{itemize}
+
