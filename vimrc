@@ -263,12 +263,12 @@
 
 " File manipulation mappings
     function! s:init_fern() abort
+        nmap <buffer> <Plug>(fern-my-open-and-stay) <Plug>(fern-action-open)<C-w><C-p>
         nmap <buffer><expr>
-                \ <Plug>(fern-my-open-expand-then-close)
+                \ <Plug>(fern-my-open-expand-and-stay)
                 \ fern#smart#leaf(
-                \   "\<Plug>(fern-action-open:select)",
+                \   "\<Plug>(fern-my-open-and-stay)",
                 \   "\<Plug>(fern-action-expand)",
-                \   "\<Plug>(fern-close-drawer)",
                 \ )
         nmap <buffer><expr>
                 \ <Plug>(fern-my-collapse-or-leave)
@@ -276,11 +276,14 @@
                 \   "\<Plug>(fern-action-collapse)",
                 \   "\<Plug>(fern-action-leave)",
                 \ )
-        nmap <buffer> l <Plug>(fern-my-open-expand-then-close)
+        nmap <buffer> l <Plug>(fern-my-open-expand-and-stay)
         nmap <buffer> h <Plug>(fern-my-collapse-or-leave)
 
-        nmap <buffer> <Plug>(fern-my-open-and-stay) <Plug>(fern-action-open)<C-w><C-p>
-        nmap <buffer> L <Plug>(fern-my-open-and-stay)
+        nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
+        nmap <buffer><silent> <Plug>(fern-action-open-and-close)
+            \ <Plug>(fern-action-open)
+            \ <Plug>(fern-close-drawer)
+        nmap <buffer><nowait> L <Plug>(fern-action-open-and-close)
         nmap <buffer><nowait> H <Plug>(fern-action-leave)
 
         nmap <buffer> R <Plug>(fern-action-reload)
