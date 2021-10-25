@@ -259,7 +259,7 @@
     let g:fern#default_hidden = 1
 
 " Shortcut to toggle drawer open and closed
-    noremap <silent> <F12> :Fern %:h -drawer -toggle -width=35<CR>
+    noremap <silent> <F12> :Fern . -reveal=% -drawer -toggle -width=35<CR>
 
 " File manipulation mappings
     function! s:init_fern() abort
@@ -278,6 +278,11 @@
                 \ )
         nmap <buffer> l <Plug>(fern-my-open-expand-then-close)
         nmap <buffer> h <Plug>(fern-my-collapse-or-leave)
+
+        nmap <buffer> <Plug>(fern-my-open-and-stay) <Plug>(fern-action-open)<C-w><C-p>
+        nmap <buffer> L <Plug>(fern-my-open-and-stay)
+        nmap <buffer><nowait> H <Plug>(fern-action-leave)
+
         nmap <buffer> R <Plug>(fern-action-reload)
         nmap <buffer> s <Plug>(fern-action-open:split)
         nmap <buffer> v <Plug>(fern-action-open:vsplit)
