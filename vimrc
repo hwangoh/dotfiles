@@ -6,8 +6,8 @@
 
 " Plugins
     Plug 'https://github.com/lervag/vimtex.git'
-    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     Plug 'https://github.com/lambdalisue/fern.vim.git'
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
     Plug 'https://github.com/tpope/vim-fugitive.git'
@@ -176,87 +176,10 @@
     vnoremap <silent> <expr> i- v:count==0 ? ":<c-u>normal! ^vg_<CR>" : ":<c-u>normal! ^v" . (v:count) . "jkg_<CR>"
 
 " =============================================================================
-"                                 sendtowindow
-" =============================================================================
-" Primer for Vim motions to select text to be sent
-    nmap , <Plug>SendRight
-
-" Send text selected in visual mode
-    vmap ,s <Plug>SendRightV
-
-" Send terminal commands
-    nnoremap ,T :SendCommandToWindowRight<Space>
-    nnoremap ,E :SendCommandToWindowRight exit<CR>
-
-" =============================================================================
-"                                   Slimux
-" =============================================================================
-" Primer for Vim motions to select text to be sent
-    nmap ,t <Plug>SlimuxREPLSendWithMotion
-
-" Send text selected in visual mode
-    vnoremap ,t :SlimuxREPLSendSelection<CR>
-
-" Send terminal commands
-    nnoremap ,tX :SlimuxShellPrompt<CR>
-    nnoremap ,tT :SlimuxShellRun<Space>
-    nnoremap ,tE :SlimuxShellRun exit<CR>
-
-" Send keys using the 'tmux send-keys' syntax
-    nnoremap ,tK :SlimuxSendKeys<Space>
-    nnoremap ,tC :SlimuxSendKeys<Space>c-c<CR>
-
-" =============================================================================
-"                                  Fuzzy Finder
-" =============================================================================
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-    set path+=**
-
-" Instructions
-" - Use :find and type in a partial substring, then hit tab to search
-" - Use * to make it fuzzy
-" - :b lets you autocomplete any open buffer
-
-" =============================================================================
-"                                  Tag Jumping
-" =============================================================================
-" Might need to install ctags first: sudo apt-get install ctags
-
-" To check current folder for tags file and keep going one directory all the way to root folder
-" so you can be in any sub-folder in your project and it'll be able to find the tags files
-    set tags=tags;/
-
-" Command to create the `tags' file
-    command! MakeTags !ctags -R .
-
-" Instructions
-" - Either use `:MakeTags' while in vim or `ctags -R .' while in directory.
-"   This will create a file called `tags' in the directory.
-" - Use ^] to jump to tag under cursor
-" - Use g^] for ambiguous tags. This will generate a list of possible matches you can jump to
-" - Use ^t to jump back up the tag stack
-" - This doesn't help if you want a visual list of tags
-
-" =============================================================================
-"                                   Sessions
-" =============================================================================
-" Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
-    :command! SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
-    :command! LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
-
-    :command! SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
-    :command! LSpy :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
-
-    :command! SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
-    :command! LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
-
-" =============================================================================
 "                                     Fern
 " =============================================================================
 " Use custom settings and mappings
     let g:fern#disable_default_mappings = 1
-    let g:fern#default_hidden = 1
 
 " Shortcut to toggle drawer open and closed
     noremap <silent> <F12> :Fern . -reveal=% -drawer -toggle -width=35<CR>
@@ -291,7 +214,7 @@
         nmap <buffer> v <Plug>(fern-action-open:vsplit)
         nmap <buffer> mv <Plug>(fern-action-move)
         nmap <buffer> r <Plug>(fern-action-rename)
-        nmap <buffer> I <Plug>(fern-action-hidden-toggle)
+        nmap <buffer> I <Plug>(fern-action-hidden:toggle)
         nmap <buffer> n <Plug>(fern-action-new-path)
     endfunction
 
@@ -299,6 +222,37 @@
         autocmd! *
         autocmd FileType fern call s:init_fern()
     augroup END
+
+" =============================================================================
+"                                 sendtowindow
+" =============================================================================
+" Primer for Vim motions to select text to be sent
+    nmap , <Plug>SendRight
+
+" Send text selected in visual mode
+    vmap ,s <Plug>SendRightV
+
+" Send terminal commands
+    nnoremap ,T :SendCommandToWindowRight<Space>
+    nnoremap ,E :SendCommandToWindowRight exit<CR>
+
+" =============================================================================
+"                                   Slimux
+" =============================================================================
+" Primer for Vim motions to select text to be sent
+    nmap ,t <Plug>SlimuxREPLSendWithMotion
+
+" Send text selected in visual mode
+    vnoremap ,t :SlimuxREPLSendSelection<CR>
+
+" Send terminal commands
+    nnoremap ,tX :SlimuxShellPrompt<CR>
+    nnoremap ,tT :SlimuxShellRun<Space>
+    nnoremap ,tE :SlimuxShellRun exit<CR>
+
+" Send keys using the 'tmux send-keys' syntax
+    nnoremap ,tK :SlimuxSendKeys<Space>
+    nnoremap ,tC :SlimuxSendKeys<Space>c-c<CR>
 
 " =============================================================================
 "                                   Airline
@@ -504,3 +458,49 @@
     autocmd FileType tex inoremap ;lra \left\langle<CR><CR>\right\rangle<CR><++><Esc>2kA<Tab>
     autocmd FileType tex inoremap ;lrc \left\{<CR><CR>\right\}<CR><++><Esc>2kA<Tab>
     autocmd FileType tex inoremap ;lrb \left<Bar><CR><CR>\right<Bar><CR><++><Esc>2kA<Tab>
+
+" =============================================================================
+"                                   Sessions
+" =============================================================================
+" Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
+    :command! SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
+    :command! LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
+
+    :command! SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
+    :command! LSpy :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
+
+    :command! SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
+    :command! LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
+
+" =============================================================================
+"                                  Fuzzy Finder
+" =============================================================================
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+    set path+=**
+
+" Instructions
+" - Use :find and type in a partial substring, then hit tab to search
+" - Use * to make it fuzzy
+" - :b lets you autocomplete any open buffer
+
+" =============================================================================
+"                                  Tag Jumping
+" =============================================================================
+" Might need to install ctags first: sudo apt-get install ctags
+
+" To check current folder for tags file and keep going one directory all the way to root folder
+" so you can be in any sub-folder in your project and it'll be able to find the tags files
+    set tags=tags;/
+
+" Command to create the `tags' file
+    command! MakeTags !ctags -R .
+
+" Instructions
+" - Either use `:MakeTags' while in vim or `ctags -R .' while in directory.
+"   This will create a file called `tags' in the directory.
+" - Use ^] to jump to tag under cursor
+" - Use g^] for ambiguous tags. This will generate a list of possible matches you can jump to
+" - Use ^t to jump back up the tag stack
+" - This doesn't help if you want a visual list of tags
+
