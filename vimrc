@@ -7,10 +7,10 @@
 " Plugins
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    Plug 'https://github.com/lambdalisue/fern.vim.git'
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
     Plug 'https://github.com/tpope/vim-fugitive.git'
-    Plug 'https://github.com/preservim/nerdtree.git'
     Plug 'https://github.com/tpope/vim-commentary.git'
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/kshenoy/vim-signature.git'
@@ -239,7 +239,7 @@
 " - This doesn't help if you want a visual list of tags
 
 " =============================================================================
-"                                    Sessions
+"                                   Sessions
 " =============================================================================
 " Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
     :command! SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
@@ -252,31 +252,45 @@
     :command! LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
 
 " =============================================================================
-"                                   NERDTree
+"                                     Fern
 " =============================================================================
-" Startup NERDTree automatically if no files were specified
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Use custom settings and mappings
+    let g:fern#disable_default_mappings = 1
+    let g:fern#default_hidden = 1
 
-" Prevent NERDTree from starting up again when session is reloaded
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") && v:this_session == "" | NERDTree | endif
+" Shortcut to toggle drawer open and closed
+    noremap <silent> <F12> :Fern %:h -drawer -toggle -width=35<CR>
 
-" Shortcut to toggle NERDTree on and off
-    noremap <F12> :NERDTreeToggle<CR>
+" File manipulation mappings
+    function! s:init_fern() abort
+        nmap <buffer><expr>
+                \ <Plug>(fern-my-open-expand-then-close)
+                \ fern#smart#leaf(
+                \   "\<Plug>(fern-action-open:select)",
+                \   "\<Plug>(fern-action-expand)",
+                \   "\<Plug>(fern-close-drawer)",
+                \ )
+        nmap <buffer><expr>
+                \ <Plug>(fern-my-collapse-or-leave)
+                \ fern#smart#drawer(
+                \   "\<Plug>(fern-action-collapse)",
+                \   "\<Plug>(fern-action-leave)",
+                \ )
+        nmap <buffer> l <Plug>(fern-my-open-expand-then-close)
+        nmap <buffer> h <Plug>(fern-my-collapse-or-leave)
+        nmap <buffer> R <Plug>(fern-action-reload)
+        nmap <buffer> s <Plug>(fern-action-open:split)
+        nmap <buffer> v <Plug>(fern-action-open:vsplit)
+        nmap <buffer> mv <Plug>(fern-action-move)
+        nmap <buffer> r <Plug>(fern-action-rename)
+        nmap <buffer> I <Plug>(fern-action-hidden-toggle)
+        nmap <buffer> n <Plug>(fern-action-new-path)
+    endfunction
 
-" Open a file and retain focus on NERDTree
-    let g:NERDTreeMapPreview='L'
-
-" Open a file and close NERDTree
-    let g:NERDTreeQuitOnOpen = 1
-
-" Window Size
-    let g:NERDTreeWinSize=60
-
-" Relative Numbers on Startup
-    let NERDTreeShowLineNumbers=1
-    autocmd FileType nerdtree setlocal relativenumber
+    augroup fern-custom
+        autocmd! *
+        autocmd FileType fern call s:init_fern()
+    augroup END
 
 " =============================================================================
 "                                   Airline
