@@ -191,7 +191,7 @@
 
 " File manipulation mappings
     function! s:init_fern() abort
-        nmap <buffer> <Plug>(fern-my-open-and-stay) <Plug>(fern-action-open)<C-w><C-p>
+        nmap <buffer> <Plug>(fern-my-open-and-stay) <Plug>(fern-action-open:select)<C-w><C-p>
         nmap <buffer><expr>
                 \ <Plug>(fern-my-open-expand-and-stay)
                 \ fern#smart#leaf(
@@ -209,7 +209,7 @@
 
         nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
         nmap <buffer><silent> <Plug>(fern-action-open-and-close)
-            \ <Plug>(fern-action-open)
+            \ <Plug>(fern-action-open:select)
             \ <Plug>(fern-close-drawer)
         nmap <buffer><nowait> L <Plug>(fern-action-open-and-close)
         nmap <buffer><nowait> H <Plug>(fern-action-leave)
@@ -225,9 +225,10 @@
 
         nmap <buffer> R <Plug>(fern-action-reload)
         nmap <buffer> mv <Plug>(fern-action-move)
+        nmap <buffer> cp <Plug>(fern-action-copy)
         nmap <buffer> rn <Plug>(fern-action-rename)
-        nmap <buffer> tc <Plug>(fern-action-new-file)
         nmap <buffer> rm <Plug>(fern-action-remove)
+        nmap <buffer> tc <Plug>(fern-action-new-file)
         nmap <buffer> mk <Plug>(fern-action-new-dir)
         nmap <buffer> I <Plug>(fern-action-hidden:toggle)
         nmap <buffer> n <Plug>(fern-action-new-path)
