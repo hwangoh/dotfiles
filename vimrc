@@ -119,8 +119,12 @@
     nnoremap ' `
     nnoremap Y y$
 
+" Navigate List
+    nnoremap <Leader>e :lnext<CR>
+    nnoremap <Leader>w :lprevious<CR>
+
 " <CR> to Insert Line Below Without Entering Insert Mode
-    nnoremap <silent> <CR>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
+    nnoremap <silent> <CR>  :<c-u>put =repeat([''],v:count)<bar>'[-1<CR>
 
 " Toggle line numbers
     noremap <F1> :set invnumber invrelativenumber<CR>
@@ -242,11 +246,11 @@
 
 " Completion Pop-Up Settings
     set pumheight=10
-    set completeopt+=popup
+    set completeopt-=popup
     set previewpopup=height:10,width:60,highlight:PMenuSbar
     set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
-    let g:ycm_max_num_candidates = 5
-    let g:ycm_max_num_identifier_candidates = 5
+    let g:ycm_max_num_candidates = 50
+    let g:ycm_max_num_identifier_candidates = 10
 
 " Disable preview at bottom of terminal when using completion
     set completeopt-=preview
@@ -265,6 +269,7 @@
     let g:ycm_enable_diagnostic_highlighting = 1
     let g:ycm_echo_current_diagnostic = 1
     let g:ycm_update_diagnostics_in_insert_mode = 0
+    let g:ycm_always_populate_location_list = 1
 
 " Commands to control completion pop up
     let g:ycm_key_invoke_completion = '<C-Space>'
@@ -298,6 +303,20 @@
     nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
     nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
 
+" For toggling error location list open and close
+    noremap <F4> <ESC>:call YouCompleteMeWindowToggle()<CR>
+
+    let g:ycm_is_open = 0
+    function! YouCompleteMeWindowToggle()
+    if g:ycm_is_open == 1
+        lclose
+        let g:ycm_is_open = 0
+    else
+        lopen
+        let g:ycm_is_open = 1
+    endif
+    endfunction
+
 " =============================================================================
 "                                  Syntastic
 " =============================================================================
@@ -317,7 +336,7 @@
 " Echo error on command line
     let g:syntastic_echo_current_error = 1
 
-" Run chekc when saving and closing
+" Run check when saving and closing
     let g:syntastic_check_on_wq = 0
 
 " Which errors or warnings to suppress
@@ -329,7 +348,7 @@
 " Mapping to toggle Syntastic mode
     autocmd FileType python nnoremap <Leader>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
-" For toggling error window open and close
+" For toggling error location list open and close
     autocmd FileType python noremap <F4> <ESC>:call SyntasticWindowToggle()<CR>
 
     let g:syntastic_is_open = 0
