@@ -8,6 +8,7 @@
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/lambdalisue/fern.vim.git'
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    Plug 'https://github.com/vim-syntastic/syntastic.git'
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
     Plug 'https://github.com/tpope/vim-fugitive.git'
@@ -234,6 +235,115 @@
     augroup END
 
 " =============================================================================
+"                               You Complete Me
+" =============================================================================
+" Turn off automatic summoning of completion and semantic suggestions
+    let g:ycm_auto_trigger = 0
+
+" Completion Pop-Up Settings
+    set pumheight=10
+    set completeopt+=popup
+    set previewpopup=height:10,width:60,highlight:PMenuSbar
+    set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
+    let g:ycm_max_num_candidates = 5
+    let g:ycm_max_num_identifier_candidates = 5
+
+" Disable preview at bottom of terminal when using completion
+    set completeopt-=preview
+    let g:ycm_add_preview_to_completeopt = 0
+
+" If using preview, close window after using a selection
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Disable summoning of documentation when hovering
+    let g:ycm_auto_hover = ''
+
+" Diagnostics UI settings
+    let g:ycm_show_diagnostics_ui = 1
+    let g:ycm_enable_diagnostic_signs = 1
+    let g:ycm_enable_diagnostic_highlighting = 1
+    let g:ycm_echo_current_diagnostic = 1
+    let g:ycm_update_diagnostics_in_insert_mode = 0
+
+" Commands to control completion pop up
+    let g:ycm_key_invoke_completion = '<C-Space>'
+    let g:ycm_key_list_stop_completion = ['<C-c>']
+
+" Python Settings
+    let g:ycm_python_interpreter_path = ''
+    let g:ycm_python_sys_path = []
+    let g:ycm_extra_conf_vim_data = [
+    \  'g:ycm_python_interpreter_path',
+    \  'g:ycm_python_sys_path'
+    \]
+    let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
+
+" Open Search
+    nmap <Leader>Z <plug>(YCMFindSymbolInWorkspace)
+
+" Instead of triggering after hovering, summon documentation using a command
+    nmap <Leader>D <plug>(YCMHover)
+
+" Use FixIt
+    nmap <Leader>F :YcmCompleter FixIt<CR>
+
+" Jumps
+    nnoremap <Leader>G :YcmCompleter GoTo<CR>
+    autocmd FileType python nnoremap <Leader>G :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
+    nnoremap <Leader>gy :YcmCompleter GoToType<CR>
+    nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
+    nnoremap <Leader>gs :YcmCompleter GoToSymbol<CR>
+    nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
+
+" =============================================================================
+"                                  Syntastic
+" =============================================================================
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+" Always populate to error window
+    let g:syntastic_always_populate_loc_list = 1
+
+" Error window automated behaviour (can be set to 0,1,2,3; see docs for more details)
+    let g:syntastic_auto_loc_list = 0
+
+" Automatically check when buffer is open
+    let g:syntastic_check_on_open = 1
+
+" Echo error on command line
+    let g:syntastic_echo_current_error = 1
+
+" Run chekc when saving and closing
+    let g:syntastic_check_on_wq = 0
+
+" Which errors or warnings to suppress
+    let g:syntastic_quiet_messages = { "type": "style" }
+
+" Start Syntastic in passive mode
+    let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [],'passive_filetypes': [] }
+
+" Mapping to toggle Syntastic mode
+    autocmd FileType python nnoremap <Leader>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" For toggling error window open and close
+    autocmd FileType python noremap <F4> <ESC>:call SyntasticWindowToggle()<CR>
+
+    let g:syntastic_is_open = 0
+    function! SyntasticWindowToggle()
+    if g:syntastic_is_open == 1
+        lclose
+        let g:syntastic_is_open = 0
+    else
+        lopen
+        let g:syntastic_is_open = 1
+    endif
+    endfunction
+
+" =============================================================================
 "                                 sendtowindow
 " =============================================================================
 " Primer for Vim motions to select text to be sent
@@ -294,67 +404,6 @@
     let g:cpp_posix_standard = 0
 
 " =============================================================================
-"                               You Complete Me
-" =============================================================================
-" Turn off automatic summoning of completion and semantic suggestions
-    let g:ycm_auto_trigger = 0
-
-" Completion Pop-Up Settings
-    set pumheight=10
-    set completeopt+=popup
-    set previewpopup=height:10,width:60,highlight:PMenuSbar
-    set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
-    let g:ycm_max_num_candidates = 5
-    let g:ycm_max_num_identifier_candidates = 5
-
-" Disable preview at bottom of terminal when using completion
-    set completeopt-=preview
-    let g:ycm_add_preview_to_completeopt = 0
-
-" If using preview, close window after using a selection
-    let g:ycm_autoclose_preview_window_after_insertion = 1
-    let g:ycm_autoclose_preview_window_after_completion = 1
-
-" Disable summoning of documentation when hovering
-    let g:ycm_auto_hover = ''
-
-" Diagnostics UI settings
-    let g:ycm_show_diagnostics_ui = 0
-    let g:ycm_enable_diagnostic_signs = 0
-    let g:ycm_enable_diagnostic_highlighting = 0
-    let g:ycm_echo_current_diagnostic = 0
-    let g:ycm_update_diagnostics_in_insert_mode = 0
-
-" Commands to control completion pop up
-    let g:ycm_key_invoke_completion = '<C-Space>'
-    let g:ycm_key_list_stop_completion = ['<C-c>']
-
-" Open Search
-    nmap <Leader>F <plug>(YCMFindSymbolInWorkspace)
-
-" Instead of triggering after hovering, summon documentation using a command
-    nmap <Leader>D <plug>(YCMHover)
-
-" Jumps
-    nnoremap <Leader>G :YcmCompleter GoTo<CR>
-    autocmd FileType python nnoremap <Leader>G :YcmCompleter GoToType<CR>
-    nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
-    nnoremap <Leader>gy :YcmCompleter GoToType<CR>
-    nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
-    nnoremap <Leader>gs :YcmCompleter GoToSymbol<CR>
-    nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
-    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
-
-" Python Settings
-    let g:ycm_python_interpreter_path = ''
-    let g:ycm_python_sys_path = []
-    let g:ycm_extra_conf_vim_data = [
-    \  'g:ycm_python_interpreter_path',
-    \  'g:ycm_python_sys_path'
-    \]
-    let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
-
-" =============================================================================
 "                                   Python
 " =============================================================================
 " Shortcut for Running Python Code
@@ -389,7 +438,7 @@
     autocmd FileType html,javascript,javascriptreact,typescript,typescriptreact setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " =============================================================================
-"                                    LaTeX
+"                                    VimTex
 " =============================================================================
 " Use Zathura pdf viewer which enables forward and backward navigation between tex file and pdf
     let g:vimtex_view_method = 'zathura'
