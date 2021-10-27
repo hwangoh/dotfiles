@@ -7,6 +7,27 @@ the Linux kernel with a home drive.
 %==============================================================================
 \section{Installing WSL2}
 %==============================================================================
+Note, as of today (27th October 2021), the site \cite{microsoft2021wsl} states
+that you can simply run
+\begin{lstlisting}
+    wsl --install
+\end{lstlisting}
+to install it. By default, it will:
+\begin{itemize}
+    \item Download the latest Linux kernel
+    \item Set WSL 2 as your default
+    \item Install the latest Ubuntu distribution.
+\end{itemize}
+You can, however, choose a different distribution to install by running
+\begin{lstlisting}
+    wsl --install -d <Distribution Name>
+\end{lstlisting}
+To see a list of distributions available for download and installation, run:
+\begin{lstlisting}
+    wsl --list --online
+\end{lstlisting}
+Below are the old instructions for installing WSL2.\\
+
 To get i3 on Windows without a virtual machine (but technically a very
 lightweight one is used), use WSL2. On the site \cite{microsoft2020wsl} , follow
 the "Manual Installation Steps" for when you are not using the Windows Insiders
@@ -17,12 +38,12 @@ build.
         press "shift+right-click" on the icon and click "Run as administrator".
     \item To enable the Windows Subsystem for Linux, in PowerShell, run
         \begin{lstlisting}
-        dism.exe /online /enable- feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+        dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
         \end{lstlisting}
     \item Update your windows version if necessary
     \item To enable the Virtual Machine feature, in PowerShell, run
         \begin{lstlisting}
-        dism.exe /online /enable- feature /featurename:VirtualMachinePlatform /all /norestart
+        dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
         \end{lstlisting}
     \item Restart your machine
     \item To obtain WSL2, download the Linux kernel update package. The link for the download is
@@ -53,9 +74,13 @@ From here, your home directory can be found at "//wsl\$/Ubuntu/home/username"
 Here are some errors you might encounter and how to resolve them:
 \begin{itemize}
     \item If you have an older machine, you may encounter
-        "WslRegisterDistribution failed with error: 0x80370102 and error 0x80070002". To
-        remedy this, you may need to do two modifications to your BIOs. First, disable
-        "Limit CPUID Maximum", then enable "Virtualization Technology".
+        "WslRegisterDistribution failed with error: 0x80370102 and error
+        0x80070002" or other similar numbers. To remedy this, you may need to do
+        two modifications to your BIOs. To access your BIOs modification menu,
+        first restart your computer and continuously hit `F2' or some other
+        button, depending on your CPU. When there, disable
+        "Limit CPUID Maximum", then enable ``Virtualization Technology".
+        Other names may be used for ``virtualization" such as ``SVM".
     \item For the error " WslRegisterDistribution  failed with error
         0xc03a001a", you may need to disable compression in a specific folder.
         Following runner-ed's answer in

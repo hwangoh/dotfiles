@@ -296,7 +296,7 @@
 " =============================================================================
 "                               You Complete Me
 " =============================================================================
-" Turn off automatic summoning of completion suggestions
+" Turn off automatic summoning of completion and semantic suggestions
     let g:ycm_auto_trigger = 0
 
 " Completion Pop-Up Settings
@@ -304,7 +304,7 @@
     set completeopt+=popup
     set previewpopup=height:10,width:60,highlight:PMenuSbar
     set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
-    let g:ycm_max_num_candidates_to_detail = 5
+    let g:ycm_max_num_candidates = 5
     let g:ycm_max_num_identifier_candidates = 5
 
 " Disable preview at bottom of terminal when using completion
