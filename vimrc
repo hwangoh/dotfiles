@@ -344,7 +344,7 @@
     let g:syntastic_quiet_messages = { "type": "style" }
 
 " Start Syntastic in passive mode
-    let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [],'passive_filetypes': [] }
+    let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [],'passive_filetypes': ["tex"] }
 
 " Mapping to toggle Syntastic mode
     autocmd FileType python nnoremap <Leader>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
