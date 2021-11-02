@@ -10,5 +10,6 @@
 *.run.xml
 *.synctex.gz
 *.tex.swp
+.netrwhist
 tmux_sessions/
 vim_sessions/
