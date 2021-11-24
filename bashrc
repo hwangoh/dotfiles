@@ -17,7 +17,7 @@ function vtex() {
 }
 
 # create python venv
-function venvmk() {
+function venvcreate() {
     python3 -m venv ~/.virtualenvs/"$1"
 }
 
