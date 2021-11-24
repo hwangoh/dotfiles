@@ -16,6 +16,16 @@ function vtex() {
     vim --servername "$1" "$1"tex
 }
 
+# create python venv
+function venvmk() {
+    python3 -m venv ~/.virtualenvs/"$1"
+}
+
+# activate python venv
+function venvactivate() {
+    source ~/.virtualenvs/"$1"/bin/activate
+}
+
 # tmux new session
 function newmux(){
     tmux new -s $1
