@@ -663,8 +663,17 @@ Vundle accompanied by some complicated instructions. I instead found on
 \begin{lstlisting}
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 \end{lstlisting}
-into your vimrc. After running PlugInstall, it seems to work out of the box for
-TypeScript and Python!
+into your vimrc. The installation process requires you to have `make' and
+`cmake' which can be installed using the commands:
+\begin{lstlisting}
+sudo apt-get install build-essential
+sudo apt install make
+sudo apt-get -y install cmake
+\end{lstlisting}
+and also, even if you already have Python 3.8 installed, you may need:
+\begin{lstlisting}
+sudo apt-get install python-dev python3-dev
+\end{lstlisting}
 
 %------------------------------------------------------------------------------
 \subsection{Mappings}
