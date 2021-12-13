@@ -274,3 +274,45 @@ tex documents using the LaTeX template used to write these notes, I get the
 error `Compilation failed'. Despite this, you can still use `VimtexView' to open the
 pdf and notice that compilation does work as the pdf does change. Additionally,
 forward and backward search works as well. So I just ignore the error.
+
+%------------------------------------------------------------------------------
+\subsection{Localhost Errors}
+%------------------------------------------------------------------------------
+Often in web development, one would need start a server on localhost for local
+development. However, with WSL2, this sometimes fails. To remedy this issue,
+following \cite{reescarter2020wsl2}, we need to disable the `Fast Start-Up'
+option:
+\begin{enumerate}
+    \item First navigate to control panel and select `System':
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=\figscale]{windows_settings_system.png}
+            \caption{Windows settings: `system'}
+            \label{FigWindowsSettingsSystem}
+        \end{figure}
+    \item Navigate to `Power \& sleep' on the left-blade and select `additional
+        power settings':
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=\figscale]{windows_settings_additional_power_settings.png}
+            \caption{Windows settings: additional power settings}
+            \label{FigAdditionalPowerSettings}
+        \end{figure}
+    \item Select `Choose what the power button does':
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=\figscale]{windows_settings_choose_what_the_power_button_does.png}
+            \caption{Windows settings: choose what the power button does}
+            \label{FigChoosePowerButton}
+        \end{figure}
+    \item Then select `Change settings that are currently unavailable' to allow
+        administration privileges to alter settings. Then uncheck the checkbox
+        for `Turn on fast start-up':
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=\figscale]{windows_settings_turn_on_fast_start_up.png}
+            \caption{Windows settings: turn on fast startup}
+            \label{FigTurnOnFastStartUp}
+        \end{figure}
+    \item Restart your computer
+\end{enumerate}
