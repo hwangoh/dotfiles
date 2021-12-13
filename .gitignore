@@ -11,5 +11,6 @@
 *.synctex.gz
 *.tex.swp
 .netrwhist
+*Zone.Identifier*
 tmux_sessions/
 vim_sessions/
