@@ -444,6 +444,9 @@
     autocmd FileType python nmap ,V <Plug>SendVariableRight
     autocmd FileType python nmap ,M <Plug>SendMarkedSectionRight
 
+" sendtowindow Docker Build and Run for Vim Terminal: yank build and run command to 'b' and 'r' registry first
+    autocmd FileType python nmap ,B :w!<CR>:SendCommandToWindowRight <c-r>b<CR>:SendCommandToWindowRight <c-r>r<CR><CR>
+
 " Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
     autocmd FileType python nnoremap ,tP :SlimuxShellRun ipython<CR>
     autocmd FileType python nnoremap ,tL :SlimuxShellRun clear<CR>
