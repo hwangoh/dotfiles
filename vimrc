@@ -427,11 +427,8 @@
 "                                   Python
 " =============================================================================
 " Shortcut for Running Python Code
-    autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3  %<CR>
+    autocmd FileType python noremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
     autocmd FileType python inoremap <F6> <Esc>:w<CR>:!clear;python3 %<CR>
-
-" Reload IPython And Run Code
-    autocmd FileType python nmap <Leader>p <Leader>H<Leader>P,R
 
 " Insert pdb.set_trace()
     autocmd FileType python inoremap ;pdb pdb.set_trace()
@@ -444,8 +441,11 @@
     autocmd FileType python nmap ,V <Plug>SendVariableRight
     autocmd FileType python nmap ,M <Plug>SendMarkedSectionRight
 
-" sendtowindow Docker Build and Run for Vim Terminal: yank build and run command to 'b' and 'r' registry first
-    autocmd FileType python nmap ,B :w!<CR>:SendCommandToWindowRight <c-r>b<CR>:SendCommandToWindowRight <c-r>r<CR><CR>
+" Reload IPython And Run Code
+    autocmd FileType python nmap <Leader>p <Leader>H<Leader>P,R
+
+" sendtowindow Docker Compose for Vim Terminal: yank build and run command to 'b' and 'r' registry first
+    autocmd FileType python nmap ,C :w!<CR>:SendCommandToWindowRight <c-r>c<CR>
 
 " Slimux for IPython in tmux terminal : IPython, clear, reset, run code, run variable, run marked section
     autocmd FileType python nnoremap ,tP :SlimuxShellRun ipython<CR>
