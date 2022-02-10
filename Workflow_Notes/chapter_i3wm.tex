@@ -313,7 +313,7 @@ and place it in the\\
 Menu/Programs/Startup" directory.\\
 
 The second method is more complicated but, in general, more versatile. This
-requres the use of the Task Scheduler \cite{bashkarla2016how}:
+requires the use of the Task Scheduler \cite{bashkarla2016how}:
 \begin{enumerate}
     \item Open the start menu and search "Task Scheduler"
     \item On the right panel, select "Create Basic Task" option
@@ -328,4 +328,10 @@ requres the use of the Task Scheduler \cite{bashkarla2016how}:
     \item To check if it works, find your newly added task in the "Task Scheduler Library" and
        click "Run"
 \end{enumerate}
-
+Note that you can start up multiple scripts with this method. For example, I
+also have the `windows\_follows\_mouse\_cursor.ahk' script which makes the mouse
+cursor center on whatever window is the focus. This is expecially useful when
+you have multiple monitors. In this case, you can run both scripts
+simultaneously (for some reason, including the
+windows\_follows\_mouse\_cursor.ahk code into the i3wm\_windows\_emulator.ahk
+code didn't work) and both hotkey configurations seem to take effect just fine.
