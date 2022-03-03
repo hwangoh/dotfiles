@@ -44,3 +44,38 @@ After the configuration directory has been created by the Ranger, you can now co
     \item "ranger --copy-config=all". Now you can run "cd ~/.config/ranger" to see the
         configuration files.
 \end{itemize}
+
+%==============================================================================
+\section{Inkdrop}
+%==============================================================================
+\emph{Inkdrop} \cite{matsuyamainkdrop} is an absolutely incredible minimalist and
+light-weight markdown-based note taking app that syncs across all devices.
+It is a paid service of around \$5 a month or \$50 a year should you chose to
+pay annually. It also has a convenient plugin GUI which can be accessed via the
+settings menu. Since the creator is a Vim user, there is of course a Vim
+plugin:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=\figscale]{Figures/inkdrop_vim_plugin.png}
+    \caption{Inkdrop Vim plugin}
+    \label{FigInkdropVimPlugin}
+\end{figure}
+To modify the key bindings, following the Inkdrop user manual
+\cite{matsuyamacustomizing} you can modify the \textbf{keymap.cson} file which
+can be instantly directed to using the following link:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=\figscale]{Figures/inkdrop_keymap_file.png}
+    \caption{Inkdrop keymap file link}
+    \label{FigInkdropKeymapFile}
+\end{figure}
+Here is an example of the \textbf{keymap.cson} file:
+\begin{lstlisting}
+'.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
+  'shift-j': 'vim:scroll-down'
+  'shift-k': 'vim:scroll-up'
+  'ctrl-j': 'vim:join'
+\end{lstlisting}
+You can modify this in Vim after navigating to it in terminal and with Inkdrop
+on. Any saved changes will be instantly reflected in the app and errors will
+result in a popup.
