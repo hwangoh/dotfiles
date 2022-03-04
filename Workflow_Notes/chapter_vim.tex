@@ -674,6 +674,14 @@ and also, even if you already have Python 3.8 installed, you may need:
 \begin{lstlisting}
 sudo apt-get install python-dev-is-python3
 \end{lstlisting}
+If you repeatedly see the error:
+\begin{lstlisting}
+YouCompleteMe ERROR: Python headers are missing in /usr/include/python3.9.
+\end{lstlisting}
+there may be an issue with Python. You can fix issues by running
+\begin{lstlisting}
+sudo apt install --reinstall python3 python python3-minimal --fix-broken
+\end{lstlisting}
 
 %------------------------------------------------------------------------------
 \subsection{Mappings}
