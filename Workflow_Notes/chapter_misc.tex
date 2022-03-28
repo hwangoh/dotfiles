@@ -78,4 +78,30 @@ Here is an example of the \textbf{keymap.cson} file:
 \end{lstlisting}
 You can modify this in Vim after navigating to it in terminal and with Inkdrop
 on. Any saved changes will be instantly reflected in the app and errors will
-result in a popup.
+result in a popup.\\
+
+To enable relative line numbers, we need to instead modify the \textbf{init.js}
+file which can be opened from the settings menu:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=\figscale]{Figures/inkdrop_init_file.png}
+    \caption{Inkdrop init.js file}
+    \label{FigInkdropInitFile}
+\end{figure}
+and add the following:
+\begin{lstlisting}
+inkdrop.onEditorLoad((editor) => {
+  const { cm } = editor
+
+  function showRelativeLines(cm) {
+    const lineNum = cm.getCursor().line + 1;
+    if (cm.state.curLineNum === lineNum) {
+      return;
+    }
+    cm.state.curLineNum = lineNum;
+    cm.setOption('lineNumberFormatter', l =>
+      l === lineNum ? lineNum : Math.abs(lineNum - l));
+  }
+  cm.on('cursorActivity', showRelativeLines)
+})
+\end{lstlisting}
