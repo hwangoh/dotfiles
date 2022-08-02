@@ -41,8 +41,9 @@ return
 Send {Blind}{Shift up}{Right}{Shift down}
 return
 
-; === Windows Terminal ===
+; === Open Programs ===
 #Enter::openAndPositionTerminal()
+#PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
 
 ; === File Explorer ===
 #z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
