@@ -49,6 +49,19 @@ return
 #z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
 #+z::openAndPositionExplorer("C:\")
 
+; === Draw On Screen ===
+#w::
+DetectHiddenWindows On ; Allows a script's hidden main window to be detected
+SetTitleMatchMode 2 ; Avoids the need to specify the full path of the file below
+
+If WinExist("draw_on_screen.ahk - AutoHotkey")
+{
+	PostMessage, 0x111, 65307,,, draw_on_screen.ahk - AutoHotkey  ; Exitapp
+}
+else
+	Run, draw_on_screen.ahk
+return
+
 ; === Desktop Navigation ===
 #+c::createVirtualDesktop()
 #+d::deleteVirtualDesktop()
