@@ -43,14 +43,14 @@ return
 
 ; === Open Programs ===
 #Enter::openAndPositionTerminal()
-#PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
+#+PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
 
 ; === File Explorer ===
 #z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
 #+z::openAndPositionExplorer("C:\")
 
 ; === Draw On Screen ===
-#w::
+#+w::
 DetectHiddenWindows On ; Allows a script's hidden main window to be detected
 SetTitleMatchMode 2 ; Avoids the need to specify the full path of the file below
 

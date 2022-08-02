@@ -14,3 +14,4 @@ rm -rf tmux.conf
 rm -rf symlinks.sh
 rm -rf bash_aliases
 rm -rf bashrc
+rm -rf ShareX-14.1.0-backup.sxb
