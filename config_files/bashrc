@@ -7,7 +7,7 @@ bind '"\C-z":"fg\015"'
 
 # new latex templates:
 function new_tex_simple() {
-    cd ~/.vim/LaTeX_Templates/tex_template_simple
+    cd ~/.vim/latex_templates/tex_template_simple
     ./new_tex "$1"
 }
 
