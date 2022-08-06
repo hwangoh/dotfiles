@@ -138,3 +138,26 @@ tool. I found it in the first comment by `Hellbent' in the Autohotkey forum post
     \item Use Ctrl and right-click to erase
     \item Use Ctrl and mouse wheel to select colour
 \end{itemize}
+The script itself can be found in
+\textbf{.vim/config\_files/i3wm-windows-emulator/draw\_on\_screen.ahk}.\\
+
+In my config file
+\textbf{.vim/config\_files/i3wm-windows-emulator/i3\_config.ahk}, I've included
+the ability to toggle this program on and off as you may need to select multiple
+files using Ctrl+left-click. The lines of code are simply:
+\begin{lstlisting}
+; === Draw On Screen ===
+#w::
+DetectHiddenWindows On ; Allows a script's hidden main window to be detected
+SetTitleMatchMode 2 ; Avoids the need to specify the full path of the file below
+
+If WinExist("draw_on_screen.ahk - AutoHotkey")
+{
+	PostMessage, 0x111, 65307,,, draw_on_screen.ahk - AutoHotkey  ; Exitapp
+}
+else
+	Run, draw_on_screen.ahk
+return
+\end{lstlisting}
+but you need to ensure that the \textbf{i3\_config.ahk} and the
+\textbf{draw\_on\_screen.ahk} script must be located in the same directory.
