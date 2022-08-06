@@ -198,9 +198,29 @@ However, with this, you won't have access to forward and backward search via
 synctex.
 
 %==============================================================================
+\section{Windows Terminal}
+%==============================================================================
+The default Ubuntu terminal is pretty trash. Instead, I recommend the `Windows
+Terminal' which is highly customizable. Not only does it allow for multiple tabs
+but each tab can run a different program i.e. the Linux bash as well as
+PowerShell.\\
+
+The customization can be done using the UI or via the \textbf{settings.json}
+file which can be opened by clicking the cog displayed below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=\figscale]{windows_terminal_settings_json.png}
+    \caption{Click to open \textbf{settings.json} file.}
+    \label{FigWindowsTerminalSettingsJSON}
+\end{figure}
+The file path to the file is:
+\begin{lstlisting}
+C:\Users\<Username>\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
+\end{lstlisting}
+
+%==============================================================================
 \section{Troubleshooting}
 %==============================================================================
-
 %------------------------------------------------------------------------------
 \subsection{Vim Display Issues on Startup}
 %------------------------------------------------------------------------------
@@ -316,3 +336,4 @@ option:
         \end{figure}
     \item Restart your computer
 \end{enumerate}
+

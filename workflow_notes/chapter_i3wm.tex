@@ -236,33 +236,73 @@ a separate desktop; each desktop takes into account all monitors. For that
 reason, I have simply opted to keep the default Win keybindings which correspond
 to the task bar order. Instead, I have elected to implement the other i3wm
 bindings such as Win-f to toggle maximize and Win-m to toggle moving windows
-between screens.
+between screens.\\
 
-%------------------------------------------------------------------------------
-\subsection{Disabling Win+l}
-%------------------------------------------------------------------------------
-Since this is not exactly a windows tiling manager, I have also opted to use the
-Win+arrow key functionality to organize my windows. However, I would like to do
-so using the sacred Vim keys. A major issue is that Win+l locks the computer.
-It's a bit of a hassle to disable this as you have to disable the whole computer
-lock function, but it can be done using the following steps \cite{glenn2016disable}:
+The two scripts I use to emulate i3 in Windows are:
 \begin{enumerate}
-    \item Use Win+r to open the run app
-    \item Type "regedit" and open
-    \item Navigate to "HKEY\_CURRENT\_USER/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/"
-    \item Right-click the "Policies" key and choose "New \trangle Key". Name the new
-        key "System". Note that this may already be there. If so, this step can
-        be skipped Right-click the "System" key and choose "New \trangle DWORD (32-bit)
-        Value". Name this "DisableLockWorkstation"
-    \item Double-click DisableLockWorkstation. Change the value from 0 to 1
+    \item \textbf{.vim/config\_files/i3wm-windows-emulator/i3\_config.ahk}
+    \item \textbf{.vim/config\_files/i3wm-windows-emulator/i3wm\_windows\_emulator.ahk}
 \end{enumerate}
-These changes should take place immediately without needing to restart. Now
-anything bound to Win+l can be used. I should mention that in general this is
-inadvisable as you are not only disabling the Win+l binding but your computer's
-ability to lock itself (even after waking sleep mode).
+Note that the \textbf{i3wm\_windows\_emulator.ahk} script contains alot of
+backend functions. The config itself is contained in \textbf{i3\_config.ahk},
+below is a snippet of the contents:
+\begin{lstlisting}
+; === Disable Windows Visual Effects ===
+RegWrite, REG_DWORD, HKEY_CURRENT_USER, SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects, AnimateMinMax, 2
+
+; === Remapping Capslock to Esc ===
+SetCapsLockState, alwaysoff
+Capslock::Esc
+
+; ====================
+; === Key Bindings ===
+; ====================
+; 1. Any lines starting with ; are ignored
+; 2. After changing this config file run script file "i3wm_windows_emulator.ahk"
+; 3. Every line is in the format HOTKEY::ACTION
+
+; === SYMBOLS ===
+; !   <- Alt
+; +   <- Shift
+; ^   <- Ctrl
+; #   <- Win
+; For more, visit https://autohotkey.com/docs/Hotkeys.htm
+
+; === Window Manipulation ===
+#+q::quitWindow()
+#+f::toggleMaximize()
+#0::#x
+#+m::#+Left
+; The following requires more complex code as shift is registered when Arrow is sent
+#+j::
+Send {Blind}{Shift up}{Down}{Shift down}
+return
+#+k::
+Send {Blind}{Shift up}{Up}{Shift down}
+return
+#+h::
+Send {Blind}{Shift up}{Left}{Shift down}
+return
+#+l::
+Send {Blind}{Shift up}{Right}{Shift down}
+return
+
+; === Open Programs ===
+#Enter::openAndPositionTerminal()
+#PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
+
+; === File Explorer ===
+#z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
+#+z::openAndPositionExplorer("C:\")
+\end{lstlisting}
+For more details about the code, see Section \ref{SecModifierSubtleties}.\\
+
+To enable these settings to take action on your machine, you want to open the
+\textbf{i3wm\_windows\_emulator.ahk} script and not the \textbf{i3\_config.ahk}
+script.
 
 %------------------------------------------------------------------------------
-\subsection{Modifier Subtleties}
+\subsection{Modifier Subtleties} \label{SecModifierSubtleties}
 %------------------------------------------------------------------------------
 Modifier keys refer to the control, alt, shift and windows keys.  The effect of
 these modifiers persist through remappings. For example, the remap a::b would be
@@ -301,6 +341,61 @@ where the \# symbolizes the Win key and the + symbolizes the shift key. The last
 \{Shift down \} allows for the use of Win+Shift+h,..h,h,h to continuously move
 the windows without needed to repress Win+Shift each time.
 
+%------------------------------------------------------------------------------
+\subsection{Cursor to Follow Active Window}
+%------------------------------------------------------------------------------
+One annoying thing in Windows when you have multiple screens is that if you use
+a hotkey to focus on a window, the mouse cursor doesn't follow. The script
+\textbf{.vim/config\_files/i3wm-windows-emulator/mouse\_cursor\_follows\_focus.ahk}
+implements the desired behaviour where the mouse cursor centers on the active
+window. The contents are displayed below:
+\begin{lstlisting}
+Gui +LastFound
+
+lastMouseClickTime := 0
+hWnd := WinExist()
+
+DllCall("RegisterShellHookWindow", UInt, hWnd)
+msgNum := DllCall("RegisterWindowMessage", Str, "SHELLHOOK")
+OnMessage(msgNum, "OnShellMessage")
+OnMessage(WM_MOUSEMOVE:=0x0201, "OnMouseDown")
+Return
+
+OnShellMessage( wParam, lParam )
+{
+	global
+	; HSHELL_WINDOWACTIVATED | HSHELL_RUDEAPPACTIVATED
+	If (wParam = 4 or wParam = 32772) {
+		; ignore when dragging
+		GetKeyState, mouseDown, LButton
+		if (mouseDown <> "D" and A_TickCount - lastMouseClickTime > 500) {
+			; delay a tiny bit to ignore taskbar focus on Win+Number switching
+			Sleep, 10
+			CoordMode, Mouse, Screen
+			WinGetPos, wx, wy, width, height, A
+
+			; puts the cursor in the upper right corner of the active window, tweak to your needs
+			mx := Round(wx + width * 0.5)
+			my := Round(wy + height * 0.5)
+
+			DllCall("SetCursorPos", int, mx, int, my)
+		}
+	}
+}
+
+*~LButton::
+	lastMouseClickTime := A_TickCount
+Return
+
+*~RButton::
+	lastMouseClickTime := A_TickCount
+Return
+
+*~MButton::
+	lastMouseClickTime := A_TickCount
+Return
+\end{lstlisting}
+
 %-----------------------------------------------------------------------------k
 \subsection{Autostart AutoHotKey Scripts} \label{SecAutostart}
 %------------------------------------------------------------------------------
@@ -337,3 +432,26 @@ you have multiple monitors. In this case, you can run both scripts
 simultaneously (for some reason, including the
 windows\_follows\_mouse\_cursor.ahk code into the i3wm\_windows\_emulator.ahk
 code didn't work) and both hotkey configurations seem to take effect just fine.
+
+%------------------------------------------------------------------------------
+\subsection{Disabling Win+l}
+%------------------------------------------------------------------------------
+Since this is not exactly a windows tiling manager, I have also opted to use the
+Win+arrow key functionality to organize my windows. However, I would like to do
+so using the sacred Vim keys. A major issue is that Win+l locks the computer.
+It's a bit of a hassle to disable this as you have to disable the whole computer
+lock function, but it can be done using the following steps \cite{glenn2016disable}:
+\begin{enumerate}
+    \item Use Win+r to open the run app
+    \item Type "regedit" and open
+    \item Navigate to "HKEY\_CURRENT\_USER/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/"
+    \item Right-click the "Policies" key and choose "New \trangle Key". Name the new
+        key "System". Note that this may already be there. If so, this step can
+        be skipped Right-click the "System" key and choose "New \trangle DWORD (32-bit)
+        Value". Name this "DisableLockWorkstation"
+    \item Double-click DisableLockWorkstation. Change the value from 0 to 1
+\end{enumerate}
+These changes should take place immediately without needing to restart. Now
+anything bound to Win+l can be used. I should mention that in general this is
+inadvisable as you are not only disabling the Win+l binding but your computer's
+ability to lock itself (even after waking sleep mode).
