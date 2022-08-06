@@ -24,9 +24,9 @@ Capslock::Esc
 
 ; === Window Manipulation ===
 #+q::quitWindow()
-#f::toggleMaximize()
+#+f::toggleMaximize()
 #0::#x
-#m::#+Left
+#+m::#+Left
 ; The following requires more complex code as shift is registered when Arrow is sent
 #+j::
 Send {Blind}{Shift up}{Down}{Shift down}
@@ -43,7 +43,7 @@ return
 
 ; === Open Programs ===
 #Enter::openAndPositionTerminal()
-#+PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
+#PrintScreen::Run C:\Program Files\ShareX\ShareX.exe
 
 ; === File Explorer ===
 #z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
