@@ -337,3 +337,16 @@ option:
     \item Restart your computer
 \end{enumerate}
 
+%==============================================================================
+\section{Clock Sync Issue}
+%==============================================================================
+The most unbelievable bullshit happened to me on 25/9/2022. Daylight savings
+occurred the night before and for some strange reason, I wake up on the morning
+of the 25th and all my codes that require AWS stopped working. This is because
+the kernel version 5.10.102.1 has a click sync issue that was fixed in 5.10.16.3
+\cite{piouson2020clock}. A possible solution is suggested by albertoflores'
+answer in \cite{garyo2021date}:
+\begin{lstlisting}
+sudo apt-get install chrony
+sudo service chrony start
+\end{lstlisting}
