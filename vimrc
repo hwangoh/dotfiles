@@ -185,6 +185,7 @@
 " =============================================================================
 " Use custom settings and mappings
     let g:fern#disable_default_mappings = 1
+    let g:fern_disable_startup_warnings = 1
 
 " Shortcut to toggle drawer open and closed
     noremap <silent> <F12> :Fern . -reveal=% -drawer -toggle -width=35<CR>
