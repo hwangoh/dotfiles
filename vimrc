@@ -284,6 +284,8 @@
     \  'g:ycm_python_interpreter_path',
     \  'g:ycm_python_sys_path'
     \]
+
+" C Settings
     let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
 
 " Open Search
