@@ -7,7 +7,7 @@
 " Plugins
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/lambdalisue/fern.vim.git'
-    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
     Plug 'https://github.com/vim-syntastic/syntastic.git'
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
@@ -303,7 +303,6 @@
     nnoremap <Leader>gi :YcmCompleter GoToImplementation<CR>
     nnoremap <Leader>gs :YcmCompleter GoToSymbol<CR>
     nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
-    nnoremap <Leader>rr :YcmCompleter RefactorRename<space>
 
 " For toggling error location list open and close
     noremap <F4> <ESC>:call YouCompleteMeWindowToggle()<CR>

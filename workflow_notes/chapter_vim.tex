@@ -655,7 +655,7 @@ converting to Neovim and using it's native LSP, but I decided to hold out on the
 conversion until Vim 9 is released.
 
 %------------------------------------------------------------------------------
-\subsection{Installation}
+\subsection{Installation} \label{SecYCMInstallation}
 %------------------------------------------------------------------------------
 I'm not entirely sure why the repository \cite{ycmcore2017ycm} suggests to use
 Vundle accompanied by some complicated instructions. I instead found on
@@ -663,7 +663,14 @@ Vundle accompanied by some complicated instructions. I instead found on
 \begin{lstlisting}
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 \end{lstlisting}
-into your vimrc. The installation process requires you to have `make' and
+into your vimrc. If you wish to use autocompletion for C, you'll need to instead
+use
+\begin{lstlisting}
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
+\end{lstlisting}
+and requires a few extra steps which is outlined in Section \ref{SecYCMC}.\\
+
+The installation process requires you to have `make' and
 `cmake' which can be installed using the commands:
 \begin{lstlisting}
 sudo apt-get install build-essential
@@ -851,11 +858,73 @@ into their Vimrc and somehow jank their way into automating the inclusion of the
 path. But ultimately, YCM works fine and it is the programmer's responsibility
 to properly manage how they import their paths.
 
+%------------------------------------------------------------------------------
+\subsection{C} \label{SecYCMC}
+%------------------------------------------------------------------------------
+As mentioned in Section \ref{SecYCMInstallation}, if you wish to use
+autocompletion for C, you'll need to include
+\begin{lstlisting}
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
+\end{lstlisting}
+into your vimrc. There are a few more steps required to set up autocompletion;
+section `C-family Semantic Completion` of the README in \cite{ycmcore2017ycm}
+has the details required. Here, we will distill that information into the
+following steps:
+\begin{enumerate}
+    \item Install YCM
+    \item Copy a specific file using:
+\begin{lstlisting}
+cp ~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py ~/.vim/plugin/YouCompleteMe/global_extra_conf.py
+\end{lstlisting}
+    \item In your vimrc, include the line:
+\begin{lstlisting}
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
+\end{lstlisting}
+    \item In the root directory of your C project, create a
+        \textbf{CMakeLists.txt} file that includes at least the following
+\begin{lstlisting}
+cmake_minimum_required(VERSION 3.10)
+project(myproject VERSION 1.0)
+
+# specify the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Add compile options
+add_compile_options(-Wall -Wextra -Werror)
+
+# generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# specify the source files
+file(GLOB_RECURSE SRC_FILES "src/*.c" "src/*.cpp")
+add_executable(myproject ${SRC_FILES})
+
+# specify include directories
+include_directories(include)
+
+# specify any libraries to link against
+target_link_libraries(myproject -lm)
+\end{lstlisting}
+    \item If it already does not exist, create a \textbf{build} directory in
+        your root directory and navigate into it:
+\begin{lstlisting}
+mkdir build
+cd build
+\end{lstlisting}
+    \item In the \textbf{build} directory, run the following command:
+\begin{lstlisting}
+cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+\end{lstlisting}
+    which creates a \textbf{compile\_commands.json} file in the \textbf{build}
+    directory.
+\end{enumerate}
+After all these steps, YCM should allow for autocompletion and code jumps.
+
 %==============================================================================
 \section{Autocompletion with CoC}
 %==============================================================================
-If you want to attempt to emulate VSCode, autocompletion is a must have. One
-option for autocompletion is \emph{Conquer of Completion (CoC)}
+Another option for autocompletion is \emph{Conquer of Completion (CoC)}
 \cite{neoclide2020conquer}. If you're using VimPlug, to install, simply add:
 \begin{lstlisting}
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
