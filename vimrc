@@ -127,7 +127,18 @@
     nnoremap <silent> <CR>  :<c-u>put =repeat([''],v:count)<bar>'[-1<CR>
 
 " Toggle line numbers
-    noremap <F1> :set invnumber invrelativenumber<CR>
+    function! ToggleLineNumbers() abort
+        if &nu + &rnu == 0
+            let &nu = g:old_nu
+            let &rnu = g:old_rnu
+        else
+            let g:old_nu = &nu
+            let g:old_rnu = &rnu
+            let &nu = 0
+            let &rnu =0
+        endif
+    endfunction
+    nnoremap <F1> :call ToggleLineNumbers()<CR>
 
 " Set no relative line numbers
     nnoremap <F2> :set norelativenumber!<CR>
