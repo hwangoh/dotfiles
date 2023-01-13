@@ -868,19 +868,16 @@ autocompletion for C, you'll need to include
 \end{lstlisting}
 into your vimrc. There are a few more steps required to set up autocompletion;
 section `C-family Semantic Completion` of the README in \cite{ycmcore2017ycm}
-has the details required. I found that I only needed to perform the following
-steps:
-\begin{enumerate}
-    \item Copy a specific file using:
+has the details required. For one, at the root directory of every C project, you
+will need to include a \textbf{.ycm\_extra\_conf.py} file. A template for this
+can be found in
 \begin{lstlisting}
-cp ~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py ~/.vim/plugin/YouCompleteMe/global_extra_conf.py
+~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py
 \end{lstlisting}
-    \item In your vimrc, include the line:
-\begin{lstlisting}
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
-\end{lstlisting}
-\end{enumerate}
-If this does not work, ChatGPT suggests:
+Once this is in your root directory, if you open Vim then a prompt will appear
+asking if you wish to load it.\\
+
+If this does still not work, ChatGPT suggests:
 \begin{enumerate}
     \item In the root directory of your C project, create a
         \textbf{CMakeLists.txt} file that includes at least the following

@@ -129,6 +129,9 @@
 " Toggle line numbers
     noremap <F1> :set invnumber invrelativenumber<CR>
 
+" Set no relative line numbers
+    nnoremap <F2> :set norelativenumber!<CR>
+
 " Toggle highlight
     let hlstate=0
     noremap <F3> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
@@ -284,8 +287,6 @@
     \  'g:ycm_python_interpreter_path',
     \  'g:ycm_python_sys_path'
     \]
-
-" C Settings
     let g:ycm_global_ycm_extra_conf = '~/.vim/plugin/YouCompleteMe/global_extra_conf.py'
 
 " Open Search
@@ -410,12 +411,6 @@
 " tmuxline plugin
     let g:airline#extensions#tmuxline#enabled = 1
     let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
-
-" =============================================================================
-"                                Signature
-" =============================================================================
-" Toggling marks on and off
-    noremap <F2> :SignatureToggle<CR>
 
 " =============================================================================
 "                            Cpp Enhanced Highlight
