@@ -32,7 +32,16 @@ alias Lkpmux="tmux attach-session -t KAUST"
 alias i3c="cd ~/.vim; vim i3_config"
 
 # =============================================================================
+#                                   TinyML
+# =============================================================================
+alias idf=". ~/esp/esp-idf/export.sh"
+alias flash="pio run --target upload --upload-port /dev/ttyUSB0"
+alias mntr="pio device monitor --port /dev/ttyUSB0"
+alias cnnct="sudo chmod a+rw /dev/ttyUSB0"
+
+# =============================================================================
 #                                   Other
 # =============================================================================
 alias rg="ranger"
 alias pc="cd ~; ./pcloud &"
+alias rmzi="find . -type f -name '*Zone.Identifier' -delete"
