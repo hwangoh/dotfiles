@@ -5,7 +5,7 @@
     call plug#begin('~/.vim/plugged')
 
 " Plugins
-    Plug 'https://github.com/lervag/vimtex.git'
+    Plug 'https://github.com/lervag/vimtex.git', { 'tag': 'v2.10' }
     Plug 'https://github.com/lambdalisue/fern.vim.git'
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
     Plug 'https://github.com/vim-syntastic/syntastic.git'

@@ -403,7 +403,7 @@ Then, in your vimrc, add the following line `let g:vimtex\_view\_method =
 'zathura''.\\
 
 Following \cite{lerner2004enable}, to install just use `sudo apt-get install
-vim-gnome'. Finally, to edit a tex file with navigation capabilities:
+vim-gtk'. Finally, to edit a tex file with navigation capabilities:
 \begin{enumerate}
     \item In the directory containing the tex file, use:\\
         vim --servername \tlangle servername\trangle \tlangle texfile\trangle.tex
@@ -417,9 +417,10 @@ vim-gnome'. Finally, to edit a tex file with navigation capabilities:
 Note that \tlangle leader\trangle lv forward search works without the Vim
 server; it's the backwards search that requires the Vim server.\\
 
-Note that as of at least July 1st 2021, vim-gnome no longer exists.
-Instead, use vim-gtk which can be installed with `sudo apt-get install
-vim-gtk'.
+Note that if you are using WSL2 in Windows 11, after installing vim-gtk,
+anything you open in Vim will freeze until you press 'ctrl+c' and it will
+reappear. You will first need to install and activate VcXsrv; the details of
+which can be found in Section \ref{SecVcXsrv}.
 
 %---------------------------------------------------------------
 \subsection{Other Useful References}
