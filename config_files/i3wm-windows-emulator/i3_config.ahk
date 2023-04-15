@@ -49,6 +49,9 @@ return
 #z::openAndPositionExplorer("\\wsl$\Ubuntu\home\hwangoh")
 #+z::openAndPositionExplorer("C:\")
 
+; === Print Screen ===
+Home::PrintScreen
+
 ; === Draw On Screen ===
 #w::
 DetectHiddenWindows On ; Allows a script's hidden main window to be detected
