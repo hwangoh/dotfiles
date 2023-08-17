@@ -299,7 +299,10 @@ case, Pathogen is your best bet.
 %===============================================================
 This section discusses the Vimtex \cite{lervag2015vim} plugin. See also the
 vimways article \cite{woodruff2019latex} for a good overview.  To install MikTex
-into Linux, run ``sudo apt-get install texlive-full''.
+into Linux, run
+\begin{lstlisting}
+sudo apt-get install texlive-full
+\end{lstlisting}
 
 %---------------------------------------------------------------
 \subsection{Installing and Running Vimtex}
@@ -398,12 +401,20 @@ objects:
 This section follows \cite{gunther2014vimtex}. For this, you will need a Vimtex
 server which allows you to do forward and backward to navigate between
 corresponding sections of the tex file and the pdf. You will also need the pdf
-viewer \textit{Zathura}. To install, simply use `sudo apt-get install zathura'.
-Then, in your vimrc, add the following line `let g:vimtex\_view\_method =
-'zathura''.\\
-
-Following \cite{lerner2004enable}, to install just use `sudo apt-get install
-vim-gtk'. Finally, to edit a tex file with navigation capabilities:
+viewer \textit{Zathura}. To install, simply use
+\begin{lstlisting}
+sudo apt-get install zathura
+\end{lstlisting}
+Then, in your vimrc, add the following line
+\begin{lstlisting}
+let g:vimtex\_view\_method = 'zathura'
+\end{lstlisting}
+Finally, following \cite{lerner2004enable}, you will also need to install
+`vim-gtk' using:
+\begin{lstlisting}
+sudo apt-get install vim-gtk
+\end{lstlisting}
+To edit a tex file with navigation capabilities:
 \begin{enumerate}
     \item In the directory containing the tex file, use:\\
         vim --servername \tlangle servername\trangle \tlangle texfile\trangle.tex
@@ -674,8 +685,8 @@ and requires a few extra steps which is outlined in Section \ref{SecYCMC}.\\
 The installation process requires you to have `make' and
 `cmake' which can be installed using the commands:
 \begin{lstlisting}
-sudo apt-get install build-essential
-sudo apt install make
+sudo apt-get -y install build-essential
+sudo apt install -y make
 sudo apt-get -y install cmake
 \end{lstlisting}
 and also, even if you already have Python 3.8 installed, you may need:
@@ -690,6 +701,11 @@ there may be an issue with Python. You can fix issues by running
 \begin{lstlisting}
 sudo apt install --reinstall python3 python python3-minimal --fix-broken
 \end{lstlisting}
+If this all doesn't work, you may need to simply use
+\begin{lstlisting}
+sudo apt-get -y update
+\end{lstlisting}
+and reboot your terminal.
 
 %------------------------------------------------------------------------------
 \subsection{Mappings}

@@ -12,7 +12,7 @@ that you can simply run
 \begin{lstlisting}
     wsl --install
 \end{lstlisting}
-to install it. By default, it will:
+in PowerShell to install it. By default, it will:
 \begin{itemize}
     \item Download the latest Linux kernel
     \item Set WSL 2 as your default
@@ -25,6 +25,11 @@ You can, however, choose a different distribution to install by running
 To see a list of distributions available for download and installation, run:
 \begin{lstlisting}
     wsl --list --online
+\end{lstlisting}
+This documentation assumes one is using Ubuntu 20.04.6 LTS which can be
+installed with the command
+\begin{lstlisting}
+wsl --install -d Ubuntu-20.04
 \end{lstlisting}
 Below are the old instructions for installing WSL2.\\
 
@@ -62,10 +67,18 @@ build.
         \begin{lstlisting}
         wsl -l -v
         \end{lstlisting}
-    \item Run `sudo apt update', `sudo apt upgrade' and `sudo apt-get install
-        build-essential' so that you have access to the standard operations.
+    \item Run
+        \begin{lstlisting}
+            sudo apt update
+            sudo apt upgrade
+            sudo apt-get install build-essential'
+        \end{lstlisting}
+        so that you have access to the standard operations.
 \end{enumerate}
-From here, your home directory can be found at "//wsl\$/Ubuntu/home/username"
+From here, your home directory can be found at
+\begin{lstlisting}
+\\wsl.localhost\Ubuntu-20.04\home\<username>
+\end{lstlisting}
 (with backslashes instead of forward slashes as its a Windows directory address)
 
 %------------------------------------------------------------------------------
@@ -112,8 +125,50 @@ command:
 \end{lstlisting}
 
 %==============================================================================
+\section{GWSL} \label{SecGWSL}
+%==============================================================================
+GWSL is an XServer that allows you to easily run graphical Linux Apps. In
+particular, if you plan on using Vimtex in WSL, you'll need some method of
+viewing the compiled PDF file and also performing forward and backwards search
+as detailed in Section \ref{SecFwdBckwdSynctex}.  GWSL is obtainable from the
+Microsoft Store for \$7 NZD. Note that Microsoft is, as of 17th of August 2023,
+developing WSLg but unfortunately it doesn't behave as a typical Windows window
+should.\\
+
+There are some additional steps one needs to follow after installing GWSL to
+enable forward and backwards search. In particular, you may notice that forward
+search works fine but backwards search fails. This follows
+ccelik97's answer in the Reddit post \cite{soliddeparture9753how}:
+\begin{enumerate}
+    \item Firstly, if you are using a version of Ubuntu that has WSLg enabled,
+        then you'll need to disable it. Otherwise, GUI apps will run in WSLg.
+        This is done by adding the following line to your \textbf{.wslconfig}
+        file:
+\begin{lstlisting}
+[wsl2]
+guiApplications=false
+\end{lstlisting}
+        You'll need to reboot your computer in order for this to take effect.
+    \item Next, in your \textbf{.bashrc} file, add:
+\begin{lstlisting}
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+\end{lstlisting}
+    \item You may also need `xdotool':
+\begin{lstlisting}
+sudo apt-get install xdotool
+\end{lstlisting}
+\end{enumerate}
+After this you should be good to go, so long as you have followed Section
+\ref{SecFwdBckwdSynctex} which covers the installation of Zathura such that
+forward and backward search is possible.
+
+%==============================================================================
 \section{VcXsrv} \label{SecVcXsrv}
 %==============================================================================
+NOTE that as of 17th of August 2023, WSL2 Ubuntu 20.04 has updated so that the method
+discussed in this section no longer works! Please refer to the GWSL section
+\ref{SecGWSL} which is built on top of VcXsrv.\\
+
 Unix systems use the X Window System as their standard GUI environment.  Under
 X, the "server" is the program that runs on your system to draw windows while a
 "client' is a graphical program. The naming convention is a little confusing to
@@ -180,11 +235,18 @@ configuration is set after logging in.
 \subsection{Vimtex+Zathura+Synctex}
 %------------------------------------------------------------------------------
 Now you're almost ready to run Vimtex+Zathura+Synctex! You'll need to also
-install xdotool by using "sudo apt-get install xdotool". To test whether this
+install xdotool by using
+\begin{lstlisting}
+sudo apt-get install xdotool
+\end{lstlisting}
+To test whether this
 works with VcXsrv following the suggestion in \cite{paulrougieux2020vimtex} from
-lervag himself, run "xdotool search --class Zathura" and some numbers should
-appear. From here, you should be good to go! Simply follow the steps laid out in
-Section \ref{SecFwdBckwdSynctex}.\\
+lervag himself, run
+\begin{lstlisting}
+xdotool search --class Zathura
+\end{lstlisting}
+and some numbers should appear. From here, you should be good to go! Simply
+follow the steps laid out in Section \ref{SecFwdBckwdSynctex}.\\
 
 If this fails and you've given up on Zathura, you can alternatively use the
 Sumatra PDF viewer. Once installed, simply add the following lines to your

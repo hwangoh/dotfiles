@@ -51,26 +51,52 @@
 %Including Python Code
 \usepackage[dvipsnames]{xcolor}
 \usepackage{listings} %for including Python code
+\usepackage{lstautogobble} % For cleaning code spaces
+% Bash (terminal) style
+\lstdefinestyle{bash}{
+    language=bash,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{black},
+    commentstyle=\color{green}
+}
+
+% Python style
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{darkgray},
+    keywordstyle=\color{Cerulean}\bfseries,
+    commentstyle=\color{YellowGreen},
+    stringstyle=\color{yellow}
+}
+
+% C++ style
+\lstdefinestyle{cpp}{
+    language=C++,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{darkgray},
+    keywordstyle=\color{Cerulean}\bfseries,
+    commentstyle=\color{YellowGreen},
+    stringstyle=\color{yellow}
+}
+
+% Setting default style and settings
 \lstset{
-	language=Python, % choose the language of the code
-	basicstyle=\tiny\ttfamily\color{white},
-	keywordstyle=\color{Cerulean}\bfseries, % style for keywords
-	commentstyle=\color{YellowGreen},
-	stringstyle=\color{yellow},
-	numbers=left, % where to put the line-numbers
-	stepnumber=1,
-	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers
-	backgroundcolor=\color{darkgray},
-	showspaces=false, % show spaces adding particular underscores
-	showstringspaces=false, % underline spaces within strings
-	showtabs=false, % show tabs within strings adding particular underscores
-	frame=single, % adds a frame around the code
-	tabsize=2, % sets default tabsize to 2 spaces
-	rulesepcolor=\color{gray},
-	rulecolor=\color{gray},
-	captionpos=b, % sets the caption-position to bottom
-	breaklines=true, % sets automatic line breaking
-	breakatwhitespace=false,
+  style=bash,
+  upquote=true,
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakautoindent=true,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  columns=fullflexible,
+  autogobble=true,
+  abovecaptionskip=0.5cm,
+  belowcaptionskip=0.5cm
 }
 
 % Additional Commands
