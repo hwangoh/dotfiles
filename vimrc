@@ -34,6 +34,8 @@
     colorscheme meditate
     set backspace=indent,eol,start
     set noerrorbells
+    set visualbell
+    set t_vb=
     set title
     set ruler
     set undolevels=1001

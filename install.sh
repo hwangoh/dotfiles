@@ -8,8 +8,9 @@ sudo apt -y install x11-xkb-utils
 source ~/.bashrc
 sudo apt-get -y update
 source ~/.bashrc
-touch ~/.bashrc
 cat ~/.vim/config_files/bashrc >> ~/.bashrc
 touch ~/.bash_aliases
 cat ~/.vim/config_files/bash_aliases >> ~/.bash_aliases
+touch ~/.inputrc
+grep -q "set bell-style none" ~/.inputrc || echo "set bell-style none" >> ~/.inputrc
 source ~/.bashrc
