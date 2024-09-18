@@ -534,6 +534,7 @@
     autocmd Filetype tex inoremap ;lem \begin{lemma}<CR><CR>\end{lemma}<CR><++><Esc>2kA
     autocmd Filetype tex inoremap ;cor \begin{corollary}<CR><CR>\end{corollary}<CR><++><Esc>2kA
     autocmd Filetype tex inoremap ;prp \begin{proposition}<CR><CR>\end{proposition}<CR><++><Esc>2kA
+    autocmd Filetype tex inoremap ;prf \begin{proof}<CR><CR>\end{proof}<CR><++><Esc>2kA
 
 " Math Stuff
     autocmd Filetype tex inoremap ;T ^\mathrm{T}
@@ -542,6 +543,7 @@
     autocmd FileType tex inoremap ;frc \frac{}{<++>}<++><Esc>12hf}i
     autocmd FileType tex inoremap ;mbb \mathbb{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;mrm \mathrm{}<++><Esc>6hf}i
+    autocmd FileType tex inoremap ;mbf \mathbf{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;txt \textrm{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;mcl \mathcal{}<++><Esc>6hf}i
     autocmd FileType tex inoremap ;lrp \left(<CR><CR>\right)<CR><++><Esc>2kA<Tab>
