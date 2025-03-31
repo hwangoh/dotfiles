@@ -554,19 +554,6 @@
     autocmd FileType tex inoremap ;lrb \left<Bar><CR><CR>\right<Bar><CR><++><Esc>2kA<Tab>
 
 " =============================================================================
-"                                   Sessions
-" =============================================================================
-" Sessions (note that sessions doesn't play well with NERDTree so need to add extra commands to close)
-    :command! SStex :NERDTreeClose <bar> :mksession ~/.vim/vim_sessions/session_tex.vim <bar> :%bd! <bar> :q!
-    :command! LStex :NERDTreeClose <bar> :source ~/.vim/vim_sessions/session_tex.vim <bar> :NERDTree
-
-    :command! SSpy :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_py.vim <bar> :%bd! <bar> :q!
-    :command! LSpy :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_py.vim <bar> :NERDTree
-
-    :command! SSc :NERDTreeClose <bar> :mksession! ~/.vim/vim_sessions/session_c.vim <bar> :%bd! <bar> :q!
-    :command! LSc :NERDTreeClose <bar> :source! ~/.vim/vim_sessions/session_c.vim <bar> :NERDTree
-
-" =============================================================================
 "                                  Fuzzy Finder
 " =============================================================================
 " Search down into subfolders
@@ -597,4 +584,3 @@
 " - Use g^] for ambiguous tags. This will generate a list of possible matches you can jump to
 " - Use ^t to jump back up the tag stack
 " - This doesn't help if you want a visual list of tags
-
