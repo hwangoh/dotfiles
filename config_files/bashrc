@@ -50,9 +50,6 @@ function vpmux() {
     cd $dir_name # return to current directory so you're there when session is detached
 }
 
-# GWSL
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-
 # Run ls after cd
 [ -z "$PS1" ] && return
 function cd {
