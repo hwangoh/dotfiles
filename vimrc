@@ -7,7 +7,7 @@
 " Plugins
     Plug 'https://github.com/lervag/vimtex.git', { 'tag': 'v2.10' }
     Plug 'https://github.com/lambdalisue/fern.vim.git'
-    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
+    " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
     Plug 'https://github.com/vim-syntastic/syntastic.git'
     Plug 'https://github.com/vim-airline/vim-airline.git'
     Plug 'https://github.com/vim-airline/vim-airline-themes.git'
