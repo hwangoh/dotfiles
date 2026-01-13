@@ -27,7 +27,6 @@
 \usepackage{mathtools}
 \usepackage{placeins} %for \FloatBarrier
 \usepackage{comment} %Allow use of the \begin{comment} environment
-\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n} %for bold math symbols
 \usepackage{cancel} %for strikethrough
 
 %Stuff Paul had
@@ -44,7 +43,7 @@
 \usepackage{multirow} %for tables
 \usepackage{graphicx}
 \usepackage{hyperref}
-\graphicspath{{Figures/}}
+\graphicspath{{figures/}}
 \newcommand{\figscale}{0.4}
 \usepackage{dsfont} %for mathds fonts
 
@@ -160,8 +159,9 @@ Windows.
 %:                  BACK MATTER:  Bibliography
 % --------------------------------------------------------------
 \nocite{*}
+\bibliography{references}{}
 \bibliographystyle{abbrv}
-\bibliography{references}
+
 %---------------------------------------------------------------
 %        END: Bibliography
 %---------------------------------------------------------------

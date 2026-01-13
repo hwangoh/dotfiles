@@ -5,7 +5,7 @@
     call plug#begin('~/.vim/plugged')
 
 " Plugins
-    Plug 'https://github.com/lervag/vimtex.git', { 'tag': 'v2.10' }
+    Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/lambdalisue/fern.vim.git'
     " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
     Plug 'https://github.com/vim-syntastic/syntastic.git'
@@ -491,6 +491,10 @@
 " Shortcut for Compiling and Viewing PDF
     autocmd FileType tex nnoremap <F5> :VimtexView<CR>
     autocmd FileType tex inoremap <F5> <Esc> :VimtexView<CR>
+    let g:vimtex_mappings_disable = {
+    \ 'n': ['<F6>'],
+    \ 'x': ['<F6>'],
+    \}
     autocmd FileType tex nnoremap <F6> :w! <bar> :VimtexCompileSS<CR>
     autocmd FileType tex inoremap <F6> <Esc> :w! <bar> :VimtexCompileSS<CR>
 
