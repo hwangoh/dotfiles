@@ -1,0 +1,7 @@
+{
+  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea": {
+    "shift-j": "vim:scroll-down",
+    "shift-k": "vim:scroll-up",
+    "ctrl-j": "vim:join"
+  }
+}
