@@ -1,4 +1,4 @@
-function setUpRelativeLines(editor) {
+inkdrop.onEditorLoad((editor) => {
   const { cm } = editor
 
   function showRelativeLines(cm) {
@@ -11,11 +11,4 @@ function setUpRelativeLines(editor) {
       l === lineNum ? lineNum : Math.abs(lineNum - l));
   }
   cm.on('cursorActivity', showRelativeLines)
-}
-
-const editor = inkdrop.getActiveEditor()
-if (editor) {
-  setUpRelativeLines(editor)
-} else {
-  inkdrop.onEditorLoad(setUpRelativeLines)
-}
+})
