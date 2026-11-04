@@ -1,23 +1,124 @@
-\documentclass[10pt]{article}
-\usepackage{amsfonts,amssymb,amsmath,amsthm,ifthen}
+% !TeX program = xelatex
+\documentclass[10pt,a4paper]{article}
 
-\setlength{\textwidth}{175mm}
-\setlength{\textheight}{255mm}
-\setlength{\topmargin}{-20mm}
-\setlength{\oddsidemargin}{-7mm}
-\setlength{\evensidemargin}{-7mm}
-\pagestyle{empty}
 
+%==============================================================================
 % Packages
-\usepackage{graphicx}
-\graphicspath{{Figures/}}
-\newcommand{\figscale}{0.4}
-\usepackage{comment} %Comment environment
-\usepackage{float}
-\usepackage{multirow} %Tables
-\usepackage{hyperref}
+%==============================================================================
+\usepackage[dvipsnames]{xcolor} % For colors (needs to be before macrostyle)
+\usepackage{amsthm} % For theorem environments
+\usepackage{mathtools} % For more symbols
+\usepackage{setspace,enumerate,amssymb} % For more symbols
+\usepackage{placeins} % For \FloatBarrier
+\usepackage{comment} % Allow use of the \begin{comment} environment
+\usepackage[hidelinks]{hyperref} % Hyperlinks document
+\usepackage{tocvsec2} % For setting the depth of the toc
+\usepackage[title,titletoc]{appendix} % Gives appendices environment and adds 'Appendix' into toc
+\usepackage{algorithm} % For writing pseudoalgorithms
+\usepackage{algpseudocode} % For writing pseudoalgorithms
+\usepackage{multirow} % For tables
+\usepackage{booktabs} % For better looking tables
+\usepackage{caption} % For captions
+\usepackage{graphicx} % For importing figures
+\usepackage{dsfont} % For mathds fonts
+\usepackage{dirtree} % For directory trees
+\usepackage{listings} % For including code
+\usepackage{lstautogobble} % For cleaning code spaces
+\usepackage{bm} % For bold in math mode
 
-% Math Layouts
+
+%==============================================================================
+% Page dimensions
+%==============================================================================
+\usepackage[
+    a4paper,
+    left=17mm,
+    right=18mm,
+    top=35mm,
+    bottom=25mm,
+    headheight=40pt,
+    headsep=25pt,
+    footskip=10mm
+]{geometry}
+
+
+%==============================================================================
+% Settings
+%==============================================================================
+\setlength\parindent{0.2cm} % Paragraph indent
+\graphicspath{{figures/}}
+\newcommand{\figscale}{0.4}
+\usepackage{fontspec}
+\setmainfont{Carlito}
+\renewcommand{\contentsname}{Contents}
+\setcounter{tocdepth}{2}
+
+
+%==============================================================================
+% Page header and footer
+%==============================================================================
+\usepackage{fancyhdr}  % For fancy header and footers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{}
+\fancyfoot[C]{\thepage}
+
+
+%==============================================================================
+% Code formatting
+%==============================================================================
+
+% Bash (terminal) style
+\lstdefinestyle{bash}{
+    language=bash,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{black},
+    commentstyle=\color{green}
+}
+
+% Python style
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{darkgray},
+    keywordstyle=\color{Cerulean}\bfseries,
+    commentstyle=\color{YellowGreen},
+    stringstyle=\color{yellow}
+}
+
+% C++ style
+\lstdefinestyle{cpp}{
+    language=C++,
+    basicstyle=\footnotesize\ttfamily\color{white},
+    backgroundcolor=\color{darkgray},
+    keywordstyle=\color{Cerulean}\bfseries,
+    commentstyle=\color{YellowGreen},
+    stringstyle=\color{yellow}
+}
+
+% Setting default style and settings
+\lstset{
+  style=bash,
+  upquote=true,
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakautoindent=true,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  columns=fullflexible,
+  autogobble=true,
+  abovecaptionskip=0.5cm,
+  belowcaptionskip=0.5cm
+}
+
+
+%==============================================================================
+% Math environments
+%==============================================================================
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{claim}[theorem]{Claim}
@@ -27,19 +128,31 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
 
+
+%==============================================================================
+% Custom commands
+%==============================================================================
+\newcommand{\tsim}{$\sim$}
+\newcommand{\tlangle}{$<$}
+\newcommand{\trangle}{$>$}
+
+
+%==============================================================================
 % Title
-\title{<++>}
-\author{<++>}
-\date{<++>}
+%==============================================================================
+\usepackage{titling}
+\setlength{\droptitle}{-15mm}
+\title{Title}
+\author{Author}
+\date{\today}
 
 
-%---------------------------------------------------------------
-%                         Document Body 
-%---------------------------------------------------------------
+%==============================================================================
+% Document
+%==============================================================================
 \begin{document}
 \maketitle
-
-<++>
+\thispagestyle{fancy}
 
 %---------------------------------------------------------------
 %                         Bibliography
